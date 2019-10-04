@@ -39,7 +39,7 @@ public class HexGrid : MonoBehaviour
     {
         hexMesh.Triangulate(cells);
     }
-    void CreateCell(int x,int z,int i)
+    void CreateCell(int x,int z,int i)//在这里初始化格子的status并通过status设置格子的颜色
     {
         Vector3 positon;
         positon.x = (x + z * 0.5f - z / 2) * (HexMetrics.innerRadius * 2f);
@@ -50,7 +50,8 @@ public class HexGrid : MonoBehaviour
         cell.transform.SetParent(transform, false);
         cell.transform.localPosition = positon;
         cell.coordinates = HexCoordinates.FromOffsetCoordinates(x, z);
-        cell.color = defaultColor;
+        cell.color = Color.red;
+        
 
         Text label = Instantiate<Text>(cellLablePrefab);
         label.rectTransform.SetParent(gridCanvas.transform, false);

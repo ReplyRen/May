@@ -31,10 +31,11 @@ public class SolveInput : MonoBehaviour
         HexCoordinates coordinates = HexCoordinates.FromPosition(position);
         HexCell cell = FindCell(coordinates);
         cell.color = grid.touchedColor;
-        grid.hexMesh.Triangulate(grid.cells);//以新的颜色重新渲染单元格
+        grid.hexMesh.Triangulate(grid.cells);//以新的颜色重新渲染单元格，每一次只要需要改变格子颜色
+                                             //都需要这句话来重新渲染
     }
     /// <summary>
-    /// 通过ciirdinates寻找cell
+    /// 通过coordinates寻找cell
     /// </summary>
     private HexCell FindCell(HexCoordinates coordinates)
     {
