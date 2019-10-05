@@ -300,8 +300,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 128de3a291a01224da2d37b71cca21ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  defaultColor: {r: 1, g: 1, b: 1, a: 1}
-  touchedColor: {r: 1, g: 0, b: 1, a: 1}
+  CellColor:
+  - {r: 0, g: 0, b: 0, a: 0}
+  - {r: 1, g: 0, b: 1, a: 0}
+  - {r: 1, g: 1, b: 1, a: 0}
+  - {r: 0.5019608, g: 0.5019608, b: 0.5019608, a: 0}
   width: 12
   height: 12
   cellPrefab: {fileID: 3844740888213779993, guid: 44af0cc17fdbfa74b9a9223e0e197114,
@@ -337,6 +340,7 @@ GameObject:
   - component: {fileID: 534669905}
   - component: {fileID: 534669904}
   - component: {fileID: 534669903}
+  - component: {fileID: 534669906}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -401,13 +405,27 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 534669902}
-  m_LocalRotation: {x: 0.3987491, y: 0, z: 0, w: 0.91706014}
-  m_LocalPosition: {x: 19, y: 43, z: -19}
+  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: 78, y: 75, z: 75}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 47, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
+--- !u!114 &534669906
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 534669902}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec20368c2944a924e83f27a137cded73, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  start: {fileID: 534669902}
+  speed: 600
 --- !u!1 &831779023
 GameObject:
   m_ObjectHideFlags: 0
@@ -451,6 +469,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60b7b98d7047031499173aa5cf2fe2e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  start: {fileID: 534669902}
+  speed: 100
 --- !u!1 &909705529
 GameObject:
   m_ObjectHideFlags: 0

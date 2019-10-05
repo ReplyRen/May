@@ -5,8 +5,7 @@ using UnityEngine.UI;
 
 public class HexGrid : MonoBehaviour
 {
-    public Color defaultColor = Color.white;
-    public Color touchedColor = Color.magenta;
+    public Color[] CellColor =new Color[4];
 
     public int width = 6;
     public int height = 6;
@@ -50,7 +49,7 @@ public class HexGrid : MonoBehaviour
         cell.transform.SetParent(transform, false);
         cell.transform.localPosition = positon;
         cell.coordinates = HexCoordinates.FromOffsetCoordinates(x, z);
-        cell.color = Color.red;
+        cell.color = Color.black;
         
 
         Text label = Instantiate<Text>(cellLablePrefab);

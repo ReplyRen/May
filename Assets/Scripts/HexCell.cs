@@ -5,6 +5,6 @@ using UnityEngine;
 public class HexCell : MonoBehaviour
 {
     public HexCoordinates coordinates;
-    public Color color;//格子的颜色
-    public int status;//0为未知，1为可探测，2为已通过
+    public Color color=Color.gray;//格子的颜色
+    public int status;//0为未知，1为当前，2为可探测,3为通过
 }
