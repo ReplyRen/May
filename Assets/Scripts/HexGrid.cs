@@ -13,6 +13,12 @@ public class HexGrid : MonoBehaviour
     public HexCell cellPrefab;
     [HideInInspector]
     public HexCell[] cells;
+    
+    //方政言加，为现实格子内容
+    [HideInInspector]
+    public Text[] texts;
+    public GridContent gridcontent;
+    //方政言加end
 
     public Text cellLablePrefab;
 
@@ -25,8 +31,14 @@ public class HexGrid : MonoBehaviour
         gridCanvas = GetComponentInChildren<Canvas>();
         hexMesh = GetComponentInChildren<HexMesh>();
         cells = new HexCell[height * width];
+        
+        //方政言加，为现实格子内容
+        texts = new Text[height * width];
+        gridcontent = GetComponent<GridContent>();
+        gridcontent.BuildContent(height * width);
+        //方政言加end，为现实格子内容
 
-        for(int z = 0, i = 0; z < height; z++)
+        for (int z = 0, i = 0; z < height; z++)
         {
             for(int x = 0; x < width; x++)
             {
@@ -49,12 +61,31 @@ public class HexGrid : MonoBehaviour
         cell.transform.SetParent(transform, false);
         cell.transform.localPosition = positon;
         cell.coordinates = HexCoordinates.FromOffsetCoordinates(x, z);
-        cell.color = Color.black;
-        
+        cell.color = CellColor[0];
 
-        Text label = Instantiate<Text>(cellLablePrefab);
+
+        //原版代码
+        //Text label = Instantiate<Text>(cellLablePrefab);
+        //label.rectTransform.SetParent(gridCanvas.transform, false);
+        //label.rectTransform.anchoredPosition = new Vector2(positon.x, positon.z);
+        //label.text = cell.coordinates.ToStringOnSeparateLines();
+
+        //方政言加，为现实格子内容
+        gridcontent.setcontent(i);
+        Text label = texts[i] = Instantiate<Text>(cellLablePrefab);
         label.rectTransform.SetParent(gridCanvas.transform, false);
         label.rectTransform.anchoredPosition = new Vector2(positon.x, positon.z);
-        label.text = cell.coordinates.ToStringOnSeparateLines();
+        label.text = gridcontent.getcontent(i);
+        if (gridcontent.contents[i].con == GridContent.Content.Portal) label.enabled = true;
+        else label.enabled = false;
+        //gridcontent.setcontent(i);
+        //Text label = texts[i] = Instantiate<Text>(cellLablePrefab);
+        //label.rectTransform.SetParent(gridCanvas.transform, false);
+        //label.rectTransform.anchoredPosition = new Vector2(positon.x, positon.z);
+        //label.text = gridcontent.getcontent(i);
+        //if (gridcontent.contents[i].con == GridContent.Content.Portal) label.enabled = true;
+        //else
+
+        //方政言加end
     }
 }

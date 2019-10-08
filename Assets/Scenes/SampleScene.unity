@@ -281,6 +281,7 @@ GameObject:
   m_Component:
   - component: {fileID: 338540939}
   - component: {fileID: 338540938}
+  - component: {fileID: 338540940}
   m_Layer: 0
   m_Name: Hex Grid
   m_TagString: Grid
@@ -305,11 +306,13 @@ MonoBehaviour:
   - {r: 1, g: 0, b: 1, a: 0}
   - {r: 1, g: 1, b: 1, a: 0}
   - {r: 0.5019608, g: 0.5019608, b: 0.5019608, a: 0}
-  width: 12
-  height: 12
+  width: 16
+  height: 16
   cellPrefab: {fileID: 3844740888213779993, guid: 44af0cc17fdbfa74b9a9223e0e197114,
     type: 3}
   cells: []
+  texts: []
+  gridcontent: {fileID: 0}
   cellLablePrefab: {fileID: 4108271199581270015, guid: 4a3bae466303bc34aa8c77a8dad94c87,
     type: 3}
   hexMesh: {fileID: 0}
@@ -329,6 +332,27 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &338540940
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 338540937}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 09457c0ac0eab3f469d7a75014dd8b88, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ResourceNum: 10
+  ElectricNum: 10
+  FirstAidNum: 10
+  MonsterNum: 10
+  IncidentNum: 10
+  Rmin: 1
+  Rmax: 3
+  Emin: 1
+  Emax: 3
 --- !u!1 &534669902
 GameObject:
   m_ObjectHideFlags: 0
@@ -436,9 +460,10 @@ GameObject:
   m_Component:
   - component: {fileID: 831779024}
   - component: {fileID: 831779025}
+  - component: {fileID: 831779026}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -471,6 +496,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   start: {fileID: 534669902}
   speed: 100
+--- !u!114 &831779026
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 831779023}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b6e79104001dc3488129da08cbb845c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Hp: 100
+  Resource: 100
+  Electric: 100
+  FirstAid: 0
+  MoveCost: 1
 --- !u!1 &909705529
 GameObject:
   m_ObjectHideFlags: 0
@@ -482,7 +524,7 @@ GameObject:
   - component: {fileID: 909705530}
   - component: {fileID: 909705532}
   - component: {fileID: 909705531}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
