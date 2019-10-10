@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System;
 using UnityEngine;
 
 public class SolveInput : MonoBehaviour
@@ -66,31 +67,35 @@ public class SolveInput : MonoBehaviour
         //判断点击格是否是当前格的周围
         if ((Mathf.Abs(NextCell.coordinates.X - CurrentCell.coordinates.X) + Mathf.Abs(NextCell.coordinates.Y - CurrentCell.coordinates.Y) + Mathf.Abs(NextCell.coordinates.Z - CurrentCell.coordinates.Z)) < 3)
         {
-            cell.color = grid.CellColor[1];
-            grid.hexMesh.Triangulate(grid.cells);//以新的颜色重新渲染单元格，每一次只要需要改变格子颜色
-                                                 //都需要这句话来重新渲染
+            if (NextCell.coordinates.X> Math.Ceiling((double)-NextCell.coordinates.Z/2)&& NextCell.coordinates.X < Math.Ceiling((double)16 -NextCell.coordinates.Z / 2)-1
+                && NextCell.coordinates.Z>0&& NextCell.coordinates.Z<grid.height-1)
+            {
+                cell.color = grid.CellColor[1];
+                grid.hexMesh.Triangulate(grid.cells);//以新的颜色重新渲染单元格，每一次只要需要改变格子颜色
+                                                     //都需要这句话来重新渲染
 
-            //使被点击格与摄像头Y轴一致并移动
-            Vector3 CellPos = cell.transform.position;
-            CellPos.y = start.transform.position.y;
-            //移动
-            start.transform.position = Vector3.MoveTowards(start.transform.position, CellPos, speed);
-            //更新当前格
-            PrintArround(grid.CellColor[0], CurrentCellAround);
-            UpdateArround(NextCell, NextCellAround,NextTextAround);
-            PrintArround(grid.CellColor[2], NextCellAround);
-            PrintCell(grid.CellColor[3], CurrentCell);
-            CurrentCell = NextCell;
+                //使被点击格与摄像头Y轴一致并移动
+                Vector3 CellPos = cell.transform.position;
+                CellPos.y = start.transform.position.y;
+                //移动
+                start.transform.position = Vector3.MoveTowards(start.transform.position, CellPos, speed);
+                //更新当前格
+                PrintArround(grid.CellColor[0], CurrentCellAround);
+                UpdateArround(NextCell, NextCellAround, NextTextAround);
+                PrintArround(grid.CellColor[2], NextCellAround);
+                PrintCell(grid.CellColor[3], CurrentCell);
+                CurrentCell = NextCell;
 
-            //方政言加，为实现网格内容探测
-            gridcontent.lostAround(CurrentTextAround);
-            gridcontent.detectAround(NextTextAround);
-            gridcontent.pass(NextText,NextTextAround);
-            CurrentText = NextText;
-            //方政言加end
+                //方政言加，为实现网格内容探测
+                gridcontent.lostAround(CurrentTextAround);
+                gridcontent.detectAround(NextTextAround);
+                gridcontent.pass(NextText, NextTextAround);
+                CurrentText = NextText;
+                //方政言加end
 
-            UpdateArround(CurrentCell,CurrentCellAround,CurrentTextAround);
-            PrintCell(grid.CellColor[1], CurrentCell);
+                UpdateArround(CurrentCell, CurrentCellAround, CurrentTextAround);
+                PrintCell(grid.CellColor[1], CurrentCell);
+            }
         }
     }
     /// <summary>
@@ -108,37 +113,20 @@ public class SolveInput : MonoBehaviour
 
     void UpdateArround(HexCell cell, HexCell[] CellAround,int[] TextAround)//更新周围格
     {
-        int index;
-        index = cell.coordinates.X - 1 + (cell.coordinates.Z + 1) * grid.width + (cell.coordinates.Z + 1) / 2;
-        CellAround[0]= grid.cells[index];
-        //方政言加，为实现网格内容探测
-        TextAround[0] = index;
-        //方政言加end
-        index = cell.coordinates.X - 1 + (cell.coordinates.Z) * grid.width + (cell.coordinates.Z) / 2;
-        CellAround[1] = grid.cells[index];
-        //方政言加，为实现网格内容探测
-        TextAround[1] = index;
-        //方政言加end
-        index = cell.coordinates.X + (cell.coordinates.Z + 1) * grid.width + (cell.coordinates.Z + 1) / 2;
-        CellAround[2] = grid.cells[index];
-        //方政言加，为实现网格内容探测
-        TextAround[2] = index;
-        //方政言加end
-        index = cell.coordinates.X + (cell.coordinates.Z - 1) * grid.width + (cell.coordinates.Z - 1) / 2;
-        CellAround[3] = grid.cells[index];
-        //方政言加，为实现网格内容探测
-        TextAround[3] = index;
-        //方政言加end
-        index = cell.coordinates.X + 1 + (cell.coordinates.Z) * grid.width + (cell.coordinates.Z) / 2;
-        CellAround[4] = grid.cells[index];
-        //方政言加，为实现网格内容探测
-        TextAround[4] = index;
-        //方政言加end
-        index = cell.coordinates.X + 1 + (cell.coordinates.Z - 1) * grid.width + (cell.coordinates.Z - 1) / 2;
-        CellAround[5] = grid.cells[index];
-        //方政言加，为实现网格内容探测
-        TextAround[5] = index;
-        //方政言加end
+        int[] index=new int[6];
+        index[0] = cell.coordinates.X - 1 + (cell.coordinates.Z + 1) * grid.width + (cell.coordinates.Z + 1) / 2;
+        index[1] = cell.coordinates.X - 1 + (cell.coordinates.Z) * grid.width + (cell.coordinates.Z) / 2;
+        index[2] = cell.coordinates.X + (cell.coordinates.Z + 1) * grid.width + (cell.coordinates.Z + 1) / 2;
+        index[3] = cell.coordinates.X + (cell.coordinates.Z - 1) * grid.width + (cell.coordinates.Z - 1) / 2;
+        index[4] = cell.coordinates.X + 1 + (cell.coordinates.Z) * grid.width + (cell.coordinates.Z) / 2;
+        index[5] = cell.coordinates.X + 1 + (cell.coordinates.Z - 1) * grid.width + (cell.coordinates.Z - 1) / 2;
+        for(int item=0;item<6;item++)
+        {
+            CellAround[item] = grid.cells[(int)index[item]];
+            //方政言加，为实现网格内容探测
+            TextAround[item] = index[item];
+            //方政言加end
+        }
     }
     void PrintArround(Color color,HexCell[] CellAround)//对周围格子涂色
     {
