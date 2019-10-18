@@ -1,0 +1,1 @@
+生成exe文件时需要将PropertyDrawer.cs移除或转移到Asset下新建的Editor文件夹里
