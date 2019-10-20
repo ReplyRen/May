@@ -344,15 +344,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09457c0ac0eab3f469d7a75014dd8b88, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ResourceNum: 10
-  ElectricNum: 10
-  FirstAidNum: 10
-  MonsterNum: 10
+  ResourceNum: 26
+  ElectricNum: 51
+  FirstAidNum: 51
+  MResourceNum: 26
+  MElectricNum: 26
+  MFirstAidNum: 26
+  ChipNum: 13
   IncidentNum: 10
-  Rmin: 1
-  Rmax: 3
-  Emin: 1
-  Emax: 3
+  Rmin: 10
+  Rmax: 21
+  Emin: 30
+  Emax: 41
+  MonsterHarm: 30
 --- !u!1 &534669902
 GameObject:
   m_ObjectHideFlags: 0
@@ -512,7 +516,8 @@ MonoBehaviour:
   Resource: 100
   Electric: 100
   FirstAid: 0
-  MoveCost: 1
+  Chip: 0
+  MoveCost: 10
 --- !u!1 &909705529
 GameObject:
   m_ObjectHideFlags: 0

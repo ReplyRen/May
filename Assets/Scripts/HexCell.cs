@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEditor;
 //这是一个单元格类，保存每个格子的属性
 public class HexCell : MonoBehaviour
 {

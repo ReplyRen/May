@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System;
 using UnityEngine;
+using UnityEditor;
 
 public class SolveInput : MonoBehaviour
 {
@@ -37,7 +38,7 @@ public class SolveInput : MonoBehaviour
         PrintArround(grid.CellColor[2], CurrentCellAround);
         //方政言加，为实现网格内容探测
         CurrentText = index;
-        gridcontent.pass(CurrentText,CurrentTextAround);
+        gridcontent.start(CurrentText,CurrentTextAround);
         gridcontent.detectAround(CurrentTextAround);
         //方政言加end
     }
