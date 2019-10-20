@@ -1,10 +1,10 @@
 Win64
 PlayerPath?
-E:/Unity3D/May/demo/1.0.1/May.exe
+E:/Unity3D/May/demo/1.0.2/May.exe
 SceneListBegin?
 Assets/Scenes/SampleScene.unity
 SceneListEnd?
-dc10cbf1f728080ab5513d8f411a4a40 Assembly-CSharp.dll:.PlayerAsset
+379c040fc5a4c17d5663189e3b1acae7 Assembly-CSharp.dll:.PlayerAsset
 3c08375166df118bd1801438fc36b92f Unity.TextMeshPro.dll:TMPro.TMP_SelectionCaret
 77c21079ace8d76ce6e941d3dabbfe6e Unity.TextMeshPro.dll:TMPro.TMP_Dropdown
 71bb6a6b6c8f052f948db64c7dd3ca4f UnityEngine.Timeline.dll:UnityEngine.Timeline.ActivationPlayableAsset
@@ -137,7 +137,7 @@ e0ee4b3d4e27318934cc940a969d3d96 UnityEngine.Networking.dll:UnityEngine.Networki
 ad9173d3a69d99153f38ed4b62226129 UnityEngine.Networking.dll:UnityEngine.Networking.NetworkTransform
 9b895dcabbc1faf095c000c32d471fd0 UnityEngine.Networking.dll:UnityEngine.Networking.NetworkTransformChild
 5887ef1bc706b22b773d253fd443ceef UnityEngine.Networking.dll:UnityEngine.Networking.NetworkTransformVisualizer
-5f6f17cbba6c334de085ef1779393965 Assembly-CSharp.dll:.GridContent
+7d5a7d9029d09309d97894d6aa4e7943 Assembly-CSharp.dll:.GridContent
 35a9693c388776aaf487636491a20f11 Unity.TextMeshPro.dll:TMPro.TMP_FontAsset
 e1300922cc039f41ab46a47f4cb05898 Unity.TextMeshPro.dll:TMPro.TMP_Settings
 88cc9df3c6fc697bfbeacd24c0d6f2d7 UnityEngine.TestRunner.dll:UnityEngine.TestTools.BeforeAfterTestCommandState
