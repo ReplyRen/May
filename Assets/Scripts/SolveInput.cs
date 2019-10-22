@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System;
 using UnityEngine;
 using UnityEditor;
+using UnityEngine.UI;
 
 public class SolveInput : MonoBehaviour
 {
@@ -13,7 +14,10 @@ public class SolveInput : MonoBehaviour
     private HexCell[] CurrentCellAround = new HexCell[6];//存当前周围格
     private HexCell[] NextCellAround = new HexCell[6];//存下一个周围格
     HexGrid grid;
-
+    //于沛琦加,绑定地图探索text
+    private int StepCount = 1;//记录已探测格子数
+    private Text MapExplore;
+    //于沛琦加end
     //方政言加，为实现网格内容探测
     GridContent gridcontent;
     int CurrentText, NextText;
@@ -24,7 +28,9 @@ public class SolveInput : MonoBehaviour
     private void Awake()
     {
         grid = GameObject.FindWithTag("Grid").GetComponent<HexGrid>();
-
+        //于沛琦加,绑定地图探索text
+        MapExplore = GameObject.Find("Canvas/MapExplore").GetComponent<Text>();
+        //于沛琦加end
         //方政言加，为实现网格内容探测
         gridcontent = GameObject.FindWithTag("Grid").GetComponent<GridContent>();
         //方政言加end
@@ -49,6 +55,12 @@ public class SolveInput : MonoBehaviour
         {
             HandleInput();
         }
+        //于沛琦加,绑定地图探索text
+        int GridSum = grid.width * grid.height - 2 * (grid.width + grid.height-2);
+        double MapRate = (double)StepCount / GridSum;
+        MapRate = MapRate*100.0;
+        MapExplore.text = MapRate.ToString("0.00")+"%";
+        //于沛琦加end
     }
     void HandleInput()
     {
@@ -65,12 +77,16 @@ public class SolveInput : MonoBehaviour
         HexCell cell = FindCell(coordinates);
         //保存保存下一格数据，方便对比
         NextCell = cell;
-        //判断点击格是否是当前格的周围
-        if ((Mathf.Abs(NextCell.coordinates.X - CurrentCell.coordinates.X) + Mathf.Abs(NextCell.coordinates.Y - CurrentCell.coordinates.Y) + Mathf.Abs(NextCell.coordinates.Z - CurrentCell.coordinates.Z)) < 3)
+        //判断点击格是否是当前格的周围且不能是当前格
+        if (((Mathf.Abs(NextCell.coordinates.X - CurrentCell.coordinates.X) + Mathf.Abs(NextCell.coordinates.Y - CurrentCell.coordinates.Y) + Mathf.Abs(NextCell.coordinates.Z - CurrentCell.coordinates.Z)) < 3)
+            &&((NextCell.coordinates.X!=CurrentCell.coordinates.X)|| (NextCell.coordinates.Z != CurrentCell.coordinates.Z) || (NextCell.coordinates.Y != CurrentCell.coordinates.Y)))
         {
             if (NextCell.coordinates.X> Math.Ceiling((double)-NextCell.coordinates.Z/2)&& NextCell.coordinates.X < Math.Ceiling((double)16 -NextCell.coordinates.Z / 2)-1
                 && NextCell.coordinates.Z>0&& NextCell.coordinates.Z<grid.height-1)
             {
+                //走到新格子就加一
+                if (NextCell.status != 3) StepCount++;
+
                 cell.color = grid.CellColor[1];
                 grid.hexMesh.Triangulate(grid.cells);//以新的颜色重新渲染单元格，每一次只要需要改变格子颜色
                                                      //都需要这句话来重新渲染
