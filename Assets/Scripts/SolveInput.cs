@@ -89,8 +89,8 @@ public class SolveInput : MonoBehaviour
 
                 //方政言加，为实现网格内容探测
                 gridcontent.lostAround(CurrentTextAround);
-                gridcontent.detectAround(NextTextAround);
                 gridcontent.pass(NextText, NextTextAround);
+                gridcontent.detectAround(NextTextAround);
                 CurrentText = NextText;
                 //方政言加end
 

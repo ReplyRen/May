@@ -1,6 +1,6 @@
 Win64
 PlayerPath?
-E:/Unity3D/May/demo/1.0.2/May.exe
+F:/Users/15616/Documents/GitHub/May/demo/1.0.2/May.exe
 SceneListBegin?
 Assets/Scenes/SampleScene.unity
 SceneListEnd?

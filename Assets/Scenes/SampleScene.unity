@@ -518,7 +518,10 @@ MonoBehaviour:
   Electric: 100
   FirstAid: 0
   Chip: 0
-  MoveCost: 1
+  ElectricMoveCost: 10
+  ResourceMoveCost: 10
+  HPMoveCost: 10
+  IncidentNeed: 0
 --- !u!1 &909705529
 GameObject:
   m_ObjectHideFlags: 0

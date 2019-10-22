@@ -160,19 +160,21 @@ public class GridContent : MonoBehaviour
 
     public void detectAround(int[] index)//探测周围格子
     {
-        foreach (int i in index)
+        if (asset.Electric > 0)
         {
-            if (grid.cells[i].status != 3)
+            foreach (int i in index)
             {
-                grid.cells[i].status = 2;
-                grid.texts[i].enabled = true;
-            }
-            else
-            {
-                grid.texts[i].enabled = false;
+                if (grid.cells[i].status != 3)
+                {
+                    grid.cells[i].status = 2;
+                    grid.texts[i].enabled = true;
+                }
+                else
+                {
+                    grid.texts[i].enabled = false;
+                }
             }
         }
-
     }
 
     public void detect(int index)
@@ -188,28 +190,49 @@ public class GridContent : MonoBehaviour
     public void pass(int i,int[] TextAround)//移动高对应格子
     {
         int k = 0;
+
+        asset.movecost();
+
         grid.cells[i].status = 3;
         grid.texts[i].enabled = true;
         foreach(int j in TextAround)
         {
             if ((contents[j].con == Content.MResource) || (contents[j].con == Content.MElectric) || (contents[j].con == Content.MFirstAid)) k++;
         }
-        grid.texts[i].text = k.ToString();
+        //grid.texts[i].text = k.ToString();
         switch (contents[i].con)
         {
-            case Content.Resource:asset.increaseResource(contents[i].val);break;
-            case Content.Electric:asset.increaseElectric(contents[i].val);break;
-            case Content.FirstAid:asset.increaseFirstAid(contents[i].val); break;
-            case Content.MResource: asset.increaseResource(contents[i].val); asset.decreaseHp(MonsterHarm); break;
-            case Content.MElectric: asset.increaseElectric(contents[i].val); asset.decreaseHp(MonsterHarm); break;
-            case Content.MFirstAid: asset.increaseFirstAid(contents[i].val); asset.decreaseHp(MonsterHarm); break;
+            case Content.Resource:asset.increaseResource(contents[i].val); StartCoroutine(PassNormal(i, k)); break;
+            case Content.Electric:asset.increaseElectric(contents[i].val); StartCoroutine(PassNormal(i, k)); break;
+            case Content.FirstAid:asset.increaseFirstAid(contents[i].val); StartCoroutine(PassNormal(i, k)); break;
+            case Content.MResource: asset.increaseResource(contents[i].val); asset.decreaseHp(MonsterHarm); StartCoroutine(PassMonster(i, k)); break;
+            case Content.MElectric: asset.increaseElectric(contents[i].val); asset.decreaseHp(MonsterHarm); StartCoroutine(PassMonster(i, k)); break;
+            case Content.MFirstAid: asset.increaseFirstAid(contents[i].val); asset.decreaseHp(MonsterHarm); StartCoroutine(PassMonster(i, k)); break;
             case Content.Chip: asset.increaseChip(contents[i].val); break;
-            case Content.Incident:
-            case Content.Portal:
             case Content.Nothing:break;
+            case Content.Incident:asset.increaseIncident(1);break;
+            case Content.Portal:Application.Quit();break;
         }
-        asset.decreaseElectric();
         contents[i].con = Content.Nothing;
+
+        if (asset.Hp == 0)
+        {
+            Debug.Log("Hp=0");
+            Application.Quit();
+        }
+    }
+
+    IEnumerator PassMonster(int i,int k)
+    {
+        grid.texts[i].text = "Monster";
+        yield return new WaitForSeconds(1f);
+        grid.texts[i].text = k.ToString();
+    }
+
+    IEnumerator PassNormal(int i,int k)
+    {
+        grid.texts[i].text = k.ToString();
+        yield return new WaitForSeconds(0f);
     }
 
     public void start(int i, int[] TextAround)//移动高对应格子
