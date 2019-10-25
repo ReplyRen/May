@@ -432,6 +432,7 @@ MonoBehaviour:
     type: 3}
   cells: []
   texts: []
+  images: []
   gridcontent: {fileID: 0}
   cellLablePrefab: {fileID: 4108271199581270015, guid: 4a3bae466303bc34aa8c77a8dad94c87,
     type: 3}
@@ -478,6 +479,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09457c0ac0eab3f469d7a75014dd8b88, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  flag: 0
   ResourceNum: 26
   ElectricNum: 51
   FirstAidNum: 51
@@ -890,6 +892,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   start: {fileID: 534669902}
   speed: 600
+  playerPos: {x: 0, y: 0, z: 0}
 --- !u!114 &831779026
 MonoBehaviour:
   m_ObjectHideFlags: 0

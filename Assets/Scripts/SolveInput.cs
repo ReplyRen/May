@@ -111,6 +111,7 @@ public class SolveInput : MonoBehaviour
                 gridcontent.lostAround(CurrentTextAround);
                 gridcontent.pass(NextText, NextTextAround);
                 gridcontent.detectAround(NextTextAround);
+                grid.texts[CurrentText].enabled = false;
                 CurrentText = NextText;
                 //方政言加end
 

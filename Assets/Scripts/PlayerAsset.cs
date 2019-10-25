@@ -74,16 +74,33 @@ public class PlayerAsset : MonoBehaviour
         Chip -= x;
     }
 
-    public void movecost()
+    public int movecost()
     {
-        if (Resource == 0)
+        int flag = 0;
+        if (Resource < ResourceMoveCost)
         {
             if ((Hp -= HPMoveCost) < 0) Hp = 0;
+            flag = 1;
         }
         else {
             if ((Resource -= ResourceMoveCost) < 0) Resource = 0;
         }
-        if ((Electric -= ElectricMoveCost) < 0) Electric = 0;
+        if (Electric < ElectricMoveCost)
+        {
+            if (flag == 1)
+            {
+                flag = 3;
+            }
+            else
+            {
+                flag = 2;
+            }
+        }
+        else
+        {
+            if ((Electric -= ElectricMoveCost) < 0) Electric = 0;
+        }
+        return flag;
     }
 
 

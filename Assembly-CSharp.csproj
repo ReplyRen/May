@@ -69,6 +69,7 @@
     <Compile Include="Assets\Scripts\HexMetrics.cs" />
     <Compile Include="Assets\Scripts\Map.cs" />
     <Compile Include="Assets\Scripts\PlayerAsset.cs" />
+    <Compile Include="Assets\Scripts\ShiftScene.cs" />
     <Compile Include="Assets\Scripts\SolveInput.cs" />
     <Compile Include="Assets\Scripts\UIManager.cs" />
     <None Include="Assets\Material\NewSurfaceShader.shader" />

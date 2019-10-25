@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEditor;
 
 public class GridContent : MonoBehaviour
@@ -31,6 +32,8 @@ public class GridContent : MonoBehaviour
         public Content con;
         public int val;
     };
+    [HideInInspector]
+    public int flag = 0;//用于判断移动时资源的情况,0为正常移动，1为物资不足，2为电力不足，3为二者均不足
     [HideInInspector]
     public content[] contents;
     public int ResourceNum;//资源格总数
@@ -160,7 +163,7 @@ public class GridContent : MonoBehaviour
 
     public void detectAround(int[] index)//探测周围格子
     {
-        if (asset.Electric > 0)
+        if (flag < 2)
         {
             foreach (int i in index)
             {
@@ -191,7 +194,7 @@ public class GridContent : MonoBehaviour
     {
         int k = 0;
 
-        asset.movecost();
+        flag = asset.movecost();
 
         grid.cells[i].status = 3;
         //grid.texts[i].enabled = true;
@@ -218,7 +221,7 @@ public class GridContent : MonoBehaviour
         if (asset.Hp == 0)
         {
             Debug.Log("Hp=0");
-            Application.Quit();
+            SceneManager.LoadScene("lose");
         }
     }
 
