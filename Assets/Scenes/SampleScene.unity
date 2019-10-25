@@ -488,11 +488,11 @@ MonoBehaviour:
   MFirstAidNum: 26
   ChipNum: 13
   IncidentNum: 10
-  Rmin: 10
-  Rmax: 15
-  Emin: 7
-  Emax: 10
-  MonsterHarm: 20
+  Rmin: 40
+  Rmax: 60
+  Emin: 40
+  Emax: 60
+  MonsterHarm: 10
 --- !u!1 &384799673
 GameObject:
   m_ObjectHideFlags: 0
