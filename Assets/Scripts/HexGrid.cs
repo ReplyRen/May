@@ -19,6 +19,8 @@ public class HexGrid : MonoBehaviour
     //方政言加，为现实格子内容
     [HideInInspector]
     public Text[] texts;
+    [HideInInspector]
+    public Image[] images;
     public GridContent gridcontent;
     //方政言加end
 
@@ -45,6 +47,7 @@ public class HexGrid : MonoBehaviour
         texts = new Text[height * width];
         gridcontent = GetComponent<GridContent>();
         gridcontent.BuildContent(height * width);
+        images = new Image[height * width];
         //方政言加end，为现实格子内容
 
         for (int z = 0, i = 0; z < height; z++)
@@ -103,7 +106,7 @@ public class HexGrid : MonoBehaviour
         border.rectTransform.SetParent(gridCanvas.transform, false);
         border.rectTransform.anchoredPosition = new Vector2(positon.x, positon.z);
 
-        Image content = Instantiate<Image>(contentImage);
+        Image content = images[i] = Instantiate<Image>(contentImage);
         content.rectTransform.SetParent(gridCanvas.transform, false);
         content.rectTransform.anchoredPosition = new Vector2(positon.x, positon.z);
         string con = gridcontent.ReturnContent(i);
@@ -113,22 +116,22 @@ public class HexGrid : MonoBehaviour
                 content.color = new Color(0, 0, 0, 0);
                 break;
             case "Resource":
-                content.sprite = contentSprite[1];
+                content.sprite = contentSprite[5];
                 break;
             case "Electric":
-                content.sprite = contentSprite[5];
+                content.sprite = contentSprite[1];
                 break;
             case "FirstAid":
                 content.sprite = contentSprite[3];
                 break;
             case "MResource":
-                content.sprite = contentSprite[4];
+                content.sprite = contentSprite[5];
                 break;
             case "MElectric":
-                content.sprite = contentSprite[4];
+                content.sprite = contentSprite[1];
                 break;
             case "MFirstAid":
-                content.sprite = contentSprite[4];
+                content.sprite = contentSprite[3];
                 break;
             case "Chip":
                 content.sprite = contentSprite[0];
@@ -142,5 +145,7 @@ public class HexGrid : MonoBehaviour
             default:
                 break;
         }
+        if (gridcontent.contents[i].con == GridContent.Content.Portal) content.enabled = true;
+        else content.enabled = false;
     }
 }

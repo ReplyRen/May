@@ -167,11 +167,11 @@ public class GridContent : MonoBehaviour
                 if (grid.cells[i].status != 3)
                 {
                     grid.cells[i].status = 2;
-                    grid.texts[i].enabled = true;
+                    grid.images[i].enabled = true;
                 }
                 else
                 {
-                    grid.texts[i].enabled = false;
+                    grid.images[i].enabled = false;
                 }
             }
         }
@@ -182,7 +182,7 @@ public class GridContent : MonoBehaviour
         if (grid.cells[index].status != 3)
         {
             grid.cells[index].status = 2;
-            grid.texts[index].enabled = true;
+            grid.images[index].enabled = true;
         }
 
     }
@@ -194,8 +194,9 @@ public class GridContent : MonoBehaviour
         asset.movecost();
 
         grid.cells[i].status = 3;
-        grid.texts[i].enabled = true;
-        foreach(int j in TextAround)
+        //grid.texts[i].enabled = true;
+        //grid.images[i].enabled = true;
+        foreach (int j in TextAround)
         {
             if ((contents[j].con == Content.MResource) || (contents[j].con == Content.MElectric) || (contents[j].con == Content.MFirstAid)) k++;
         }
@@ -213,7 +214,6 @@ public class GridContent : MonoBehaviour
             case Content.Incident:asset.increaseIncident(1);break;
             case Content.Portal:Application.Quit();break;
         }
-        contents[i].con = Content.Nothing;
 
         if (asset.Hp == 0)
         {
@@ -224,15 +224,27 @@ public class GridContent : MonoBehaviour
 
     IEnumerator PassMonster(int i,int k)
     {
-        grid.texts[i].text = "Monster";
+        grid.images[i].enabled = true;
+        grid.images[i].sprite = grid.contentSprite[4];
         yield return new WaitForSeconds(1f);
+        grid.images[i].enabled = false;
+        grid.texts[i].enabled = true;
         grid.texts[i].text = k.ToString();
+
+        contents[i].con = Content.Nothing;
+        grid.images[i].sprite = null;
+        grid.images[i].color = new Color(0, 0, 0, 0);
     }
 
     IEnumerator PassNormal(int i,int k)
     {
+        grid.texts[i].enabled = true;
         grid.texts[i].text = k.ToString();
         yield return new WaitForSeconds(0f);
+
+        contents[i].con = Content.Nothing;
+        grid.images[i].sprite = null;
+        grid.images[i].color = new Color(0, 0, 0, 0);
     }
 
     public void start(int i, int[] TextAround)//移动高对应格子
@@ -254,7 +266,7 @@ public class GridContent : MonoBehaviour
             if (grid.cells[i].status != 3)
             {
                 grid.cells[i].status = 0;
-                grid.texts[i].enabled = false;
+                grid.images[i].enabled = false;
             }
 
         }
