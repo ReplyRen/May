@@ -24,6 +24,7 @@ public class SolveInput : MonoBehaviour
     private int[] CurrentTextAround = new int[6];
     private int[] NextTextAround = new int[6];
     //方政言加end
+    public Vector3 playerPos;//用于摄像机移动
 
     private void Awake()
     {
@@ -75,6 +76,7 @@ public class SolveInput : MonoBehaviour
     {
         HexCoordinates coordinates = HexCoordinates.FromPosition(position);
         HexCell cell = FindCell(coordinates);
+ 
         //保存保存下一格数据，方便对比
         NextCell = cell;
         //判断点击格是否是当前格的周围且不能是当前格
@@ -90,12 +92,14 @@ public class SolveInput : MonoBehaviour
                 cell.color = grid.CellColor[1];
                 grid.hexMesh.Triangulate(grid.cells);//以新的颜色重新渲染单元格，每一次只要需要改变格子颜色
                                                      //都需要这句话来重新渲染
-
+                playerPos = cell.transform.position;
                 //使被点击格与摄像头Y轴一致并移动
-                Vector3 CellPos = cell.transform.position;
-                CellPos.y = start.transform.position.y;
+                //Vector3 CellPos = cell.transform.position;
+                //CellPos.y = start.transform.position.y;
+                //Debug.Log(CellPos);
+
                 //移动
-                start.transform.position = Vector3.MoveTowards(start.transform.position, CellPos, speed);
+                //start.transform.position = Vector3.MoveTowards(start.transform.position, CellPos, speed * Time.deltaTime); ;
                 //更新当前格
                 PrintArround(grid.CellColor[0], CurrentCellAround);
                 UpdateArround(NextCell, NextCellAround, NextTextAround);

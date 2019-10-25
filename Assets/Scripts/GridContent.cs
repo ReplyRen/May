@@ -282,5 +282,9 @@ public class GridContent : MonoBehaviour
             default: return contents[x].con.ToString();
         }            
     }
+    public string ReturnContent(int x)
+    {
+        return contents[x].con.ToString();
+    }
 
 }

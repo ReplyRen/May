@@ -6,6 +6,9 @@ TagManager:
   tags:
   - Grid
   - MapExplore
+  - ElectricityText
+  - ResourcesText
+  - HeartText
   layers:
   - Default
   - TransparentFX

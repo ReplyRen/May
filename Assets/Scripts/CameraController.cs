@@ -4,45 +4,30 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour
  {
-    public GameObject start;
-    public float speed;
-    // Update is called once per frame
-    HexGrid grid;
-    private void Awake()
+    private float speed = 1f;
+    private Vector3 targetPos;
+    private SolveInput input;
+    private void Start()
     {
-        grid = GameObject.FindWithTag("Grid").GetComponent<HexGrid>();
+        targetPos = transform.position;
+        input = GetComponentInChildren<SolveInput>();
     }
-    
-    void Update()
+    private void LateUpdate()
     {
         if (Input.GetMouseButtonDown(0))
         {
-            HandleInput();
+            targetPos = input.playerPos;
+            targetPos = new Vector3(targetPos.x, transform.position.y, targetPos.z);
+            
         }
+        if ((targetPos - transform.position).magnitude > 1f)
+            transform.position = Vector3.Lerp(transform.position, targetPos, speed*Time.deltaTime);
     }
-    void HandleInput()
+    private Vector3 getPoint()
     {
         Ray inputRay = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
-        if(Physics.Raycast(inputRay,out hit))
-        {
-            TouchCell(hit.point);
-        }
-    }
-    void TouchCell(Vector3 position)
-    {
-        HexCoordinates coordinates = HexCoordinates.FromPosition(position);
-        HexCell cell = FindCell(coordinates);
-        Vector3 CellPos=cell.transform.position;
-        CellPos.y=start.transform.position.y;
-        start.transform.position=Vector3.MoveTowards(start.transform.position,CellPos,speed);
-        // Vector3 a =cell.transform.position-start.transform.position;
-        // transform.Translate(a);
-    }
-    private HexCell FindCell(HexCoordinates coordinates)
-    {
-       int index = coordinates.X + coordinates.Z * grid.width + coordinates.Z / 2;
-       HexCell cell = grid.cells[index];
-       return cell;
+        Physics.Raycast(inputRay, out hit);
+        return hit.point;
     }
 }
