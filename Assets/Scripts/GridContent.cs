@@ -212,10 +212,10 @@ public class GridContent : MonoBehaviour
             case Content.MResource: asset.increaseResource(contents[i].val); asset.decreaseHp(MonsterHarm); StartCoroutine(PassMonster(i, k)); break;
             case Content.MElectric: asset.increaseElectric(contents[i].val); asset.decreaseHp(MonsterHarm); StartCoroutine(PassMonster(i, k)); break;
             case Content.MFirstAid: asset.increaseFirstAid(contents[i].val); asset.decreaseHp(MonsterHarm); StartCoroutine(PassMonster(i, k)); break;
-            case Content.Chip: asset.increaseChip(contents[i].val); break;
-            case Content.Nothing:break;
-            case Content.Incident:asset.increaseIncident(1);break;
-            case Content.Portal:Application.Quit();break;
+            case Content.Chip: asset.increaseChip(contents[i].val); StartCoroutine(PassNormal(i, k)); break;
+            case Content.Nothing: StartCoroutine(PassNormal(i, k)); break;
+            case Content.Incident:asset.increaseIncident(1); StartCoroutine(PassNormal(i, k)); break;
+            case Content.Portal:Application.Quit(); StartCoroutine(PassNormal(i, k)); break;
         }
 
         if (asset.Hp == 0)
