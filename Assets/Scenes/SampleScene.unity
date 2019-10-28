@@ -492,7 +492,7 @@ MonoBehaviour:
   Rmax: 60
   Emin: 40
   Emax: 60
-  MonsterHarm: 10
+  MonsterHarm: 40
 --- !u!1 &384799673
 GameObject:
   m_ObjectHideFlags: 0
@@ -745,7 +745,7 @@ GameObject:
   - component: {fileID: 604061516}
   - component: {fileID: 604061515}
   m_Layer: 5
-  m_Name: Button
+  m_Name: FirstAidButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -810,7 +810,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 604061516}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 176081676}
+        m_MethodName: EatFirstAid
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &604061516
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1447,7 +1458,7 @@ GameObject:
   - component: {fileID: 1709869713}
   m_Layer: 5
   m_Name: Text
-  m_TagString: Untagged
+  m_TagString: FirstAidText
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1502,7 +1513,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u80CC\u5305"
+  m_Text: "\u533B\u7597\u5305"
 --- !u!222 &1709869714
 CanvasRenderer:
   m_ObjectHideFlags: 0

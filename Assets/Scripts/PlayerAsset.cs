@@ -27,6 +27,8 @@ public class PlayerAsset : MonoBehaviour
     public void increaseHp(int x)
     {
         Hp += x;
+        if (Hp > 100)
+            Hp = 100;
     }
 
     public void increaseResource(int x)

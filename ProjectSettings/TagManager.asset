@@ -9,6 +9,7 @@ TagManager:
   - ElectricityText
   - ResourcesText
   - HeartText
+  - FirstAidText
   layers:
   - Default
   - TransparentFX
