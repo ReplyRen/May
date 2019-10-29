@@ -146,6 +146,7 @@ public class HexGrid : MonoBehaviour
                 break;
         }
         if (gridcontent.contents[i].con == GridContent.Content.Portal) content.enabled = true;
+        else if (gridcontent.contents[i].con == GridContent.Content.Incident) content.enabled = true;
         else content.enabled = false;
     }
 }

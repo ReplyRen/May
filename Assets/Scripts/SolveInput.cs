@@ -112,6 +112,7 @@ public class SolveInput : MonoBehaviour
                 gridcontent.pass(NextText, NextTextAround);
                 gridcontent.detectAround(NextTextAround);
                 grid.texts[CurrentText].enabled = false;
+                gridcontent.JudgePortal(CurrentText);
                 CurrentText = NextText;
                 //方政言加end
 

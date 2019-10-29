@@ -22,11 +22,19 @@ public class PlayerAsset : MonoBehaviour
     public int ResourceMoveCost = 1;//移动物资消耗
     public int HPMoveCost = 5;//移动物资消耗
     public int IncidentNeed = 0;
-    private int Incident = 0;
+    public int Incident = 0;
+    public int FirstAidRecover = 10;
 
     public void increaseHp(int x)
     {
         Hp += x;
+        if (Hp > 100)
+            Hp = 100;
+    }
+
+    public void useFirstAid()
+    {
+        Hp += FirstAidRecover;
         if (Hp > 100)
             Hp = 100;
     }

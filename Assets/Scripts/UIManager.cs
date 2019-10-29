@@ -31,7 +31,7 @@ public class UIManager : MonoBehaviour
         if (Player.GetComponent<PlayerAsset>().FirstAid > 0)
         {
             Player.GetComponent<PlayerAsset>().FirstAid--;
-            Player.GetComponent<PlayerAsset>().increaseHp(40);
+            Player.GetComponent<PlayerAsset>().useFirstAid();
         }
     }
 }

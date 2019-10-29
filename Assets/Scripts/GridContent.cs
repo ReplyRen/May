@@ -48,6 +48,8 @@ public class GridContent : MonoBehaviour
     public int Rmax=3;//单格资源最大值
     public int Emin=1;//单格电力最小值
     public int Emax=3;//单格电力最大值
+    public int Fmin = 1;//单格急救包最小值
+    public int Fmax = 3;//单格急救包最大值
     public int MonsterHarm = 30;//怪物伤害值
 
     //内部逻辑用
@@ -98,6 +100,7 @@ public class GridContent : MonoBehaviour
         {
             contents[x].con = Content.Portal;
             contents[x].val = 0;
+            grid.cells[x].status = 3;
         }
         else if (x==2 + 5 * grid.width + 5 / 2)//起点
         {
@@ -107,31 +110,31 @@ public class GridContent : MonoBehaviour
         else if (n <= Resource)
         {
             contents[x].con = Content.Resource;
-            contents[x].val = Random.Range(Rmin, Rmax);
+            contents[x].val = Random.Range(Rmin, Rmax+1);
             Resource--;
         }
         else if (n <= Resource + Electric)
         {
             contents[x].con = Content.Electric;
-            contents[x].val = Random.Range(Emin, Emax);
+            contents[x].val = Random.Range(Emin, Emax+1);
             Electric--;
         }
         else if (n <= Resource + Electric + FirstAid)
         {
             contents[x].con = Content.FirstAid;
-            contents[x].val = 1;
+            contents[x].val = Random.Range(Fmin, Fmax+1);
             FirstAid--;
         }
         else if (n <= Resource + Electric + FirstAid+ MResource)
         {
             contents[x].con = Content.MResource;
-            contents[x].val = Random.Range(Rmin, Rmax);
+            contents[x].val = Random.Range(Rmin/2, Rmax/2+1);
             MResource --;
         }
         else if (n <= Resource + Electric + FirstAid + MResource + MElectric)
         {
             contents[x].con = Content.MElectric ;
-            contents[x].val = Random.Range(Emin, Emax);
+            contents[x].val = Random.Range(Emin/2, Emax/2+1);
             MElectric --;
         }
         else if (n <= Resource + Electric + FirstAid + MResource + MElectric + MFirstAid)
@@ -172,10 +175,6 @@ public class GridContent : MonoBehaviour
                     grid.cells[i].status = 2;
                     grid.images[i].enabled = true;
                 }
-                else
-                {
-                    grid.images[i].enabled = false;
-                }
             }
         }
     }
@@ -214,8 +213,10 @@ public class GridContent : MonoBehaviour
             case Content.MFirstAid: asset.increaseFirstAid(contents[i].val); asset.decreaseHp(MonsterHarm); StartCoroutine(PassMonster(i, k)); break;
             case Content.Chip: asset.increaseChip(contents[i].val); StartCoroutine(PassNormal(i, k)); break;
             case Content.Nothing: StartCoroutine(PassNormal(i, k)); break;
-            case Content.Incident:asset.increaseIncident(1); StartCoroutine(PassNormal(i, k)); break;
-            case Content.Portal:Application.Quit(); StartCoroutine(PassNormal(i, k)); break;
+            case Content.Incident:asset.increaseIncident(1); grid.images[i].enabled = false; grid.texts[i].enabled = true;
+                grid.texts[i].text = k.ToString(); break;
+            case Content.Portal:ArrivePortal(); grid.images[i].enabled = false; grid.texts[i].enabled = true;
+                grid.texts[i].text = k.ToString(); break;
         }
 
         if (asset.Hp == 0)
@@ -271,9 +272,26 @@ public class GridContent : MonoBehaviour
                 grid.cells[i].status = 0;
                 grid.images[i].enabled = false;
             }
+            else
+            {
+                if (contents[i].con != Content.Portal)
+                    grid.images[i].enabled = false;
+            }
 
         }
         
+    }
+
+    public void JudgePortal(int i)
+    {
+        if (contents[i].con == Content.Portal)
+            grid.images[i].enabled = true;
+    }
+
+    public void ArrivePortal()
+    {
+        if (asset.IncidentNeed == asset.Incident)
+            SceneManager.LoadScene("lose");
     }
 
     public string getcontent(int x)//获得下标为x的网格的内容

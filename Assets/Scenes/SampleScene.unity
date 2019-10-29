@@ -487,12 +487,14 @@ MonoBehaviour:
   MElectricNum: 26
   MFirstAidNum: 26
   ChipNum: 13
-  IncidentNum: 10
+  IncidentNum: 2
   Rmin: 40
   Rmax: 60
   Emin: 40
   Emax: 60
-  MonsterHarm: 40
+  Fmin: 3
+  Fmax: 5
+  MonsterHarm: 45
 --- !u!1 &384799673
 GameObject:
   m_ObjectHideFlags: 0
@@ -924,7 +926,8 @@ MonoBehaviour:
   ElectricMoveCost: 10
   ResourceMoveCost: 10
   HPMoveCost: 10
-  IncidentNeed: 0
+  IncidentNeed: 2
+  FirstAidRecover: 10
 --- !u!1 &909705529
 GameObject:
   m_ObjectHideFlags: 0
