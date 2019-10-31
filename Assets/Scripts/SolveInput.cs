@@ -10,7 +10,7 @@ public class SolveInput : MonoBehaviour
     //这是处理点击事件的脚本，现在点击单元格会变色
     public GameObject start;//摄像头赋值
     public float speed;//摄像头移动速度
-    private HexCell CurrentCell, NextCell;//存当前格和下一个格
+    private HexCell CurrentCell, NextCell,Cell;//存当前格和下一个格
     private HexCell[] CurrentCellAround = new HexCell[6];//存当前周围格
     private HexCell[] NextCellAround = new HexCell[6];//存下一个周围格
     HexGrid grid;
@@ -35,9 +35,35 @@ public class SolveInput : MonoBehaviour
         //方政言加，为实现网格内容探测
         gridcontent = GameObject.FindWithTag("Grid").GetComponent<GridContent>();
         //方政言加end
-
+        
         //设定初始格,并修改颜色
-        int index = 2 + 5 * grid.width + 5 / 2;
+        int index;
+        for (int i = 0; i < grid.height; i++)
+        {
+            if (i == 0 || i == grid.height - 1)
+            {
+                for (int j = 0; j < grid.width; j++)
+                {
+                    index = i * grid.height + j;
+                    Cell = grid.cells[index];
+                    Cell.color = grid.CellColor[4];
+                    grid.hexMesh.Triangulate(grid.cells);
+                }
+            }
+            else
+            {
+                index = i * grid.height;
+                Cell = grid.cells[index];
+                Cell.color = grid.CellColor[4];
+                grid.hexMesh.Triangulate(grid.cells);
+                index = (i + 1) * grid.height - 1;
+                Cell = grid.cells[index];
+                Cell.color = grid.CellColor[4];
+                grid.hexMesh.Triangulate(grid.cells);
+                grid.hexMesh.Triangulate(grid.cells);
+            }
+        }
+        index = 2 + 5 * grid.width + 5 / 2;
         CurrentCell = grid.cells[index];
         CurrentCell.color = grid.CellColor[1];
         grid.hexMesh.Triangulate(grid.cells);
@@ -155,7 +181,7 @@ public class SolveInput : MonoBehaviour
     {
         foreach (HexCell cell in CellAround)
         {
-            if (cell.color != grid.CellColor[3])
+            if (cell.color != grid.CellColor[3]&&cell.color != grid.CellColor[4])
             {
                 cell.color = color;
             }
