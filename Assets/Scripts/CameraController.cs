@@ -14,14 +14,24 @@ public class CameraController : MonoBehaviour
     }
     private void LateUpdate()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (input.moveflag == 0)
         {
-            targetPos = input.playerPos;
-            targetPos = new Vector3(targetPos.x, transform.position.y, targetPos.z);
-            
+            if (Input.GetMouseButtonDown(0))
+            {
+                targetPos = input.playerPos;
+                targetPos = new Vector3(targetPos.x, transform.position.y, targetPos.z);
+
+            }
+            if ((targetPos - transform.position).magnitude > 1f)
+                transform.position = Vector3.Lerp(transform.position, targetPos, speed * Time.deltaTime);
         }
-        if ((targetPos - transform.position).magnitude > 1f)
-            transform.position = Vector3.Lerp(transform.position, targetPos, speed*Time.deltaTime);
+        else
+        {
+            targetPos = input.targetpos;
+            targetPos = new Vector3(targetPos.x, transform.position.y, targetPos.z);
+            if ((targetPos - transform.position).magnitude > 1f)
+                transform.position = Vector3.Lerp(transform.position, targetPos, speed * Time.deltaTime);
+        }
     }
     private Vector3 getPoint()
     {

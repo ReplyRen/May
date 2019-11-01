@@ -64,7 +64,8 @@ public class GridContent : MonoBehaviour
     private int Chip;
     private int Incident;
     private int Nothing;
-    private int Portal;
+    [HideInInspector]
+    public int Portal;
 
     public void BuildContent(int num)//初始化，在Grid创建中调用
     {

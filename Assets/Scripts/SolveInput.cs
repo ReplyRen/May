@@ -13,6 +13,7 @@ public class SolveInput : MonoBehaviour
     private HexCell CurrentCell, NextCell,Cell;//存当前格和下一个格
     private HexCell[] CurrentCellAround = new HexCell[6];//存当前周围格
     private HexCell[] NextCellAround = new HexCell[6];//存下一个周围格
+    private CameraController camera;
     HexGrid grid;
     //于沛琦加,绑定地图探索text
     private int StepCount = 1;//记录已探测格子数
@@ -24,7 +25,14 @@ public class SolveInput : MonoBehaviour
     private int[] CurrentTextAround = new int[6];
     private int[] NextTextAround = new int[6];
     //方政言加end
+    [HideInInspector]
     public Vector3 playerPos;//用于摄像机移动
+    [HideInInspector]
+    public Vector3 targetpos;
+    [HideInInspector]
+    public int moveflag = 0;//0时摄像机正常移动，1时为触发探索率后的移动
+    private double MapRate;
+    private int[] RateFlag = new int[10] { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 };
 
     private void Awake()
     {
@@ -35,7 +43,10 @@ public class SolveInput : MonoBehaviour
         //方政言加，为实现网格内容探测
         gridcontent = GameObject.FindWithTag("Grid").GetComponent<GridContent>();
         //方政言加end
-        
+        camera = GameObject.FindWithTag("MainCamera").GetComponent<CameraController>();
+        if (camera == null)
+            Debug.Log("camera not set");
+
         //设定初始格,并修改颜色
         int index;
         for (int i = 0; i < grid.height; i++)
@@ -84,11 +95,31 @@ public class SolveInput : MonoBehaviour
         }
         //于沛琦加,绑定地图探索text
         int GridSum = grid.width * grid.height - 2 * (grid.width + grid.height-2);
-        double MapRate = (double)StepCount / GridSum;
+        MapRate = (double)StepCount / GridSum;
         MapRate = MapRate*100.0;
         MapExplore.text = MapRate.ToString("0.00")+"%";
+        CheckRate();
         //于沛琦加end
     }
+    private void CheckRate()
+    {
+        if (RateFlag[0]==1 && MapRate >= 1.0)
+        {
+            RateFlag[0] = 0;
+            targetpos = grid.cells[gridcontent.Portal].transform.position;
+            Vector3 oldposition = camera.transform.position;
+            StartCoroutine(MapRateAchieve(oldposition));
+        }
+    }
+    IEnumerator MapRateAchieve(Vector3 oldposition)
+    {
+        moveflag = 1;
+        yield return new WaitForSeconds(2f);
+        targetpos = oldposition;
+        yield return new WaitForSeconds(1f);
+        moveflag = 0;
+    }
+
     void HandleInput()
     {
         Ray inputRay = Camera.main.ScreenPointToRay(Input.mousePosition);
