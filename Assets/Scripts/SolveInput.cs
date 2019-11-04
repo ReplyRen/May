@@ -34,11 +34,13 @@ public class SolveInput : MonoBehaviour
     private double MapRate;
     private int[] RateFlag = new int[10] { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 };
 
+    private MyInput myInput;
+
     private void Awake()
     {
         grid = GameObject.FindWithTag("Grid").GetComponent<HexGrid>();
         //于沛琦加,绑定地图探索text
-        MapExplore = GameObject.Find("Canvas/MapExplore").GetComponent<Text>();
+        MapExplore = GameObject.FindWithTag("MapExplore").GetComponent<Text>();
         //于沛琦加end
         //方政言加，为实现网格内容探测
         gridcontent = GameObject.FindWithTag("Grid").GetComponent<GridContent>();
@@ -47,6 +49,7 @@ public class SolveInput : MonoBehaviour
         if (camera == null)
             Debug.Log("camera not set");
 
+        myInput = camera.GetComponent<MyInput>();
         //设定初始格,并修改颜色
         int index;
         for (int i = 0; i < grid.height; i++)
@@ -89,7 +92,7 @@ public class SolveInput : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (myInput.isButtonDown)
         {
             HandleInput();
         }
@@ -122,7 +125,7 @@ public class SolveInput : MonoBehaviour
 
     void HandleInput()
     {
-        Ray inputRay = Camera.main.ScreenPointToRay(Input.mousePosition);
+        Ray inputRay = Camera.main.ScreenPointToRay(myInput.position);
         RaycastHit hit;
         if(Physics.Raycast(inputRay,out hit))
         {

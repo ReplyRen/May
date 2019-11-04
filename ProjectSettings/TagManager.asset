@@ -10,6 +10,9 @@ TagManager:
   - ResourcesText
   - HeartText
   - FirstAidText
+  - ResourcesUI
+  - ElecUI
+  - HeartUI
   layers:
   - Default
   - TransparentFX
