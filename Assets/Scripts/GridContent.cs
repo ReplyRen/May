@@ -27,6 +27,8 @@ public class GridContent : MonoBehaviour
     [HideInInspector]
     PlayerAsset asset;//玩家资源中控
     [HideInInspector]
+    SolveInput solve;
+    [HideInInspector]
     public struct content//网格内容及数值
     {
         public Content con;
@@ -84,6 +86,7 @@ public class GridContent : MonoBehaviour
         Chip = ChipNum;
         grid = GameObject.FindWithTag("Grid").GetComponent<HexGrid>();
         asset = GameObject.FindWithTag("Player").GetComponent<PlayerAsset>();
+        solve = GameObject.FindWithTag("Player").GetComponent<SolveInput>();
         do
         {
             Portal = Random.Range(1, Total);
@@ -246,6 +249,8 @@ public class GridContent : MonoBehaviour
         contents[i].con = Content.Nothing;
         grid.images[i].sprite = null;
         grid.images[i].color = new Color(0, 0, 0, 0);
+        if(solve.CurrentText!=i)
+            grid.texts[i].enabled = false;
     }
 
     IEnumerator PassNormal(int i,int k)
@@ -262,14 +267,32 @@ public class GridContent : MonoBehaviour
     public void start(int i, int[] TextAround)//移动高对应格子
     {
         int k = 0;
+
         grid.cells[i].status = 3;
-        grid.texts[i].enabled = true;
+        //grid.texts[i].enabled = true;
+        //grid.images[i].enabled = true;
         foreach (int j in TextAround)
         {
             if ((contents[j].con == Content.MResource) || (contents[j].con == Content.MElectric) || (contents[j].con == Content.MFirstAid)) k++;
         }
-        grid.texts[i].text = k.ToString();
-        contents[i].con = Content.Nothing;
+        //grid.texts[i].text = k.ToString();
+        switch (contents[i].con)
+        {
+            case Content.Resource: asset.increaseResource(contents[i].val); coroutine = StartCoroutine(PassNormal(i, k)); break;
+            case Content.Electric: asset.increaseElectric(contents[i].val); coroutine = StartCoroutine(PassNormal(i, k)); break;
+            case Content.FirstAid: asset.increaseFirstAid(contents[i].val); coroutine = StartCoroutine(PassNormal(i, k)); break;
+            case Content.MResource: asset.increaseResource(contents[i].val); asset.decreaseHp(MonsterHarm); coroutine = StartCoroutine(PassMonster(i, k)); break;
+            case Content.MElectric: asset.increaseElectric(contents[i].val); asset.decreaseHp(MonsterHarm); coroutine = StartCoroutine(PassMonster(i, k)); break;
+            case Content.MFirstAid: asset.increaseFirstAid(contents[i].val); asset.decreaseHp(MonsterHarm); coroutine = StartCoroutine(PassMonster(i, k)); break;
+            case Content.Chip: asset.increaseChip(contents[i].val); coroutine = StartCoroutine(PassNormal(i, k)); break;
+            case Content.Nothing: coroutine = StartCoroutine(PassNormal(i, k)); break;
+            case Content.Incident:
+                asset.increaseIncident(1); grid.images[i].enabled = false; grid.texts[i].enabled = true;
+                grid.texts[i].text = k.ToString(); break;
+            case Content.Portal:
+                ArrivePortal(); grid.images[i].enabled = false; grid.texts[i].enabled = true;
+                grid.texts[i].text = k.ToString(); break;
+        }
     }
 
     public void lostAround(int[] index)//移动后原本被探测到的格恢复到未知

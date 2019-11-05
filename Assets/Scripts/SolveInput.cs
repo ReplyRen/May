@@ -21,7 +21,8 @@ public class SolveInput : MonoBehaviour
     //于沛琦加end
     //方政言加，为实现网格内容探测
     GridContent gridcontent;
-    int CurrentText, NextText;
+    [HideInInspector]
+    public int CurrentText, NextText;
     private int[] CurrentTextAround = new int[6];
     private int[] NextTextAround = new int[6];
     //方政言加end
@@ -83,6 +84,8 @@ public class SolveInput : MonoBehaviour
         grid.hexMesh.Triangulate(grid.cells);
         UpdateArround(CurrentCell,CurrentCellAround,CurrentTextAround);
         PrintArround(grid.CellColor[2], CurrentCellAround);
+
+        playerPos = grid.cells[index].transform.position;
         //方政言加，为实现网格内容探测
         CurrentText = index;
         gridcontent.start(CurrentText,CurrentTextAround);
@@ -117,10 +120,12 @@ public class SolveInput : MonoBehaviour
     IEnumerator MapRateAchieve(Vector3 oldposition)
     {
         moveflag = 1;
+        Debug.Log("change moveflag to 1");
         yield return new WaitForSeconds(2f);
         targetpos = oldposition;
         yield return new WaitForSeconds(1f);
         moveflag = 0;
+        Debug.Log("change moveflag to 0");
     }
 
     void HandleInput()
