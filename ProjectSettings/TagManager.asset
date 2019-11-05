@@ -13,6 +13,7 @@ TagManager:
   - ResourcesUI
   - ElecUI
   - HeartUI
+  - Message
   layers:
   - Default
   - TransparentFX
