@@ -168,6 +168,7 @@ public class SolveInput : MonoBehaviour
                 CurrentCell = NextCell;
 
                 //方政言加，为实现网格内容探测
+                //gridcontent.CoroutineStop();
                 gridcontent.lostAround(CurrentTextAround);
                 gridcontent.pass(NextText, NextTextAround);
                 gridcontent.detectAround(NextTextAround);

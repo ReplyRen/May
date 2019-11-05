@@ -66,6 +66,7 @@ public class GridContent : MonoBehaviour
     private int Nothing;
     [HideInInspector]
     public int Portal;
+    private Coroutine coroutine;
 
     public void BuildContent(int num)//初始化，在Grid创建中调用
     {
@@ -206,15 +207,16 @@ public class GridContent : MonoBehaviour
         //grid.texts[i].text = k.ToString();
         switch (contents[i].con)
         {
-            case Content.Resource:asset.increaseResource(contents[i].val); StartCoroutine(PassNormal(i, k)); break;
-            case Content.Electric:asset.increaseElectric(contents[i].val); StartCoroutine(PassNormal(i, k)); break;
-            case Content.FirstAid:asset.increaseFirstAid(contents[i].val); StartCoroutine(PassNormal(i, k)); break;
-            case Content.MResource: asset.increaseResource(contents[i].val); asset.decreaseHp(MonsterHarm); StartCoroutine(PassMonster(i, k)); break;
-            case Content.MElectric: asset.increaseElectric(contents[i].val); asset.decreaseHp(MonsterHarm); StartCoroutine(PassMonster(i, k)); break;
-            case Content.MFirstAid: asset.increaseFirstAid(contents[i].val); asset.decreaseHp(MonsterHarm); StartCoroutine(PassMonster(i, k)); break;
-            case Content.Chip: asset.increaseChip(contents[i].val); StartCoroutine(PassNormal(i, k)); break;
-            case Content.Nothing: StartCoroutine(PassNormal(i, k)); break;
-            case Content.Incident:asset.increaseIncident(1); grid.images[i].enabled = false; grid.texts[i].enabled = true;
+            case Content.Resource:asset.increaseResource(contents[i].val);  coroutine = StartCoroutine(PassNormal(i, k)); break;
+            case Content.Electric:asset.increaseElectric(contents[i].val);  coroutine = StartCoroutine(PassNormal(i, k)); break;
+            case Content.FirstAid:asset.increaseFirstAid(contents[i].val);  coroutine = StartCoroutine(PassNormal(i, k)); break;
+            case Content.MResource: asset.increaseResource(contents[i].val); asset.decreaseHp(MonsterHarm);  coroutine = StartCoroutine(PassMonster(i, k)); break;
+            case Content.MElectric: asset.increaseElectric(contents[i].val); asset.decreaseHp(MonsterHarm);  coroutine = StartCoroutine(PassMonster(i, k)); break;
+            case Content.MFirstAid: asset.increaseFirstAid(contents[i].val); asset.decreaseHp(MonsterHarm);  coroutine = StartCoroutine(PassMonster(i, k)); break;
+            case Content.Chip: asset.increaseChip(contents[i].val);  coroutine = StartCoroutine(PassNormal(i, k)); break;
+            case Content.Nothing:  coroutine = StartCoroutine(PassNormal(i, k)); break;
+            case Content.Incident:
+                 asset.increaseIncident(1); grid.images[i].enabled = false; grid.texts[i].enabled = true;
                 grid.texts[i].text = k.ToString(); break;
             case Content.Portal:ArrivePortal(); grid.images[i].enabled = false; grid.texts[i].enabled = true;
                 grid.texts[i].text = k.ToString(); break;
@@ -225,6 +227,11 @@ public class GridContent : MonoBehaviour
             Debug.Log("Hp=0");
             SceneManager.LoadScene("lose");
         }
+    }
+
+    public void CoroutineStop()
+    {
+        
     }
 
     IEnumerator PassMonster(int i,int k)
