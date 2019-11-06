@@ -19,7 +19,14 @@ public class UIManager : MonoBehaviour
     public Sprite heartSpriteYellow;
     public Sprite elecSpriteGreen;
     public Sprite elecSpriteYellow;
-    
+
+    /*方政言操作区间（笑）*/
+    public GameObject NormalMode;
+    public GameObject MessageUI;
+    public GameObject PickMessage;
+    public GameObject PickLog;
+    /*方政言操作区间over*/
+
     private void Start()
     {
         resourcesText = GameObject.FindWithTag("ResourcesText").GetComponent<Text>();
@@ -30,6 +37,13 @@ public class UIManager : MonoBehaviour
         resourcesUI= GameObject.FindWithTag("ResourcesUI").GetComponent<Image>();
         elecUI = GameObject.FindWithTag("ElecUI").GetComponent<Image>();
         heartUI = GameObject.FindWithTag("HeartUI").GetComponent<Image>();
+
+        /*方政言操作区间（笑）,初始化UI*/
+        NormalMode.SetActive(true);
+        PickMessage.SetActive(true);
+        PickLog.SetActive(false);
+        MessageUI.SetActive(false);
+        /*方政言操作区间over*/
     }
     private void Update()
     {
@@ -56,4 +70,30 @@ public class UIManager : MonoBehaviour
         else
             image.sprite = green;
     }
+
+    /*方政言操作区间（笑）*/
+    public void NormalToMessage()
+    {
+        NormalMode.SetActive(false);
+        MessageUI.SetActive(true);
+    }
+
+    public void PickMessageToLog()
+    {
+        PickMessage.SetActive(false);
+        PickLog.SetActive(true);
+    }
+
+    public void PickLogToMessage()
+    {
+        PickLog.SetActive(false);
+        PickMessage.SetActive(true);
+    }
+
+    public void MessageToNormal()
+    {
+        MessageUI.SetActive(false);
+        NormalMode.SetActive(true);
+    }
+    /*方政言操作区间over*/
 }

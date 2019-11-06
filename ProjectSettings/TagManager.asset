@@ -14,6 +14,7 @@ TagManager:
   - ElecUI
   - HeartUI
   - Message
+  - NormalUI
   layers:
   - Default
   - TransparentFX
