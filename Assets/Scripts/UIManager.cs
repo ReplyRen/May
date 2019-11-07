@@ -25,6 +25,8 @@ public class UIManager : MonoBehaviour
     public GameObject MessageUI;
     public GameObject PickMessage;
     public GameObject PickLog;
+    public GameObject TwoChoice;
+    public GameObject OneChoice;
     /*方政言操作区间over*/
 
     private void Start()
@@ -41,6 +43,8 @@ public class UIManager : MonoBehaviour
         /*方政言操作区间（笑）,初始化UI*/
         NormalMode.SetActive(true);
         PickMessage.SetActive(true);
+        OneChoice.SetActive(false);
+        TwoChoice.SetActive(false);
         PickLog.SetActive(false);
         MessageUI.SetActive(false);
         /*方政言操作区间over*/
