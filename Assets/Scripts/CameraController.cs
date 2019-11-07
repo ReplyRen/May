@@ -16,7 +16,6 @@ public class CameraController : MonoBehaviour
     {
         if (input.moveflag == 0)
         {
-            Debug.Log("moving 0");
             if (Input.GetMouseButtonDown(0))
             {
                 targetPos = input.playerPos;
@@ -28,7 +27,6 @@ public class CameraController : MonoBehaviour
         }
         else
         {
-            Debug.Log("moving 1");
             targetPos = input.targetpos;
             targetPos = new Vector3(targetPos.x, transform.position.y, targetPos.z);
             if ((targetPos - transform.position).magnitude > 1f)
