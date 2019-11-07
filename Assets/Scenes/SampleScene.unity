@@ -880,8 +880,8 @@ GameObject:
   - component: {fileID: 280273314}
   - component: {fileID: 280273313}
   m_Layer: 5
-  m_Name: Text
-  m_TagString: FirstAidText
+  m_Name: middle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -894,7 +894,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 280273311}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1594817574}
@@ -902,7 +902,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 33.549988, y: 16.5}
+  m_AnchoredPosition: {x: 17, y: 3}
   m_SizeDelta: {x: 1.1000023, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &280273313
@@ -925,18 +925,18 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 12800000, guid: b5aa9b6aec615514ebe04a07b3848c58, type: 3}
-    m_FontSize: 14
+    m_FontSize: 40
     m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 10
-    m_MaxSize: 40
+    m_MinSize: 4
+    m_MaxSize: 50
     m_Alignment: 4
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 1
+  m_Text: "\u53EF\u7B97\u8FDE\u63A5\u4E0A\u4E86\uFF01\n\u6211\u4EEC\u9047\u4E0A\u4E86\u5927\u9EBB\u70E6"
 --- !u!222 &280273314
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1207,8 +1207,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 176081676}
-        m_MethodName: EatFirstAid
+      - m_Target: {fileID: 505346288}
+        m_MethodName: LeftButton
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1728,8 +1728,8 @@ GameObject:
   - component: {fileID: 452065740}
   - component: {fileID: 452065739}
   m_Layer: 5
-  m_Name: Text
-  m_TagString: FirstAidText
+  m_Name: left
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1742,7 +1742,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 452065737}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 346190241}
@@ -1750,7 +1750,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 33.549988, y: 16.5}
+  m_AnchoredPosition: {x: 5, y: 0}
   m_SizeDelta: {x: 1.1000023, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &452065739
@@ -1773,18 +1773,18 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 12800000, guid: b5aa9b6aec615514ebe04a07b3848c58, type: 3}
-    m_FontSize: 14
+    m_FontSize: 40
     m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 10
-    m_MaxSize: 40
+    m_MinSize: 1
+    m_MaxSize: 60
     m_Alignment: 4
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 1
+  m_Text: "\u53EF\u7B97\u8FDE\u63A5\u4E0A\u4E86\uFF01\n\u6211\u4EEC\u9047\u4E0A\u4E86\u5927\u9EBB\u70E6"
 --- !u!222 &452065740
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1866,6 +1866,12 @@ MonoBehaviour:
     type: 3}
   PickMessage: {fileID: 1782393690}
   PickLog: {fileID: 508697410}
+  message: {fileID: 1151208371}
+  onechoice: {fileID: 1661627993}
+  left: {fileID: 452065739}
+  right: {fileID: 888928183}
+  twochoice: {fileID: 2030174661}
+  middle: {fileID: 280273313}
 --- !u!4 &505346289
 Transform:
   m_ObjectHideFlags: 0
@@ -2259,8 +2265,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 176081676}
-        m_MethodName: EatFirstAid
+      - m_Target: {fileID: 505346288}
+        m_MethodName: RightButton
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3365,8 +3371,8 @@ GameObject:
   - component: {fileID: 888928184}
   - component: {fileID: 888928183}
   m_Layer: 5
-  m_Name: Text
-  m_TagString: FirstAidText
+  m_Name: right
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3379,7 +3385,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 888928181}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 535452090}
@@ -3387,7 +3393,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 33.549988, y: 16.5}
+  m_AnchoredPosition: {x: 11, y: 7}
   m_SizeDelta: {x: 1.1000023, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &888928183
@@ -3410,18 +3416,18 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 12800000, guid: b5aa9b6aec615514ebe04a07b3848c58, type: 3}
-    m_FontSize: 14
+    m_FontSize: 40
     m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 10
-    m_MaxSize: 40
+    m_MinSize: 4
+    m_MaxSize: 50
     m_Alignment: 4
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 1
+  m_Text: "\u53EF\u7B97\u8FDE\u63A5\u4E0A\u4E86\uFF01\n\u6211\u4EEC\u9047\u4E0A\u4E86\u5927\u9EBB\u70E6"
 --- !u!222 &888928184
 CanvasRenderer:
   m_ObjectHideFlags: 0
