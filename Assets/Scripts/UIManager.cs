@@ -27,6 +27,7 @@ public class UIManager : MonoBehaviour
     public GameObject PickLog;
     public GameObject TwoChoice;
     public GameObject OneChoice;
+    public GameObject hexgrid; 
     /*方政言操作区间over*/
 
     private void Start()
@@ -79,6 +80,7 @@ public class UIManager : MonoBehaviour
     public void NormalToMessage()
     {
         NormalMode.SetActive(false);
+        hexgrid.SetActive(false);
         MessageUI.SetActive(true);
     }
 
@@ -97,6 +99,7 @@ public class UIManager : MonoBehaviour
     public void MessageToNormal()
     {
         MessageUI.SetActive(false);
+        hexgrid.SetActive(true);
         NormalMode.SetActive(true);
     }
     /*方政言操作区间over*/

@@ -529,6 +529,7 @@ MonoBehaviour:
   PickLog: {fileID: 1784650325}
   TwoChoice: {fileID: 2030174661}
   OneChoice: {fileID: 1661627993}
+  hexgrid: {fileID: 338540937}
 --- !u!1 &186732079
 GameObject:
   m_ObjectHideFlags: 0
@@ -1872,6 +1873,11 @@ MonoBehaviour:
   right: {fileID: 888928183}
   twochoice: {fileID: 2030174661}
   middle: {fileID: 280273313}
+  lastnode: 0
+  MessageButton: {fileID: 794210836}
+  hexgrid: {fileID: 338540937}
+  Scroll: {fileID: 418485226}
+  FlagsControll: 
 --- !u!4 &505346289
 Transform:
   m_ObjectHideFlags: 0
@@ -1920,7 +1926,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 2.4, y: -0.000030199872}
+  m_AnchoredPosition: {x: 2.4, y: -0.000030204132}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &508697412
@@ -3223,6 +3229,7 @@ MonoBehaviour:
   playerPos: {x: 0, y: 0, z: 0}
   targetpos: {x: 0, y: 0, z: 0}
   moveflag: 0
+  Message: {fileID: 505346288}
 --- !u!114 &831779026
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5441,8 +5448,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 176081676}
-        m_MethodName: EatFirstAid
+      - m_Target: {fileID: 505346288}
+        m_MethodName: MiddleButton
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -5711,7 +5718,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 33.550003, y: 16.5}
+  m_AnchoredPosition: {x: 15, y: 43}
   m_SizeDelta: {x: 1.1000023, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1758997434
@@ -5727,18 +5734,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.7254902, g: 0.0047169924, b: 0.0047169924, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 12800000, guid: b5aa9b6aec615514ebe04a07b3848c58, type: 3}
-    m_FontSize: 14
+    m_FontSize: 50
     m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 10
-    m_MaxSize: 40
+    m_MinSize: 2
+    m_MaxSize: 50
     m_Alignment: 4
     m_AlignByGeometry: 0
     m_RichText: 1
@@ -5788,7 +5795,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 2.4, y: -0.00003122271}
+  m_AnchoredPosition: {x: 2.4, y: -0.00003567771}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1782393692
@@ -5823,11 +5830,11 @@ MonoBehaviour:
     m_Top: 0
     m_Bottom: 0
   m_ChildAlignment: 0
-  m_Spacing: -35
+  m_Spacing: -10
   m_ChildForceExpandWidth: 0
-  m_ChildForceExpandHeight: 1
+  m_ChildForceExpandHeight: 0
   m_ChildControlWidth: 0
-  m_ChildControlHeight: 0
+  m_ChildControlHeight: 1
 --- !u!1 &1784650325
 GameObject:
   m_ObjectHideFlags: 0

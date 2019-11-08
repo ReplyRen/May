@@ -34,6 +34,7 @@ public class SolveInput : MonoBehaviour
     public int moveflag = 0;//0时摄像机正常移动，1时为触发探索率后的移动
     private double MapRate;
     private int[] RateFlag = new int[10] { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 };
+    public MessageManager Message;
 
     private MyInput myInput;
 
@@ -180,6 +181,7 @@ public class SolveInput : MonoBehaviour
                 grid.texts[CurrentText].enabled = false;
                 gridcontent.JudgePortal(CurrentText);
                 CurrentText = NextText;
+                Message.IncidentCheck(gridcontent.contents[CurrentText].con, StepCount);
                 //方政言加end
 
                 UpdateArround(CurrentCell, CurrentCellAround, CurrentTextAround);
