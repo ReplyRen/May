@@ -112,6 +112,7 @@ public class MessageManager : MonoBehaviour
         string str = String.Empty;
         while ((str = sr.ReadLine()) != null)
         {
+            Scroll.value = 0;
             yield return new WaitForSeconds(1f);
             Text message = Instantiate<Text>(scrolltext);
             message.text = str;
