@@ -102,5 +102,17 @@ public class UIManager : MonoBehaviour
         hexgrid.SetActive(true);
         NormalMode.SetActive(true);
     }
+
+    public void NormaltoPickMessage()
+    {
+        NormalToMessage();
+        PickLogToMessage();
+    }
+
+    public void NormaltoPickLog()
+    {
+        NormalToMessage();
+        PickMessageToLog();
+    }
     /*方政言操作区间over*/
 }

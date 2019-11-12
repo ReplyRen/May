@@ -92,6 +92,8 @@ public class MessageManager : MonoBehaviour
     public Button MessageButton;
     public GameObject hexgrid;
     public Scrollbar Scroll;
+    [HideInInspector]
+    public int[][][] NodeTable;
 
     public int[] FlagsControll;//[0]为是否到过portal,[1]为到过的任务点个数
 
@@ -103,6 +105,48 @@ public class MessageManager : MonoBehaviour
         status = 0;
         lastnode = 0;
         FlagsControll = new int[] { 0, 0 };
+        NodeTable = new int[3][][];
+        NodeTable[1] = new int[50][];
+        NodeTable[2] = new int[50][];
+
+        FileStream fs = new FileStream("Assets/text/Nodes.txt", FileMode.Open, FileAccess.Read);
+
+        string[] temp, str;
+
+        StreamReader sr = new StreamReader(fs);
+        str = new string[100];
+        int i;
+        for (i = 0; (str[i] = sr.ReadLine()) != null; i++)
+        {
+            str[i].Replace("\n", "");
+            temp = str[i].Split(' ');
+            if (int.Parse(temp[0]) < 2000)
+            {
+                int j = int.Parse(temp[0]) - 1000;
+                NodeTable[1][j] = new int[4];
+                int n = 0;
+                foreach (string tstr in temp)
+                {
+                    NodeTable[1][j][n] = int.Parse(tstr);
+                    n++;
+                }
+            }
+            else if (int.Parse(temp[0]) >= 2000)
+            {
+                int j = int.Parse(temp[0]) - 2000;
+                NodeTable[2][j] = new int[4];
+                int n = 0;
+                foreach (string tstr in temp)
+                {
+                    NodeTable[2][j][n] = int.Parse(tstr);
+                    n++;
+                }
+            }
+        }
+
+
+        sr.Close();
+        fs.Close();
     }
 
     IEnumerator Display(int x)
@@ -121,6 +165,24 @@ public class MessageManager : MonoBehaviour
         }
         sr.Close();
         fs.Close();
+
+        int n = 0;
+        int t = x;
+        while (t >= 1000)
+        {
+            t -= 1000;
+            n++;
+        }
+        if (NodeTable[n][t][1] == 1)
+            OneButtonDisplay(x);
+        else if (NodeTable[n][t][1] == 2)
+            TwoButtonDisplay(x);
+        else if(NodeTable[n][t][1] == 0)
+        {
+            lastnode = line.delete();
+            status = 0;
+        }
+        /*
         switch (x)
         {
             case 1001:
@@ -159,6 +221,7 @@ public class MessageManager : MonoBehaviour
             case 1046: OneButtonDisplay(x); break;
             default: lastnode = line.delete(); status = 0; break;
         }
+        */
     }
 
     public void TwoButtonDisplay(int x)
@@ -175,8 +238,6 @@ public class MessageManager : MonoBehaviour
         left.text = str;
         sr.Close();
         fs.Close();
-        left.text = str;
-        left.text = str;
 
         fs = new FileStream("Assets/text/1/" + x.ToString() + "right.txt", FileMode.Open, FileAccess.Read);
         sr = new StreamReader(fs, System.Text.Encoding.GetEncoding("gb2312"));
@@ -205,6 +266,15 @@ public class MessageManager : MonoBehaviour
     public void LeftButton()
     {
         int x = line.get();
+        int n = 0;
+        int t = x;
+        while (t >= 1000)
+        {
+            t -= 1000;
+            n++;
+        }
+        line.change(NodeTable[n][t][2]);
+        /*
         switch (x)
         {
             case 1001: line.change(1002); break;
@@ -243,25 +313,22 @@ public class MessageManager : MonoBehaviour
             case 1046: break;
             default: lastnode = line.delete(); break;
         }
-
-        FileStream fs = new FileStream("Assets/text/1/" + x.ToString() + "left.txt", FileMode.Open, FileAccess.Read);
-        StreamReader sr = new StreamReader(fs, System.Text.Encoding.GetEncoding("gb2312"));
-        string str = String.Empty;
-        str = sr.ReadLine();
-
-        sr.Close();
-        fs.Close();
-
-        Text message = Instantiate<Text>(scrolltext);
-        message.text = "<肖恩>" + str;
-        message.rectTransform.SetParent(PickMessage.transform, false);
-
+        */
         status = 0;
         twochoice.SetActive(false);
     }
     public void RightButton()
     {
         int x = line.get();
+        int n = 0;
+        int t = x;
+        while (t >= 1000)
+        {
+            t -= 1000;
+            n++;
+        }
+        line.change(NodeTable[n][t][3]);
+        /*
         switch (x)
         {
             case 1001: line.change(1002); break;
@@ -300,20 +367,7 @@ public class MessageManager : MonoBehaviour
             case 1046: break;
             default: lastnode = line.delete(); break;
         }
-
-        FileStream fs = new FileStream("Assets/text/1/" + x.ToString() + "right.txt", FileMode.Open, FileAccess.Read);
-        StreamReader sr = new StreamReader(fs, System.Text.Encoding.GetEncoding("gb2312"));
-        string str = String.Empty;
-        str = sr.ReadLine();
-
-        sr.Close();
-        fs.Close();
-
-        Text message = Instantiate<Text>(scrolltext);
-        message.text = "<肖恩>" + str;
-        message.rectTransform.SetParent(PickMessage.transform, false);
-
-
+        */
         status = 0;
         twochoice.SetActive(false);
     }
@@ -321,6 +375,15 @@ public class MessageManager : MonoBehaviour
     public void MiddleButton()
     {
         int x = line.get();
+        int n = 0;
+        int t = x;
+        while (t >= 1000)
+        {
+            t -= 1000;
+            n++;
+        }
+        line.change(NodeTable[n][t][2]);
+        /*
         switch (x)
         {
             case 1001: 
@@ -359,20 +422,7 @@ public class MessageManager : MonoBehaviour
             case 1046: line.change(1033); break;
             default: line.delete(); break;
         }
-
-        FileStream fs = new FileStream("Assets/text/1/" + x.ToString() + "middle.txt", FileMode.Open, FileAccess.Read);
-        StreamReader sr = new StreamReader(fs, System.Text.Encoding.GetEncoding("gb2312"));
-        string str = String.Empty;
-        str = sr.ReadLine();
-
-        sr.Close();
-        fs.Close();
-
-        Text message = Instantiate<Text>(scrolltext);
-        message.text = "<肖恩>" + str;
-        message.rectTransform.SetParent(PickMessage.transform, false);
-
-
+        */
         status = 0;
         onechoice.SetActive(false);
     }
@@ -438,16 +488,7 @@ public class MessageManager : MonoBehaviour
             }
             else if (x > 2000 && x < 3000)
             {
-                sr = new StreamReader("Assets/text/2/" + x.ToString() + ".txt", System.Text.Encoding.Default);
-                string str = String.Empty;
-                while ((str = sr.ReadLine()) != null)
-                {
-                    Text message = Instantiate<Text>(scrolltext);
-                    message.text = str;
-                    message.rectTransform.SetParent(PickMessage.transform);
-                }
-                sr.Close();
-                line.delete();
+                StartCoroutine("Display", line.get());
             }
             else if (x > 3000 && x < 4000)
             {

@@ -70,6 +70,7 @@
     <Compile Include="Assets\Scripts\Map.cs" />
     <Compile Include="Assets\Scripts\MessageManager.cs" />
     <Compile Include="Assets\Scripts\MyInput.cs" />
+    <Compile Include="Assets\Scripts\PictureContainer.cs" />
     <Compile Include="Assets\Scripts\PlayerAsset.cs" />
     <Compile Include="Assets\Scripts\ShiftScene.cs" />
     <Compile Include="Assets\Scripts\SolveInput.cs" />
@@ -108,6 +109,7 @@
     <None Include="Assets\text\1\1017right.txt" />
     <None Include="Assets\text\1\1040.txt" />
     <None Include="Assets\text\1\1015.txt" />
+    <None Include="Assets\text\Nodes.txt" />
     <None Include="Assets\text\1\1043left.txt" />
     <None Include="Assets\text\1\1012.txt" />
     <None Include="Assets\text\1\1042.txt" />
