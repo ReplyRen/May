@@ -16,7 +16,7 @@ public class SolveInput : MonoBehaviour
     private CameraController camera;
     HexGrid grid;
     //于沛琦加,绑定地图探索text
-    private int StepCount = 1;//记录已探测格子数
+    public int StepCount = 1;//记录已探测格子数
     private Text MapExplore;
     //于沛琦加end
     //方政言加，为实现网格内容探测
@@ -37,7 +37,7 @@ public class SolveInput : MonoBehaviour
     public MessageManager Message;
 
     private MyInput myInput;
-
+    public int footCount = 0;
     private void Awake()
     {
         grid = GameObject.FindWithTag("Grid").GetComponent<HexGrid>();
@@ -152,6 +152,7 @@ public class SolveInput : MonoBehaviour
             if (NextCell.coordinates.X> Math.Ceiling((double)-NextCell.coordinates.Z/2)&& NextCell.coordinates.X < Math.Ceiling((double)16 -NextCell.coordinates.Z / 2)-1
                 && NextCell.coordinates.Z>0&& NextCell.coordinates.Z<grid.height-1)
             {
+                footCount++;
                 //走到新格子就加一
                 if (NextCell.status != 3) StepCount++;
 

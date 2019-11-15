@@ -15,6 +15,9 @@ TagManager:
   - HeartUI
   - Message
   - NormalUI
+  - Interference
+  - Clone
+  - Probe
   layers:
   - Default
   - TransparentFX
