@@ -32,6 +32,7 @@ public class MessageManager : MonoBehaviour
                 tail = (tail + 1) % 100;
                 length++;
                 MessageButton.GetComponentInChildren<Text>().text = length.ToString();
+                MessageButton.GetComponent<Image>().sprite = MessageButton.GetComponent<PictureContainer>().images[1];
             }
         }
 
@@ -55,10 +56,12 @@ public class MessageManager : MonoBehaviour
             if (length > 0)
             {
                 MessageButton.GetComponentInChildren<Text>().text = length.ToString();
+                MessageButton.GetComponent<Image>().sprite = MessageButton.GetComponent<PictureContainer>().images[1];
             }
             else if (length == 0)
             {
                 MessageButton.GetComponentInChildren<Text>().text = null;
+                MessageButton.GetComponent<Image>().sprite = MessageButton.GetComponent<PictureContainer>().images[0];
             }
             return x;
         }
