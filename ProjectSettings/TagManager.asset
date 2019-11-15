@@ -18,6 +18,7 @@ TagManager:
   - Interference
   - Clone
   - Probe
+  - ExplorePic
   layers:
   - Default
   - TransparentFX
