@@ -17,8 +17,11 @@ public class Device : MonoBehaviour
     public int coolingCount = 12;
     private int lastStepCount;
     private int countDown;
+    public GameObject panel;
     private void Awake()
     {
+        if(gameObject.tag=="Probe")
+             panel.SetActive(false);
         player = GameObject.FindWithTag("Player").GetComponent<SolveInput>();
         text = gameObject.GetComponentInChildren<Text>();
         text.text = "";
@@ -59,7 +62,8 @@ public class Device : MonoBehaviour
             Debug.Log("装置在冷却中");
         else
         {
-
+            if (gameObject.tag == "Probe")
+                panel.SetActive(true);
 
             inCooling = true;
             countDown = coolingCount;

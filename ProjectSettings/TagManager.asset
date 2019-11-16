@@ -19,6 +19,7 @@ TagManager:
   - Clone
   - Probe
   - ExplorePic
+  - ProbePanel
   layers:
   - Default
   - TransparentFX
