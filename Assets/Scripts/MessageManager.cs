@@ -95,6 +95,7 @@ public class MessageManager : MonoBehaviour
     public Button MessageButton;
     public GameObject hexgrid;
     public Scrollbar Scroll;
+    public TipController tip;
     [HideInInspector]
     public int[][][] NodeTable;
 
@@ -184,6 +185,8 @@ public class MessageManager : MonoBehaviour
         {
             lastnode = line.delete();
             status = 0;
+            if (lastnode == 1009)
+                tip.insert3014();
         }
         /*
         switch (x)

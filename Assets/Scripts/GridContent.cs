@@ -69,6 +69,7 @@ public class GridContent : MonoBehaviour
     [HideInInspector]
     public int Portal;
     private Coroutine coroutine;
+    public TipController tip;
 
     public void BuildContent(int num)//初始化，在Grid创建中调用
     {
@@ -230,6 +231,7 @@ public class GridContent : MonoBehaviour
             Debug.Log("Hp=0");
             SceneManager.LoadScene("lose");
         }
+        tip.passcheck(contents[i].con);
     }
 
     public void CoroutineStop()

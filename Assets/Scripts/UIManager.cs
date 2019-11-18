@@ -27,7 +27,7 @@ public class UIManager : MonoBehaviour
     public GameObject PickLog;
     public GameObject TwoChoice;
     public GameObject OneChoice;
-    public GameObject hexgrid; 
+    public GameObject hexgrid;
     /*方政言操作区间over*/
 
     private void Start()
