@@ -20,6 +20,7 @@ TagManager:
   - Probe
   - ExplorePic
   - ProbePanel
+  - OP
   layers:
   - Default
   - TransparentFX

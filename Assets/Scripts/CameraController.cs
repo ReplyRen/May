@@ -7,10 +7,14 @@ public class CameraController : MonoBehaviour
     private float speed = 1f;
     private Vector3 targetPos;
     private SolveInput input;
+    //方政言偷偷加一句
+    public GameObject op;
     private void Start()
     {
         targetPos = transform.position;
         input = GetComponentInChildren<SolveInput>();
+        //方政言偷偷加一句
+        op.SetActive(true);
     }
     private void LateUpdate()
     {

@@ -75,6 +75,7 @@
     <Compile Include="Assets\Scripts\PlayerAsset.cs" />
     <Compile Include="Assets\Scripts\ShiftScene.cs" />
     <Compile Include="Assets\Scripts\SolveInput.cs" />
+    <Compile Include="Assets\Scripts\TextCharPrint.cs" />
     <Compile Include="Assets\Scripts\TipController.cs" />
     <Compile Include="Assets\Scripts\UIManager.cs" />
     <None Include="Assets\text\1\1048.txt" />
@@ -100,10 +101,10 @@
     <None Include="Assets\text\2\2014.txt" />
     <None Include="Assets\text\2\2033left.txt" />
     <None Include="Assets\text\4\4002.txt" />
+    <None Include="Assets\text\0\0001-5.txt" />
     <None Include="Assets\text\2\2027left.txt" />
     <None Include="Assets\text\1\1004.txt" />
     <None Include="Assets\text\2\2031.txt" />
-    <None Include="Assets\text\0\0001.txt" />
     <None Include="Assets\text\1\1010left.txt" />
     <None Include="Assets\text\2\2002.txt" />
     <None Include="Assets\text\1\1033right.txt" />
@@ -142,6 +143,7 @@
     <None Include="Assets\text\1\1008.txt" />
     <None Include="Assets\text\2\2003middle.txt" />
     <None Include="Assets\text\0\0006.txt" />
+    <None Include="Assets\text\0\0001-1.txt" />
     <None Include="Assets\text\2\2009.txt" />
     <None Include="Assets\text\1\1019middle.txt" />
     <None Include="Assets\text\1\1002middle.txt" />
@@ -149,6 +151,7 @@
     <None Include="Assets\text\1\1036right.txt" />
     <None Include="Assets\text\2\2022left.txt" />
     <None Include="Assets\text\2\2013.txt" />
+    <None Include="Assets\text\0\0001-3.txt" />
     <None Include="Assets\text\1\1031right.txt" />
     <None Include="Assets\text\2\2025.txt" />
     <None Include="Assets\text\1\1041.txt" />
@@ -159,6 +162,7 @@
     <None Include="Assets\text\3\3005.txt" />
     <None Include="Assets\text\1\1043right.txt" />
     <None Include="Assets\text\2\2027.txt" />
+    <None Include="Assets\text\0\0001-2.txt" />
     <None Include="Assets\text\1\1043.txt" />
     <None Include="Assets\text\1\1029.txt" />
     <None Include="Assets\text\1\1022.txt" />
@@ -264,6 +268,7 @@
     <None Include="Assets\text\2\2026.txt" />
     <None Include="Assets\text\1\1005.txt" />
     <None Include="Assets\text\3\3014.txt" />
+    <None Include="Assets\text\0\0001-4.txt" />
     <None Include="Assets\text\1\1044right.txt" />
     <None Include="Assets\text\2\2012middle.txt" />
     <None Include="Assets\text\3\3009.txt" />
