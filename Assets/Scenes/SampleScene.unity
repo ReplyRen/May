@@ -2763,7 +2763,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d8693a2b0479f594db284394e997fd8f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  forAndroid: 0
+  forAndroid: 1
   isButtonDown: 0
   position: {x: 0, y: 0, z: 0}
 --- !u!1 &535184437
