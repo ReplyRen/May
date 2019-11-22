@@ -80,6 +80,7 @@
     <Compile Include="Assets\Scripts\ShiftScene.cs" />
     <Compile Include="Assets\Scripts\SolveInput.cs" />
     <Compile Include="Assets\Scripts\TextCharPrint.cs" />
+    <Compile Include="Assets\Scripts\TextSave.cs" />
     <Compile Include="Assets\Scripts\TipController.cs" />
     <Compile Include="Assets\Scripts\UIManager.cs" />
     <None Include="Assets\text\1\1048.txt" />
