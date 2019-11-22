@@ -39,8 +39,10 @@ public class SolveInput : MonoBehaviour
 
     private MyInput myInput;
     public int footCount = 0;
+    public int locked = 0;
     private void Awake()
     {
+        locked = 0;
         grid = GameObject.FindWithTag("Grid").GetComponent<HexGrid>();
         //于沛琦加,绑定地图探索text
         MapExplore = GameObject.FindWithTag("MapExplore").GetComponent<Text>();
@@ -137,9 +139,13 @@ public class SolveInput : MonoBehaviour
     {
         Ray inputRay = Camera.main.ScreenPointToRay(myInput.position);
         RaycastHit hit;
-        if(Physics.Raycast(inputRay,out hit))
+        if(Physics.Raycast(inputRay,out hit)&&locked==0)
         {
             TouchCell(hit.point);
+        }
+        else if(Physics.Raycast(inputRay, out hit) && locked == 1)
+        {
+            SelectCell(hit.point);
         }
     }
     void TouchCell(Vector3 position)
@@ -191,6 +197,29 @@ public class SolveInput : MonoBehaviour
 
                 UpdateArround(CurrentCell, CurrentCellAround, CurrentTextAround);
                 PrintCell(grid.CellColor[1], CurrentCell);
+            //}
+        }
+    }
+    void SelectCell(Vector3 position)
+    {
+        HexCoordinates coordinates = HexCoordinates.FromPosition(position);
+        HexCell cell = FindCell(coordinates);
+
+        //保存保存下一格数据，方便对比
+        NextCell = cell;
+        //判断点击格是否是当前格的周围且不能是当前格
+        if (((Mathf.Abs(NextCell.coordinates.X - CurrentCell.coordinates.X) + Mathf.Abs(NextCell.coordinates.Y - CurrentCell.coordinates.Y) + Mathf.Abs(NextCell.coordinates.Z - CurrentCell.coordinates.Z)) < 3)
+            && ((NextCell.coordinates.X != CurrentCell.coordinates.X) || (NextCell.coordinates.Z != CurrentCell.coordinates.Z) || (NextCell.coordinates.Y != CurrentCell.coordinates.Y)))
+        {
+            //更新当前格
+            PrintArround(grid.CellColor[0], CurrentCellAround);
+            UpdateArround(NextCell, NextCellAround, NextTextAround);
+            PrintArround(grid.CellColor[5], NextCellAround);
+            PrintCell(grid.CellColor[3], CurrentCell);
+            CurrentCell = NextCell;
+
+            UpdateArround(CurrentCell, CurrentCellAround, CurrentTextAround);
+            PrintCell(grid.CellColor[1], CurrentCell);
             //}
         }
     }
