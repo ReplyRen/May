@@ -21,6 +21,7 @@ public class BuildingUI : MonoBehaviour
     /*确认窗口*/
     [SerializeField]
     private Transform confirmWin;
+    private bool buildChange;
     // Start is called before the first frame update
     void Start()
     {
@@ -51,18 +52,24 @@ public class BuildingUI : MonoBehaviour
     public void GetImage(int imageName)
     {
 
-        if (picNum[_buttonNum] < 2)
+        if (picNum[_buttonNum] <= 2)
         {
-            if (picNum[_buttonNum] == 1)
+            if (picNum[_buttonNum] == 1 && buttonLevel[_buttonNum % 3] == (2 - _buttonNum / 3))
             {
-                if (buttonLevel[_buttonNum % 3] >= (2 - _buttonNum / 3))
-                {
-                    Debug.Log(_buttonNum % 3+"    "+buttonLevel[_buttonNum % 3] + "    " + (2 - _buttonNum / 3));
-                    confirmWin.gameObject.SetActive(true);
-                    imageSend = imageName;
-                }
+                //Debug.Log(_buttonNum % 3+"    "+buttonLevel[_buttonNum % 3] + "    " + (2 - _buttonNum / 3));
+                buildChange = true;
+                confirmWin.gameObject.SetActive(true);
+                imageSend = imageName;
             }
-            else
+            else if(picNum[_buttonNum] == 2 && buttonLevel[_buttonNum % 3] == (3 - _buttonNum / 3))
+            {
+                Debug.Log("LevelMax and Delete" + _buttonNum);
+                buildChange = false;
+                confirmWin.gameObject.SetActive(true);
+                imageSend = imageName;
+                
+            }
+            else if(picNum[_buttonNum] == 0)
             {
                 imageName = imageName + picNum[_buttonNum];
                 Debug.Log("build" + imageName.ToString());
@@ -89,22 +96,42 @@ public class BuildingUI : MonoBehaviour
         if (resualt == true)
         {
             confirmWin.gameObject.SetActive(false);
-
-            imageSend = imageSend + picNum[_buttonNum];
-            imageChange = Resources.Load("build" + imageSend.ToString(), typeof(Sprite)) as Sprite;
-            imageNow.sprite = imageChange;
-            if (buttonLevel[_buttonNum % 3]>0)
+            if (buttonLevel[_buttonNum % 3] < 3&&buildChange)
             {
-                imageOther = this.transform.GetChild(_buttonNum + 3).GetComponent<Image>();
-                imageSend = imageSend - 2;
-                Debug.Log("imageother" + imageSend);
+                imageSend = imageSend + picNum[_buttonNum];
                 imageChange = Resources.Load("build" + imageSend.ToString(), typeof(Sprite)) as Sprite;
-                imageOther.sprite = imageChange;
+                imageNow.sprite = imageChange;
+                if (buttonLevel[_buttonNum % 3] > 0)
+                {
+                    imageOther = this.transform.GetChild(_buttonNum + 3).GetComponent<Image>();
+                    imageSend = imageSend - 2;
+                    Debug.Log("imageother" + imageSend);
+                    imageChange = Resources.Load("build" + imageSend.ToString(), typeof(Sprite)) as Sprite;
+                    imageOther.sprite = imageChange;
+                }
+                picNum[_buttonNum]++;
+
+                buttonLevel[_buttonNum % 3]++;
             }
-            picNum[_buttonNum]++;
-            
-            buttonLevel[_buttonNum%3]++;
-            
+            if (buttonLevel[_buttonNum % 3] > 0 && !buildChange)
+            {
+                picNum[_buttonNum] = 0;
+                imageSend = imageSend + picNum[_buttonNum];
+                Debug.Log(imageSend);
+                imageChange = Resources.Load("build" + imageSend.ToString(), typeof(Sprite)) as Sprite;
+                imageNow.sprite = imageChange;
+                if (buttonLevel[_buttonNum % 3] > 1)
+                {
+                    imageOther = this.transform.GetChild(_buttonNum + 3).GetComponent<Image>();
+                    imageSend = imageSend - 2;
+                    Debug.Log(imageSend);
+                    imageChange = Resources.Load("build" + imageSend.ToString(), typeof(Sprite)) as Sprite;
+                    imageOther.sprite = imageChange;
+                }
+                buttonLevel[_buttonNum % 3]--;
+                Debug.Log(buttonLevel[_buttonNum % 3]);
+            }
+
         }
         else
         {
