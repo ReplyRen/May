@@ -204,9 +204,10 @@ public class GridContent : MonoBehaviour
         grid.cells[i].status = 3;
         //grid.texts[i].enabled = true;
         //grid.images[i].enabled = true;
-        foreach (int j in TextAround)
+        for (int j=1;j<4;j++) 
         {
             if ((contents[j].con == Content.MResource) || (contents[j].con == Content.MElectric) || (contents[j].con == Content.MFirstAid)) k++;
+            if ((contents[j + 1].con == Content.MResource) || (contents[j + 1].con == Content.MElectric) || (contents[j + 1].con == Content.MFirstAid)) k++;
         }
         //grid.texts[i].text = k.ToString();
         switch (contents[i].con)
@@ -273,9 +274,10 @@ public class GridContent : MonoBehaviour
         grid.cells[i].status = 3;
         //grid.texts[i].enabled = true;
         //grid.images[i].enabled = true;
-        foreach (int j in TextAround)
+        for (int j = 1; j < 4; j++)
         {
             if ((contents[j].con == Content.MResource) || (contents[j].con == Content.MElectric) || (contents[j].con == Content.MFirstAid)) k++;
+            if ((contents[j + 1].con == Content.MResource) || (contents[j + 1].con == Content.MElectric) || (contents[j + 1].con == Content.MFirstAid)) k++;
         }
         //grid.texts[i].text = k.ToString();
         switch (contents[i].con)
