@@ -65,7 +65,6 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\BuildingUI.cs" />
     <Compile Include="Assets\Scripts\CameraController.cs" />
-    <Compile Include="Assets\Scripts\CoverMananger.cs" />
     <Compile Include="Assets\Scripts\Device.cs" />
     <Compile Include="Assets\Scripts\GridContent.cs" />
     <Compile Include="Assets\Scripts\HexCell.cs" />
