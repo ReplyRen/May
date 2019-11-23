@@ -1627,6 +1627,8 @@ MonoBehaviour:
   - {r: 0.2627451, g: 0.3372549, b: 0.2627451, a: 0}
   - {r: 1, g: 1, b: 1, a: 1}
   - {r: 0.42352942, g: 0.41960785, b: 0.3647059, a: 1}
+  - {r: 0.6039216, g: 0.69411767, b: 0.6039216, a: 1}
+  - {r: 0.627451, g: 0.49411765, b: 0.45490196, a: 1}
   width: 16
   height: 16
   cellPrefab: {fileID: 3844740888213779993, guid: 44af0cc17fdbfa74b9a9223e0e197114,
@@ -2959,7 +2961,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 2.4, y: -0.000025961963}
+  m_AnchoredPosition: {x: 2.4, y: -0.00003303017}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &508697412
@@ -6540,6 +6542,7 @@ MonoBehaviour:
   ITFImage: {fileID: 72217672}
   CloneImage: {fileID: 0}
   ProbeImage: {fileID: 0}
+  gridContent: {fileID: 0}
 --- !u!1 &1151208371
 GameObject:
   m_ObjectHideFlags: 0
@@ -8538,6 +8541,7 @@ MonoBehaviour:
   ITFImage: {fileID: 0}
   CloneImage: {fileID: 1106708143}
   ProbeImage: {fileID: 0}
+  gridContent: {fileID: 0}
 --- !u!1 &1447453899
 GameObject:
   m_ObjectHideFlags: 0
@@ -8754,6 +8758,7 @@ MonoBehaviour:
   ITFImage: {fileID: 72217672}
   CloneImage: {fileID: 1106708143}
   ProbeImage: {fileID: 775802103}
+  gridContent: {fileID: 0}
 --- !u!1 &1489069452
 GameObject:
   m_ObjectHideFlags: 0
@@ -10792,7 +10797,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 2.4, y: -0.000034817163}
+  m_AnchoredPosition: {x: 2.4, y: -0.000039035367}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1782393692
@@ -11673,7 +11678,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1908303340
 MonoBehaviour:
   m_ObjectHideFlags: 0

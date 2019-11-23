@@ -26,13 +26,15 @@ public class Device : MonoBehaviour
     public Image ITFImage;
     public Image CloneImage;
     public Image ProbeImage;
+    public GridContent gridContent;
     private void Awake()
     {
+        gridContent = GameObject.FindWithTag("Grid").GetComponent<GridContent>();
         if (gameObject.tag == "Probe")
         {
             panel.SetActive(false);
         }
-
+        
         player = GameObject.FindWithTag("Player").GetComponent<SolveInput>();
         text = gameObject.GetComponentInChildren<Text>();
         text.text = "";
@@ -131,7 +133,7 @@ public class Device : MonoBehaviour
                     break;
 
                 case "Elec":
-                    Debug.Log("寻找电力");
+                    Show("electric");
                     panel.SetActive(false);
                     panelBool = false;
                     inCooling = true;
@@ -140,7 +142,7 @@ public class Device : MonoBehaviour
                     player.locked = 0;
                     break;
                 case "Aid":
-                    Debug.Log("寻找医疗包");
+                    Show("firstaid");
                     panel.SetActive(false);
                     panelBool = false;
                     inCooling = true;
@@ -149,7 +151,7 @@ public class Device : MonoBehaviour
                     player.locked = 0;
                     break;
                 case "Dev":
-                    Debug.Log("寻找芯片");
+                    Show("chip");
                     panel.SetActive(false);
                     panelBool = false;
                     inCooling = true;
@@ -158,7 +160,7 @@ public class Device : MonoBehaviour
                     player.locked = 0;
                     break;
                 case "Mos":
-                    Debug.Log("寻找怪物");
+                    Show("monster");
                     panel.SetActive(false);
                     panelBool = false;
                     inCooling = true;
@@ -167,7 +169,7 @@ public class Device : MonoBehaviour
                     player.locked = 0;
                     break;
                 case "Res":
-                    Debug.Log("寻找资源");
+                    Show("resource");       
                     panel.SetActive(false);
                     panelBool = false;
                     inCooling = true;
@@ -225,6 +227,11 @@ public class Device : MonoBehaviour
     }
     void MutiContent(HexCell cell,int count)
     {
-        Debug.Log("double");
+        gridContent.Double(cell, count);
+    }
+    void Show(string type)
+    {
+        gridContent.TypePrint(type);
+        player.ChangeColor(gridContent.TypePrint(type),type);
     }
 }

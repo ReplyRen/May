@@ -326,4 +326,15 @@ public class SolveInput : MonoBehaviour
         cell.color = color;
         grid.hexMesh.Triangulate(grid.cells);
     }
+
+    public void ChangeColor(HexCell[] cells,string type)
+    {
+        if (type == "monster")
+        {
+            PrintArround(grid.CellColor[7], cells); 
+        }
+        else
+            PrintArround(grid.CellColor[6], cells);
+
+    }
 }
