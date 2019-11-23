@@ -1,4 +1,5 @@
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 Base path: D:/Program Files (x86)/2018.4.10f1/Editor/Data
 Cmd: initializeCompiler
 Cmd: initializeCompiler
@@ -7,6 +8,9 @@ Cmd: initializeCompiler
 Cmd: initializeCompiler
 Cmd: initializeCompiler
 Cmd: initializeCompiler
+=======
+Base path: C:/Program Files/Unity/Hub/Editor/2018.4.10f1/Editor/Data
+>>>>>>> Stashed changes
 =======
 Base path: C:/Program Files/Unity/Hub/Editor/2018.4.10f1/Editor/Data
 >>>>>>> Stashed changes
