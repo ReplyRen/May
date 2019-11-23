@@ -154,7 +154,7 @@ public class TipController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (status&&length>0&&tip.activeSelf)
+        if (status&&length>0&&!tip.activeSelf)
         {
             status = false;
             StartCoroutine(display(get()));
