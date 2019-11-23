@@ -19,8 +19,10 @@ public class Device : MonoBehaviour
     private int countDown;
     public GameObject panel;
     public GameObject select;
+    public GameObject inter;
     public bool panelBool = false;
     public bool selectBool = false;
+    public bool interBool = false;
     public Image ITFImage;
     public Image CloneImage;
     public Image ProbeImage;
@@ -50,6 +52,10 @@ public class Device : MonoBehaviour
         if (selectBool == true && gameObject.tag == "Clone")
         {
             CloneCheck();
+        }
+        if (interBool == true && gameObject.tag == "Interference")
+        {
+            InterCheck();
         }
 
 
@@ -100,6 +106,13 @@ public class Device : MonoBehaviour
                 selectBool = true;
                 select.SetActive(true);
                 CloneImage.enabled = true;
+            }
+            else if(gameObject.tag== "Interference")
+            {
+                player.locked = 3;
+                interBool = true;
+                inter.SetActive(true);
+                ITFImage.enabled = true;
             }
         }
     }
@@ -196,6 +209,19 @@ public class Device : MonoBehaviour
         result = null;
 
 
+    }
+    private void InterCheck()
+    {
+        string result = inter.GetComponent<Select>().result;
+        if (result == "fales")
+        {
+            inter.SetActive(false);
+            interBool = false;
+            ITFImage.enabled = false;
+            player.locked = 0;
+        }
+        inter.GetComponent<Select>().result = null;
+        result = null;
     }
     void MutiContent(HexCell cell,int count)
     {
