@@ -26,7 +26,12 @@ public class Device : MonoBehaviour
     public Image ITFImage;
     public Image CloneImage;
     public Image ProbeImage;
+    public GameObject ITFCountdownImage;
+    public GameObject cloneCountdownImage;
+    public GameObject probeCountdownImage;
     public GridContent gridContent;
+    public float duration = 12f;
+    private float timer = 0f;
     private void Awake()
     {
         gridContent = GameObject.FindWithTag("Grid").GetComponent<GridContent>();
@@ -44,6 +49,7 @@ public class Device : MonoBehaviour
         countDown = coolingCount;
         Unlock = true;
         inCooling = false;
+        timer = 0f;
     }
     private void Update()
     {
@@ -64,6 +70,7 @@ public class Device : MonoBehaviour
     }
     private void LateUpdate()
     {
+
         stepCount = player.footCount;
         if (Unlock)
         {
@@ -133,54 +140,23 @@ public class Device : MonoBehaviour
                     break;
 
                 case "Elec":
-                    Show("electric");
-                    panel.SetActive(false);
-                    panelBool = false;
-                    inCooling = true;
-                    countDown = coolingCount;
-                    ProbeImage.enabled = false;
-                    player.locked = 0;
+                    Probe("electric");
                     break;
                 case "Aid":
-                    Show("firstaid");
-                    panel.SetActive(false);
-                    panelBool = false;
-                    inCooling = true;
-                    countDown = coolingCount;
-                    ProbeImage.enabled = false;
-                    player.locked = 0;
+                    Probe("firstaid");
                     break;
                 case "Dev":
-                    Show("chip");
-                    panel.SetActive(false);
-                    panelBool = false;
-                    inCooling = true;
-                    countDown = coolingCount;
-                    ProbeImage.enabled = false;
-                    player.locked = 0;
+                    Probe("chip");
                     break;
                 case "Mos":
-                    Show("monster");
-                    panel.SetActive(false);
-                    panelBool = false;
-                    inCooling = true;
-                    countDown = coolingCount;
-                    ProbeImage.enabled = false;
-                    player.locked = 0;
+                    Probe("monster");
                     break;
                 case "Res":
-                    Show("resource");       
-                    panel.SetActive(false);
-                    panelBool = false;
-                    inCooling = true;
-                    countDown = coolingCount;
-                    ProbeImage.enabled = false;
-                    player.locked = 0;
+                    Probe("resource");
                     break;
 
             }
-            panel.GetComponent<Panel>().result = null;
-            result = null;
+
         }
 
     }
@@ -232,6 +208,33 @@ public class Device : MonoBehaviour
     void Show(string type)
     {
         gridContent.TypePrint(type);
-        player.ChangeColor(gridContent.TypePrint(type),type);
+        player.ShowColor(gridContent.TypePrint(type),type);
+    }
+    void Unshow(string type)
+    {
+        gridContent.TypeLost();
+        player.UnshowColor(gridContent.TypePrint(type));
+    }
+    void Probe(string type)
+    {
+        timer += Time.deltaTime;
+        Show(type);
+        player.locked = 0;
+        panel.SetActive(false);
+        ProbeImage.enabled = false;
+        probeCountdownImage.SetActive(true);
+        probeCountdownImage.GetComponentInChildren<Text>().text = ((int)(duration - timer)).ToString() + "s";
+        Debug.Log(timer);
+        if (timer > duration)
+        {
+            Unshow(type);
+
+            inCooling = true;
+            countDown = coolingCount;
+            panelBool = false;
+            probeCountdownImage.SetActive(false);
+            panel.GetComponent<Panel>().result = null;
+            timer = 0f;
+        }
     }
 }
