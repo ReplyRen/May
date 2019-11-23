@@ -7,7 +7,7 @@ public class Device : MonoBehaviour
 {
     public Sprite Unlocked;
     public Sprite Cooling;
-    public bool Unlock=false;
+    public bool Unlock = false;
     public bool inCooling;
     public int Count;
     public Text text;
@@ -18,7 +18,9 @@ public class Device : MonoBehaviour
     private int lastStepCount;
     private int countDown;
     public GameObject panel;
-    public bool panelBool=false;
+    public GameObject select;
+    public bool panelBool = false;
+    public bool selectBool = false;
     public Image ITFImage;
     public Image CloneImage;
     public Image ProbeImage;
@@ -26,7 +28,7 @@ public class Device : MonoBehaviour
     {
         if (gameObject.tag == "Probe")
         {
-             panel.SetActive(false);
+            panel.SetActive(false);
         }
 
         player = GameObject.FindWithTag("Player").GetComponent<SolveInput>();
@@ -41,10 +43,15 @@ public class Device : MonoBehaviour
     }
     private void Update()
     {
-        if (panelBool == true)
+        if (panelBool == true && gameObject.tag == "Probe")
         {
             ProbeCheck();
         }
+        if (selectBool == true && gameObject.tag == "Clone")
+        {
+            CloneCheck();
+        }
+
 
     }
     private void LateUpdate()
@@ -67,12 +74,12 @@ public class Device : MonoBehaviour
                 myImage.sprite = Unlocked;
             }
         }
-        
+
         lastStepCount = player.footCount;
     }
     private void OnClick()
     {
-  
+
         if (!Unlock)
             Debug.Log("装置未解锁");
         else if (inCooling)
@@ -90,6 +97,8 @@ public class Device : MonoBehaviour
             else if (gameObject.tag == "Clone")
             {
                 player.locked = 1;
+                selectBool = true;
+                select.SetActive(true);
                 CloneImage.enabled = true;
             }
         }
@@ -153,12 +162,43 @@ public class Device : MonoBehaviour
                     ProbeImage.enabled = false;
                     player.locked = 0;
                     break;
-                    
+
             }
             panel.GetComponent<Panel>().result = null;
             result = null;
         }
 
     }
+    private void CloneCheck()
+    {
+        string result = select.GetComponent<Select>().result;
+        if (result == "false")
+        {
+            select.SetActive(false);
+            selectBool = false;
+            CloneImage.enabled = false;
+            player.locked = 0;
+        }
+        else if (result == "true")
+        {
+            if (player.cloneCell != null)
+            {
+                MutiContent(player.cloneCell, 2);
+                
+                select.SetActive(false);
+                selectBool = false;
+                CloneImage.enabled = false;
+                player.locked = 0;
+                player.cloneCell = null;
+            }
+        }
+        select.GetComponent<Select>().result = null;
+        result = null;
 
+
+    }
+    void MutiContent(HexCell cell,int count)
+    {
+        Debug.Log("double");
+    }
 }

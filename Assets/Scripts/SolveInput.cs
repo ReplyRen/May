@@ -10,7 +10,7 @@ public class SolveInput : MonoBehaviour
     //这是处理点击事件的脚本，现在点击单元格会变色
     public GameObject start;//摄像头赋值
     public float speed;//摄像头移动速度
-    private HexCell CurrentCell, NextCell,Cell;//存当前格和下一个格
+    private HexCell CurrentCell, NextCell, Cell;//存当前格和下一个格
     private HexCell[] CurrentCellAround = new HexCell[18];//存当前周围格
     private HexCell[] NextCellAround = new HexCell[18];//存下一个周围格
     private CameraController camera;
@@ -40,6 +40,9 @@ public class SolveInput : MonoBehaviour
     private MyInput myInput;
     public int footCount = 0;
     public int locked = 0;
+    Vector3 lastHitPoint;
+    public HexCell cloneCell;
+    public Image muti;
     private void Awake()
     {
         locked = 0;
@@ -88,35 +91,43 @@ public class SolveInput : MonoBehaviour
         CurrentCell = grid.cells[index];
         CurrentCell.color = grid.CellColor[1];
         grid.hexMesh.Triangulate(grid.cells);
-        UpdateArround(CurrentCell,CurrentCellAround,CurrentTextAround);
+        UpdateArround(CurrentCell, CurrentCellAround, CurrentTextAround);
         PrintArround(grid.CellColor[2], CurrentCellAround);
 
         playerPos = grid.cells[index].transform.position;
         //方政言加，为实现网格内容探测
         CurrentText = index;
-        gridcontent.start(CurrentText,CurrentTextAround);
+        gridcontent.start(CurrentText, CurrentTextAround);
         gridcontent.detectAround(CurrentTextAround);
         //方政言加end
     }
 
     private void Update()
     {
+        if (locked == 1)
+        {
+            SelectCell(lastHitPoint);
+            if (myInput.isButtonDown)
+            {
+                HandleInput();
+            }
+        }
         if (myInput.isButtonDown)
         {
             HandleInput();
         }
         //于沛琦加,绑定地图探索text
-        int GridSum = grid.width * grid.height - 2 * (grid.width + grid.height-2);
+        int GridSum = grid.width * grid.height - 2 * (grid.width + grid.height - 2);
         MapRate = (double)StepCount / GridSum;
         ExplorePic.fillAmount = (float)MapRate;
-        MapRate = MapRate*100.0;
-        MapExplore.text = MapRate.ToString("0.00")+"%";
+        MapRate = MapRate * 100.0;
+        MapExplore.text = MapRate.ToString("0.00") + "%";
         CheckRate();
         //于沛琦加end
     }
     private void CheckRate()
     {
-        if (RateFlag[0]==1 && MapRate >= 1.0)
+        if (RateFlag[0] == 1 && MapRate >= 1.0)
         {
             RateFlag[0] = 0;
             targetpos = grid.cells[gridcontent.Portal].transform.position;
@@ -139,68 +150,16 @@ public class SolveInput : MonoBehaviour
     {
         Ray inputRay = Camera.main.ScreenPointToRay(myInput.position);
         RaycastHit hit;
-        if(Physics.Raycast(inputRay,out hit)&&locked==0)
+        if (Physics.Raycast(inputRay, out hit) && locked == 0)
         {
             TouchCell(hit.point);
         }
-        else if(Physics.Raycast(inputRay, out hit) && locked == 1)
+        if (Physics.Raycast(inputRay, out hit) && locked == 1)
         {
-            SelectCell(hit.point);
+            CloneCell(hit.point);
         }
     }
     void TouchCell(Vector3 position)
-    {
-        HexCoordinates coordinates = HexCoordinates.FromPosition(position);
-        HexCell cell = FindCell(coordinates);
- 
-        //保存保存下一格数据，方便对比
-        NextCell = cell;
-        //判断点击格是否是当前格的周围且不能是当前格
-        if (((Mathf.Abs(NextCell.coordinates.X - CurrentCell.coordinates.X) + Mathf.Abs(NextCell.coordinates.Y - CurrentCell.coordinates.Y) + Mathf.Abs(NextCell.coordinates.Z - CurrentCell.coordinates.Z)) < 3)
-            &&((NextCell.coordinates.X!=CurrentCell.coordinates.X)|| (NextCell.coordinates.Z != CurrentCell.coordinates.Z) || (NextCell.coordinates.Y != CurrentCell.coordinates.Y)))
-        {
-            //if (NextCell.coordinates.X> Math.Ceiling((double)-NextCell.coordinates.Z/2)&& NextCell.coordinates.X < Math.Ceiling((double)16 -NextCell.coordinates.Z / 2)-1
-            //    && NextCell.coordinates.Z>0&& NextCell.coordinates.Z<grid.height-1)
-            //{
-                footCount++;
-                //走到新格子就加一
-                if (NextCell.status != 3) StepCount++;
-
-                cell.color = grid.CellColor[1];
-                grid.hexMesh.Triangulate(grid.cells);//以新的颜色重新渲染单元格，每一次只要需要改变格子颜色
-                                                     //都需要这句话来重新渲染
-                playerPos = cell.transform.position;
-                //使被点击格与摄像头Y轴一致并移动
-                //Vector3 CellPos = cell.transform.position;
-                //CellPos.y = start.transform.position.y;
-                //Debug.Log(CellPos);
-
-                //移动
-                //start.transform.position = Vector3.MoveTowards(start.transform.position, CellPos, speed * Time.deltaTime); ;
-                //更新当前格
-                PrintArround(grid.CellColor[0], CurrentCellAround);
-                UpdateArround(NextCell, NextCellAround, NextTextAround);
-                PrintArround(grid.CellColor[2], NextCellAround);
-                PrintCell(grid.CellColor[3], CurrentCell);
-                CurrentCell = NextCell;
-
-                //方政言加，为实现网格内容探测
-                //gridcontent.CoroutineStop();
-                gridcontent.lostAround(CurrentTextAround);
-                gridcontent.pass(NextText, NextTextAround);
-                gridcontent.detectAround(NextTextAround);
-                grid.texts[CurrentText].enabled = false;
-                gridcontent.JudgePortal(CurrentText);
-                CurrentText = NextText;
-                Message.IncidentCheck(gridcontent.contents[CurrentText].con, StepCount);
-                //方政言加end
-
-                UpdateArround(CurrentCell, CurrentCellAround, CurrentTextAround);
-                PrintCell(grid.CellColor[1], CurrentCell);
-            //}
-        }
-    }
-    void SelectCell(Vector3 position)
     {
         HexCoordinates coordinates = HexCoordinates.FromPosition(position);
         HexCell cell = FindCell(coordinates);
@@ -211,17 +170,72 @@ public class SolveInput : MonoBehaviour
         if (((Mathf.Abs(NextCell.coordinates.X - CurrentCell.coordinates.X) + Mathf.Abs(NextCell.coordinates.Y - CurrentCell.coordinates.Y) + Mathf.Abs(NextCell.coordinates.Z - CurrentCell.coordinates.Z)) < 3)
             && ((NextCell.coordinates.X != CurrentCell.coordinates.X) || (NextCell.coordinates.Z != CurrentCell.coordinates.Z) || (NextCell.coordinates.Y != CurrentCell.coordinates.Y)))
         {
+            //if (NextCell.coordinates.X> Math.Ceiling((double)-NextCell.coordinates.Z/2)&& NextCell.coordinates.X < Math.Ceiling((double)16 -NextCell.coordinates.Z / 2)-1
+            //    && NextCell.coordinates.Z>0&& NextCell.coordinates.Z<grid.height-1)
+            //{
+            lastHitPoint = position;
+            footCount++;
+            //走到新格子就加一
+            if (NextCell.status != 3) StepCount++;
+
+            cell.color = grid.CellColor[1];
+            grid.hexMesh.Triangulate(grid.cells);//以新的颜色重新渲染单元格，每一次只要需要改变格子颜色
+                                                 //都需要这句话来重新渲染
+            playerPos = cell.transform.position;
+            //使被点击格与摄像头Y轴一致并移动
+            //Vector3 CellPos = cell.transform.position;
+            //CellPos.y = start.transform.position.y;
+            //Debug.Log(CellPos);
+
+            //移动
+            //start.transform.position = Vector3.MoveTowards(start.transform.position, CellPos, speed * Time.deltaTime); ;
             //更新当前格
             PrintArround(grid.CellColor[0], CurrentCellAround);
             UpdateArround(NextCell, NextCellAround, NextTextAround);
-            PrintArround(grid.CellColor[5], NextCellAround);
+            PrintArround(grid.CellColor[2], NextCellAround);
             PrintCell(grid.CellColor[3], CurrentCell);
             CurrentCell = NextCell;
+
+            //方政言加，为实现网格内容探测
+            //gridcontent.CoroutineStop();
+            gridcontent.lostAround(CurrentTextAround);
+            gridcontent.pass(NextText, NextTextAround);
+            gridcontent.detectAround(NextTextAround);
+            grid.texts[CurrentText].enabled = false;
+            gridcontent.JudgePortal(CurrentText);
+            CurrentText = NextText;
+            Message.IncidentCheck(gridcontent.contents[CurrentText].con, StepCount);
+            //方政言加end
 
             UpdateArround(CurrentCell, CurrentCellAround, CurrentTextAround);
             PrintCell(grid.CellColor[1], CurrentCell);
             //}
         }
+    }
+    void CloneCell(Vector3 position)
+    {
+        HexCoordinates coordinates = HexCoordinates.FromPosition(position);
+        HexCell cell = FindCell(coordinates);
+        if (((Mathf.Abs(cell.coordinates.X - CurrentCell.coordinates.X) + Mathf.Abs(cell.coordinates.Y - CurrentCell.coordinates.Y) + Mathf.Abs(cell.coordinates.Z - CurrentCell.coordinates.Z)) < 3)
+    && ((cell.coordinates.X != CurrentCell.coordinates.X) || (cell.coordinates.Z != CurrentCell.coordinates.Z) || (cell.coordinates.Y != CurrentCell.coordinates.Y)))
+        {
+            cloneCell = cell;
+            muti.transform.position = cell.transform.position;
+        }
+    }
+    void SelectCell(Vector3 position)
+    {
+        HexCoordinates coordinates = HexCoordinates.FromPosition(position);
+        HexCell cell = FindCell(coordinates);
+        //判断点击格是否是当前格的周围且不能是当前格
+        //if (((Mathf.Abs(NextCell.coordinates.X - CurrentCell.coordinates.X) + Mathf.Abs(NextCell.coordinates.Y - CurrentCell.coordinates.Y) + Mathf.Abs(NextCell.coordinates.Z - CurrentCell.coordinates.Z)) < 3)
+        //    && ((NextCell.coordinates.X != CurrentCell.coordinates.X) || (NextCell.coordinates.Z != CurrentCell.coordinates.Z) || (NextCell.coordinates.Y != CurrentCell.coordinates.Y)))
+        //{
+        //更新当前格
+        HexCell[] cells = oneArround(cell);
+            PrintArround(grid.CellColor[5], cells);
+            //}
+        //}
     }
     /// <summary>
     /// 通过coordinates寻找cell
@@ -236,9 +250,9 @@ public class SolveInput : MonoBehaviour
         return cell;
     }
 
-    void UpdateArround(HexCell cell, HexCell[] CellAround,int[] TextAround)//更新周围格
+    void UpdateArround(HexCell cell, HexCell[] CellAround, int[] TextAround)//更新周围格
     {
-        int[] index=new int[18];
+        int[] index = new int[18];
         index[0] = cell.coordinates.X - 2 + (cell.coordinates.Z + 2) * grid.width + (cell.coordinates.Z + 2) / 2;
         index[1] = cell.coordinates.X - 2 + (cell.coordinates.Z + 1) * grid.width + (cell.coordinates.Z + 1) / 2;
         index[2] = cell.coordinates.X - 2 + (cell.coordinates.Z) * grid.width + (cell.coordinates.Z) / 2;
@@ -248,10 +262,10 @@ public class SolveInput : MonoBehaviour
         index[5] = cell.coordinates.X - 1 + (cell.coordinates.Z + 1) * grid.width + (cell.coordinates.Z + 1) / 2;
         index[6] = cell.coordinates.X - 1 + (cell.coordinates.Z + 2) * grid.width + (cell.coordinates.Z + 2) / 2;
 
-        index[7] = cell.coordinates.X + (cell.coordinates.Z -2) * grid.width + (cell.coordinates.Z -2) / 2;
+        index[7] = cell.coordinates.X + (cell.coordinates.Z - 2) * grid.width + (cell.coordinates.Z - 2) / 2;
         index[8] = cell.coordinates.X + (cell.coordinates.Z - 1) * grid.width + (cell.coordinates.Z - 1) / 2;
-        index[9] = cell.coordinates.X + (cell.coordinates.Z + 1) * grid.width + (cell.coordinates.Z +1) / 2;
-        index[10] = cell.coordinates.X + (cell.coordinates.Z +2) * grid.width + (cell.coordinates.Z +2) / 2;
+        index[9] = cell.coordinates.X + (cell.coordinates.Z + 1) * grid.width + (cell.coordinates.Z + 1) / 2;
+        index[10] = cell.coordinates.X + (cell.coordinates.Z + 2) * grid.width + (cell.coordinates.Z + 2) / 2;
 
         index[11] = cell.coordinates.X + 1 + (cell.coordinates.Z - 2) * grid.width + (cell.coordinates.Z - 2) / 2;
         index[12] = cell.coordinates.X + 1 + (cell.coordinates.Z - 1) * grid.width + (cell.coordinates.Z - 1) / 2;
@@ -274,7 +288,26 @@ public class SolveInput : MonoBehaviour
             }
         }
     }
-    void PrintArround(Color color,HexCell[] CellAround)//对周围格子涂色
+    HexCell[] oneArround(HexCell cell)
+    {
+        int[] index = new int[6];
+        index[0] = cell.coordinates.X - 1 + (cell.coordinates.Z + 1) * grid.width + (cell.coordinates.Z + 1) / 2;
+        index[1] = cell.coordinates.X - 1 + (cell.coordinates.Z) * grid.width + (cell.coordinates.Z) / 2;
+        index[2] = cell.coordinates.X + (cell.coordinates.Z + 1) * grid.width + (cell.coordinates.Z + 1) / 2;
+        index[3] = cell.coordinates.X + (cell.coordinates.Z - 1) * grid.width + (cell.coordinates.Z - 1) / 2;
+        index[4] = cell.coordinates.X + 1 + (cell.coordinates.Z) * grid.width + (cell.coordinates.Z) / 2;
+        index[5] = cell.coordinates.X + 1 + (cell.coordinates.Z - 1) * grid.width + (cell.coordinates.Z - 1) / 2;
+        HexCell[] CellAround = new HexCell[6];
+        for (int item = 0; item < 6; item++)
+        {
+            if (index[item] >= 0 && index[item] <= grid.height * grid.width)
+            {
+                CellAround[item] = grid.cells[(int)index[item]];
+            }
+        }
+        return CellAround;
+    }
+    void PrintArround(Color color, HexCell[] CellAround)//对周围格子涂色
     {
         foreach (HexCell cell in CellAround)
         {
@@ -288,7 +321,7 @@ public class SolveInput : MonoBehaviour
         }
         grid.hexMesh.Triangulate(grid.cells);
     }
-    void PrintCell(Color color,HexCell cell)//对单个格涂色
+    void PrintCell(Color color, HexCell cell)//对单个格涂色
     {
         cell.color = color;
         grid.hexMesh.Triangulate(grid.cells);
