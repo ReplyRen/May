@@ -233,8 +233,8 @@ public class SolveInput : MonoBehaviour
         //{
         //更新当前格
         HexCell[] cells = oneArround(cell);
-            PrintArround(grid.CellColor[5], cells);
-            //}
+        PrintArround(grid.CellColor[5], cells);
+        //}
         //}
     }
     /// <summary>
@@ -257,24 +257,24 @@ public class SolveInput : MonoBehaviour
         index[1] = cell.coordinates.X - 2 + (cell.coordinates.Z + 1) * grid.width + (cell.coordinates.Z + 1) / 2;
         index[2] = cell.coordinates.X - 2 + (cell.coordinates.Z) * grid.width + (cell.coordinates.Z) / 2;
 
-        index[3] = cell.coordinates.X - 1 + (cell.coordinates.Z - 1) * grid.width + (cell.coordinates.Z - 1) / 2;
-        index[4] = cell.coordinates.X - 1 + (cell.coordinates.Z) * grid.width + (cell.coordinates.Z) / 2;
-        index[5] = cell.coordinates.X - 1 + (cell.coordinates.Z + 1) * grid.width + (cell.coordinates.Z + 1) / 2;
-        index[6] = cell.coordinates.X - 1 + (cell.coordinates.Z + 2) * grid.width + (cell.coordinates.Z + 2) / 2;
+        index[3] = cell.coordinates.X - 1 + (cell.coordinates.Z + 2) * grid.width + (cell.coordinates.Z + 2) / 2;
+        index[4] = cell.coordinates.X - 1 + (cell.coordinates.Z + 1) * grid.width + (cell.coordinates.Z + 1) / 2;
+        index[5] = cell.coordinates.X - 1 + (cell.coordinates.Z) * grid.width + (cell.coordinates.Z) / 2;
+        index[6] = cell.coordinates.X - 1 + (cell.coordinates.Z - 1) * grid.width + (cell.coordinates.Z - 1) / 2;
 
-        index[7] = cell.coordinates.X + (cell.coordinates.Z - 2) * grid.width + (cell.coordinates.Z - 2) / 2;
-        index[8] = cell.coordinates.X + (cell.coordinates.Z - 1) * grid.width + (cell.coordinates.Z - 1) / 2;
-        index[9] = cell.coordinates.X + (cell.coordinates.Z + 1) * grid.width + (cell.coordinates.Z + 1) / 2;
-        index[10] = cell.coordinates.X + (cell.coordinates.Z + 2) * grid.width + (cell.coordinates.Z + 2) / 2;
+        index[7] = cell.coordinates.X + (cell.coordinates.Z + 2) * grid.width + (cell.coordinates.Z + 2) / 2;
+        index[8] = cell.coordinates.X + (cell.coordinates.Z + 1) * grid.width + (cell.coordinates.Z + 1) / 2;
+        index[9] = cell.coordinates.X + (cell.coordinates.Z - 1) * grid.width + (cell.coordinates.Z - 1) / 2;
+        index[10] = cell.coordinates.X + (cell.coordinates.Z - 2) * grid.width + (cell.coordinates.Z - 2) / 2;
 
-        index[11] = cell.coordinates.X + 1 + (cell.coordinates.Z - 2) * grid.width + (cell.coordinates.Z - 2) / 2;
-        index[12] = cell.coordinates.X + 1 + (cell.coordinates.Z - 1) * grid.width + (cell.coordinates.Z - 1) / 2;
-        index[13] = cell.coordinates.X + 1 + (cell.coordinates.Z) * grid.width + (cell.coordinates.Z) / 2;
-        index[14] = cell.coordinates.X + 1 + (cell.coordinates.Z + 1) * grid.width + (cell.coordinates.Z + 1) / 2;
+        index[11] = cell.coordinates.X + 1 + (cell.coordinates.Z + 1) * grid.width + (cell.coordinates.Z + 1) / 2;
+        index[12] = cell.coordinates.X + 1 + (cell.coordinates.Z) * grid.width + (cell.coordinates.Z) / 2;
+        index[13] = cell.coordinates.X + 1 + (cell.coordinates.Z - 1) * grid.width + (cell.coordinates.Z - 1) / 2;
+        index[14] = cell.coordinates.X + 1 + (cell.coordinates.Z - 2) * grid.width + (cell.coordinates.Z - 2) / 2;
 
-        index[15] = cell.coordinates.X + 2 + (cell.coordinates.Z - 2) * grid.width + (cell.coordinates.Z - 2) / 2;
+        index[15] = cell.coordinates.X + 2 + (cell.coordinates.Z) * grid.width + (cell.coordinates.Z) / 2;
         index[16] = cell.coordinates.X + 2 + (cell.coordinates.Z - 1) * grid.width + (cell.coordinates.Z - 1) / 2;
-        index[17] = cell.coordinates.X + 2 + (cell.coordinates.Z) * grid.width + (cell.coordinates.Z) / 2;
+        index[17] = cell.coordinates.X + 2 + (cell.coordinates.Z - 2) * grid.width + (cell.coordinates.Z - 2) / 2;
 
 
         for (int item = 0; item < 18; item++)

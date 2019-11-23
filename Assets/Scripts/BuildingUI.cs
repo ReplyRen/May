@@ -82,30 +82,30 @@ public class BuildingUI : MonoBehaviour
         ResourceText.text = player_Resource.ToString();
         ElectricText.text = player_Electric.ToString();
         /*装置图标切换*/
-        if (buttonLevel[0] > 0)
-        {
-            GameObject.FindWithTag("Interference").GetComponent<Device>().Unlock = false;
-        }
-        else
-        {
-            GameObject.FindWithTag("Interference").GetComponent<Device>().Unlock = true;
-        }
-        if (buttonLevel[1] > 0)
-        {
-            GameObject.FindWithTag("Clone").GetComponent<Device>().Unlock = true;
-        }
-        else
-        {
-            GameObject.FindWithTag("Clone").GetComponent<Device>().Unlock = true;
-        }
-        if (buttonLevel[2] > 0)
-        {
-            GameObject.FindWithTag("Probe").GetComponent<Device>().Unlock = true;
-        }
-        else
-        {
-            GameObject.FindWithTag("Probe").GetComponent<Device>().Unlock = true;
-        }
+        //if (buttonLevel[0] > 0)
+        //{
+        //    GameObject.FindWithTag("Interference").GetComponent<Device>().Unlock = false;
+        //}
+        //else
+        //{
+        //    GameObject.FindWithTag("Interference").GetComponent<Device>().Unlock = true;
+        //}
+        //if (buttonLevel[1] > 0)
+        //{
+        //    GameObject.FindWithTag("Clone").GetComponent<Device>().Unlock = true;
+        //}
+        //else
+        //{
+        //    GameObject.FindWithTag("Clone").GetComponent<Device>().Unlock = true;
+        //}
+        //if (buttonLevel[2] > 0)
+        //{
+        //    GameObject.FindWithTag("Probe").GetComponent<Device>().Unlock = true;
+        //}
+        //else
+        //{
+        //    GameObject.FindWithTag("Probe").GetComponent<Device>().Unlock = true;
+        //}
     }
 
     /// <summary>
