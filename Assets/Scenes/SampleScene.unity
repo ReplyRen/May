@@ -3011,6 +3011,7 @@ MonoBehaviour:
   hexgrid: {fileID: 338540937}
   Scroll: {fileID: 418485226}
   tip: {fileID: 176081677}
+  wait: 45
   FlagsControll: 
 --- !u!4 &505346289
 Transform:
@@ -3074,7 +3075,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 2.4, y: -0.00003303017}
+  m_AnchoredPosition: {x: 2.4, y: -0.000013490008}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &508697412
@@ -5234,8 +5235,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 173.0043, y: 39.000977}
-  m_SizeDelta: {x: 200, y: 200}
+  m_AnchoredPosition: {x: 173.0043, y: 38.2}
+  m_SizeDelta: {x: 200, y: 189.4}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &889120577
 MonoBehaviour:

@@ -79,7 +79,7 @@ public class MessageManager : MonoBehaviour
     //[HideInInspector]
     public queue line;
     [HideInInspector]
-    public int status;//0为演出空闲，可演出新剧情，1为剧情演出中
+    public int status;//0为演出空闲，可演出新剧情，1为剧情演出中,2为等待选择
     StreamReader sr;
     public Text scrolltext;
     public GameObject PickMessage;
@@ -98,6 +98,10 @@ public class MessageManager : MonoBehaviour
     public TipController tip;
     [HideInInspector]
     public int[][][] NodeTable;
+    public int wait;
+    private int waitting;
+    string[] str;
+    int strnum;
 
     public int[] FlagsControll;//[0]为是否到过portal,[1]为到过的任务点个数
 
@@ -152,83 +156,68 @@ public class MessageManager : MonoBehaviour
         sr.Close();
         fs.Close();
     }
+    
 
-    IEnumerator Display(int x)
+    private void getwords(int x)
     {
         FileStream fs = new FileStream("Assets/text/1/" + x.ToString() + ".txt", FileMode.Open, FileAccess.Read);
         sr = new StreamReader(fs, System.Text.Encoding.GetEncoding("gb2312"));
-        string str = String.Empty;
-        while ((str = sr.ReadLine()) != null)
-        {
-            Scroll.value = 0;
-            yield return new WaitForSeconds(1f);
-            Text message = Instantiate<Text>(scrolltext);
-            message.text = str;
-            message.rectTransform.SetParent(PickMessage.transform, false);
-            Scroll.value = 0;
-        }
+        string words = String.Empty;
+        words = sr.ReadToEnd();
+        str = words.Split('\n');
         sr.Close();
         fs.Close();
 
-        int n = 0;
-        int t = x;
-        while (t >= 1000)
-        {
-            t -= 1000;
-            n++;
-        }
-        if (NodeTable[n][t][1] == 1)
-            OneButtonDisplay(x);
-        else if (NodeTable[n][t][1] == 2)
-            TwoButtonDisplay(x);
-        else if(NodeTable[n][t][1] == 0)
-        {
-            lastnode = line.delete();
-            status = 0;
-            if (lastnode == 1009)
-                tip.insert3014();
-        }
-        /*
-        switch (x)
-        {
-            case 1001:
-            case 1003:
-            case 1004:
-            case 1005:
-            case 1006:
-            case 1010:
-            case 1013:
-            case 1014:
-            case 1017:
-            case 1021:
-            case 1022:
-            case 1023:
-            case 1026:
-            case 1028:
-            case 1031:
-            case 1032:
-            case 1033:
-            case 1034:
-            case 1035:
-            case 1036:
-            case 1039:
-            case 1042:
-            case 1043:
-            case 1044: TwoButtonDisplay(x); break;
-            case 1002:
-            case 1007:
-            case 1008:
-            case 1011:
-            case 1012:
-            case 1018:
-            case 1019:
-            case 1037:
-            case 1038:
-            case 1046: OneButtonDisplay(x); break;
-            default: lastnode = line.delete(); status = 0; break;
-        }
-        */
+        strnum = 0;
+        waitting = 0;
     }
+    private void printwords()
+    {
+        waitting++;
+        if (waitting >= wait)
+        {
+            waitting = 0;
+            
+            if (strnum < str.Length)
+            {
+                Scroll.value = 0;
+                Text text = Instantiate<Text>(scrolltext);
+                text.text = str[strnum];
+                strnum++;
+                text.rectTransform.SetParent(PickMessage.transform, false);
+                Scroll.value = 0;
+            }
+            else
+            {
+                int n = 0;
+                int x = line.get();
+                int t = line.get();
+                while (t >= 1000)
+                {
+                    t -= 1000;
+                    n++;
+                }
+                if (NodeTable[n][t][1] == 1)
+                {
+                    status = 2;
+                    OneButtonDisplay(x);
+                }
+                else if (NodeTable[n][t][1] == 2)
+                {
+                    status = 2;
+                    TwoButtonDisplay(x);
+                }
+                else if (NodeTable[n][t][1] == 0)
+                {
+                    lastnode = line.delete();
+                    status = 0;
+                    if (lastnode == 1009)
+                        tip.insert3014();
+                }
+            }
+        }
+    }
+
 
     public void TwoButtonDisplay(int x)
     {
@@ -280,46 +269,6 @@ public class MessageManager : MonoBehaviour
             n++;
         }
         line.change(NodeTable[n][t][2]);
-        /*
-        switch (x)
-        {
-            case 1001: line.change(1002); break;
-            case 1003: line.change(1004); break;
-            case 1004: line.change(1005); break;
-            case 1005:
-            case 1006: line.change(1007); break;
-            case 1010: line.change(1011); break;
-            case 1013: line.change(1014); break;
-            case 1014: line.change(1015); break;
-            case 1017: line.change(1018); break;
-            case 1021: line.change(1022); break;
-            case 1022: 
-            case 1023: line.change(1024); break;
-            case 1026: line.change(1027); break;
-            case 1028: line.change(1029); break;
-            case 1031: line.change(1032); break;
-            case 1032: line.change(1033); break;
-            case 1033: line.change(1034); break;
-            case 1034: line.change(1036); break;
-            case 1035: line.change(1036); break;
-            case 1036: line.change(1037); break;
-            case 1039: line.change(1040); break;
-            case 1042: line.change(1043); break;
-            case 1043: line.change(1044); break;
-            case 1044: line.change(1045); break;
-            case 1002:
-            case 1007:
-            case 1008:
-            case 1011:
-            case 1012:
-            case 1018:
-            case 1019:
-            case 1037:
-            case 1038:
-            case 1046: break;
-            default: lastnode = line.delete(); break;
-        }
-        */
         status = 0;
         twochoice.SetActive(false);
     }
@@ -334,46 +283,7 @@ public class MessageManager : MonoBehaviour
             n++;
         }
         line.change(NodeTable[n][t][3]);
-        /*
-        switch (x)
-        {
-            case 1001: line.change(1002); break;
-            case 1003: line.change(1004); break;
-            case 1004: line.change(1006); break;
-            case 1005:
-            case 1006: line.change(1008); break;
-            case 1010: line.change(1012); break;
-            case 1013: line.change(1014); break;
-            case 1014: line.change(1016); break;
-            case 1017: line.change(1019); break;
-            case 1021: line.change(1023); break;
-            case 1022: line.change(1025); break;
-            case 1023: line.change(1025); break;
-            case 1026: line.change(1028); break;
-            case 1028: line.change(1030); break;
-            case 1031: line.change(1042); break;
-            case 1032: line.change(1033); break;
-            case 1033: line.change(1035); break;
-            case 1034: line.change(1036); break;
-            case 1035: line.change(1036); break;
-            case 1036: line.change(1038); break;
-            case 1039: line.change(1041); break;
-            case 1042: line.change(1046); break;
-            case 1043: line.change(1047); break;
-            case 1044: line.change(1048); break;
-            case 1002:
-            case 1007:
-            case 1008:
-            case 1011:
-            case 1012:
-            case 1018:
-            case 1019:
-            case 1037:
-            case 1038:
-            case 1046: break;
-            default: lastnode = line.delete(); break;
-        }
-        */
+        
         status = 0;
         twochoice.SetActive(false);
     }
@@ -389,46 +299,7 @@ public class MessageManager : MonoBehaviour
             n++;
         }
         line.change(NodeTable[n][t][2]);
-        /*
-        switch (x)
-        {
-            case 1001: 
-            case 1003: 
-            case 1004: 
-            case 1005:
-            case 1006: 
-            case 1010: 
-            case 1013: 
-            case 1014: 
-            case 1017: 
-            case 1021: 
-            case 1022: 
-            case 1023: 
-            case 1026: 
-            case 1028:
-            case 1031: 
-            case 1032: 
-            case 1033: 
-            case 1034: 
-            case 1035:
-            case 1036: 
-            case 1039: 
-            case 1042: 
-            case 1043: 
-            case 1044: break;
-            case 1002: line.change(1003); break;
-            case 1007: line.change(1009); break;
-            case 1008: line.change(1009); break;
-            case 1011: line.change(1013); break;
-            case 1012: line.change(1013); break;
-            case 1018: line.change(1020); break;
-            case 1019: line.change(1020); break;
-            case 1037: line.change(1039); break;
-            case 1038: line.change(1039); break;
-            case 1046: line.change(1033); break;
-            default: line.delete(); break;
-        }
-        */
+        
         status = 0;
         onechoice.SetActive(false);
     }
@@ -488,13 +359,9 @@ public class MessageManager : MonoBehaviour
                 sr.Close();
                 line.delete();
             }
-            else if (x > 1000 && x < 2000)
+            else if (x > 1000 && x < 3000)
             {
-                StartCoroutine("Display",line.get());
-            }
-            else if (x > 2000 && x < 3000)
-            {
-                StartCoroutine("Display", line.get());
+                getwords(line.get());
             }
             else if (x > 3000 && x < 4000)
             {
@@ -504,6 +371,11 @@ public class MessageManager : MonoBehaviour
             {
 
             }
+        }
+        else if (status == 1 && line.length != 0)
+        {
+            printwords();
+
         }
         else if (line.length == 0 && status == 1)//无剧情时
         {
