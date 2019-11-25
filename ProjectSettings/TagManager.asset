@@ -21,6 +21,7 @@ TagManager:
   - ExplorePic
   - ProbePanel
   - OP
+  - BMainCamera
   layers:
   - Default
   - TransparentFX

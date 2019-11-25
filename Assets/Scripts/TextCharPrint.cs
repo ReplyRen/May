@@ -3,6 +3,7 @@ using System.Collections;
 using UnityEngine.UI;
 using System.IO;
 using System;
+using UnityEngine.SceneManagement;
 
 public class TextCharPrint : MonoBehaviour
 {
@@ -30,18 +31,18 @@ public class TextCharPrint : MonoBehaviour
         str = sr.ReadToEnd();
         Debug.Log(str);
         isPrint = true;
-        camera = GameObject.FindWithTag("MainCamera").GetComponent<CameraController>();
+        camera = GameObject.FindWithTag("BMainCamera").GetComponent<CameraController>();
         if (camera == null)
             Debug.Log("camera not set");
 
         myInput = camera.GetComponent<MyInput>();
-        Startgame.SetActive(false);
     }
 
     // Update is called once per frame
     void Update()
     {
-
+        if (myInput.isButtonDown)
+            Debug.Log("down");
         printText();
     }
 
@@ -65,7 +66,8 @@ public class TextCharPrint : MonoBehaviour
             {
                 if (myInput.isButtonDown)
                 {
-                    Startgame.SetActive(true);
+                    SceneManager.LoadScene("SampleScene");
+                    SceneManager.UnloadSceneAsync("Begin");
                     Op.SetActive(false);
                 }
             }
