@@ -169,17 +169,31 @@ public class Device : MonoBehaviour
             selectBool = false;
             CloneImage.enabled = false;
             player.locked = 0;
+            select.GetComponent<Select>().result = null;
+            result = null;
         }
         else if (result == "true")
         {
             if (player.cloneCell != null)
             {
+                timer += Time.deltaTime;
                 MutiContent(player.cloneCell, 2);
-                
+                player.locked = 0;
                 select.SetActive(false);
                 selectBool = false;
                 CloneImage.enabled = false;
-                player.locked = 0;
+                if (timer > duration)
+                {
+                    resetContent(player.cloneCell, 2);
+                    inCooling = true;
+                    countDown = coolingCount;
+                    probeCountdownImage.SetActive(false);
+                    select.GetComponent<Select>().result = null;
+                    result = null;
+                    timer = 0f;
+                }
+
+
                 player.cloneCell = null;
             }
         }
@@ -204,6 +218,10 @@ public class Device : MonoBehaviour
     void MutiContent(HexCell cell,int count)
     {
         gridContent.Double(cell, count);
+    }
+    void resetContent(HexCell cell, int count)
+    {
+        gridContent.Half(cell, count);
     }
     void Show(string type)
     {

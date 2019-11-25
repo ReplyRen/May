@@ -42,7 +42,7 @@ public class SolveInput : MonoBehaviour
     public int locked = 0;
     Vector3 lastHitPoint;
     public HexCell cloneCell;
-    public Image muti;
+    public GameObject muti;
     private void Awake()
     {
         locked = 0;
