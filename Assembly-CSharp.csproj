@@ -73,6 +73,7 @@
     <Compile Include="Assets\Scripts\Inter.cs" />
     <Compile Include="Assets\Scripts\Map.cs" />
     <Compile Include="Assets\Scripts\MessageManager.cs" />
+    <Compile Include="Assets\Scripts\MessagerContainer.cs" />
     <Compile Include="Assets\Scripts\MyInput.cs" />
     <Compile Include="Assets\Scripts\Panel.cs" />
     <Compile Include="Assets\Scripts\PictureContainer.cs" />
