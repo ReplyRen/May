@@ -5430,7 +5430,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b6e79104001dc3488129da08cbb845c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Hp: 100
+  Hp: 800
   Resource: 800
   Electric: 800
   FirstAid: 0

@@ -319,9 +319,9 @@ public class SolveInput : MonoBehaviour
 
         for (int item = 0; item < 18; item++)
         {
-            if (index[item] >= 0 && index[item] <= grid.height * grid.width)
+            if (index[item] >= 0 && index[item] < grid.height * grid.width)
             {
-                CellAround[item] = grid.cells[(int)index[item]];
+                CellAround[item] = grid.cells[index[item]];
                 //方政言加，为实现网格内容探测
                 TextAround[item] = index[item];
                 //方政言加end
@@ -340,9 +340,9 @@ public class SolveInput : MonoBehaviour
         HexCell[] CellAround = new HexCell[6];
         for (int item = 0; item < 6; item++)
         {
-            if (index[item] >= 0 && index[item] <= grid.height * grid.width)
+            if (index[item] >= 0 && index[item] < grid.height * grid.width)
             {
-                CellAround[item] = grid.cells[(int)index[item]];
+                CellAround[item] = grid.cells[index[item]];
             }
         }
         return CellAround;
@@ -376,9 +376,9 @@ public class SolveInput : MonoBehaviour
         HexCell[] CellAround = new HexCell[18];
         for (int item = 0; item < 18; item++)
         {
-            if (index[item] >= 0 && index[item] <= grid.height * grid.width)
+            if (index[item] >= 0 && index[item] < grid.height * grid.width)
             {
-                CellAround[item] = grid.cells[(int)index[item]];
+                CellAround[item] = grid.cells[index[item]];
             }
         }
         return CellAround;
