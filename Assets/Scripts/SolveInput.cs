@@ -44,6 +44,8 @@ public class SolveInput : MonoBehaviour
     public HexCell cloneCell;
     public GameObject muti;
     public HexCell[] cloneAround;
+    private bool shaded = false;
+    public HexCell[] interferenceCells;
     private void Awake()
     {
         locked = 0;
@@ -115,7 +117,7 @@ public class SolveInput : MonoBehaviour
         }
         if (locked == 3)
         {
-            SelectCell(lastHitPoint);
+            InterferenceSelectCell(lastHitPoint);
             if (myInput.isButtonDown)
             {
                 HandleInput();
@@ -166,6 +168,10 @@ public class SolveInput : MonoBehaviour
         if (Physics.Raycast(inputRay, out hit) && locked == 1)
         {
             CloneCell(hit.point);
+        }
+        if (Physics.Raycast(inputRay, out hit) && locked == 3)
+        {
+            InterferenceCell(hit.point);
         }
     }
     void TouchCell(Vector3 position)
@@ -230,6 +236,30 @@ public class SolveInput : MonoBehaviour
         {
             cloneCell = cell;
             muti.transform.position = cell.transform.position;
+        }
+    }
+    void InterferenceCell(Vector3 position)
+    {
+        HexCoordinates coordinates = HexCoordinates.FromPosition(position);
+        HexCell cell = FindCell(coordinates);
+        if (((Mathf.Abs(cell.coordinates.X - CurrentCell.coordinates.X) + Mathf.Abs(cell.coordinates.Y - CurrentCell.coordinates.Y) + Mathf.Abs(cell.coordinates.Z - CurrentCell.coordinates.Z)) < 6)
+   && ((cell.coordinates.X != CurrentCell.coordinates.X) || (cell.coordinates.Z != CurrentCell.coordinates.Z) || (cell.coordinates.Y != CurrentCell.coordinates.Y)))
+        {
+            List<HexCell> cells = new List<HexCell>(oneArround(cell));
+            cells.Add(cell);
+            PrintArround(grid.CellColor[8], cells.ToArray());
+            interferenceCells = cells.ToArray();
+        }
+    }
+    void InterferenceSelectCell(Vector3 position)
+    {
+        if (shaded == false)
+        {
+            HexCoordinates coordinates = HexCoordinates.FromPosition(position);
+            HexCell cell = FindCell(coordinates);
+            HexCell[] cells = InterferenceAround(cell);
+            PrintArround(grid.CellColor[5], cells);
+            shaded = true;
         }
     }
     void SelectCell(Vector3 position)
@@ -317,6 +347,42 @@ public class SolveInput : MonoBehaviour
         }
         return CellAround;
     }
+    HexCell[] InterferenceAround(HexCell cell)
+    {
+        int[] index = new int[18];
+        index[0] = cell.coordinates.X - 2 + (cell.coordinates.Z + 2) * grid.width + (cell.coordinates.Z + 2) / 2;
+        index[1] = cell.coordinates.X - 2 + (cell.coordinates.Z + 1) * grid.width + (cell.coordinates.Z + 1) / 2;
+        index[2] = cell.coordinates.X - 2 + (cell.coordinates.Z) * grid.width + (cell.coordinates.Z) / 2;
+
+        index[3] = cell.coordinates.X - 1 + (cell.coordinates.Z + 2) * grid.width + (cell.coordinates.Z + 2) / 2;
+        index[4] = cell.coordinates.X - 1 + (cell.coordinates.Z + 1) * grid.width + (cell.coordinates.Z + 1) / 2;
+        index[5] = cell.coordinates.X - 1 + (cell.coordinates.Z) * grid.width + (cell.coordinates.Z) / 2;
+        index[6] = cell.coordinates.X - 1 + (cell.coordinates.Z - 1) * grid.width + (cell.coordinates.Z - 1) / 2;
+
+        index[7] = cell.coordinates.X + (cell.coordinates.Z + 2) * grid.width + (cell.coordinates.Z + 2) / 2;
+        index[8] = cell.coordinates.X + (cell.coordinates.Z + 1) * grid.width + (cell.coordinates.Z + 1) / 2;
+        index[9] = cell.coordinates.X + (cell.coordinates.Z - 1) * grid.width + (cell.coordinates.Z - 1) / 2;
+        index[10] = cell.coordinates.X + (cell.coordinates.Z - 2) * grid.width + (cell.coordinates.Z - 2) / 2;
+
+        index[11] = cell.coordinates.X + 1 + (cell.coordinates.Z + 1) * grid.width + (cell.coordinates.Z + 1) / 2;
+        index[12] = cell.coordinates.X + 1 + (cell.coordinates.Z) * grid.width + (cell.coordinates.Z) / 2;
+        index[13] = cell.coordinates.X + 1 + (cell.coordinates.Z - 1) * grid.width + (cell.coordinates.Z - 1) / 2;
+        index[14] = cell.coordinates.X + 1 + (cell.coordinates.Z - 2) * grid.width + (cell.coordinates.Z - 2) / 2;
+
+        index[15] = cell.coordinates.X + 2 + (cell.coordinates.Z) * grid.width + (cell.coordinates.Z) / 2;
+        index[16] = cell.coordinates.X + 2 + (cell.coordinates.Z - 1) * grid.width + (cell.coordinates.Z - 1) / 2;
+        index[17] = cell.coordinates.X + 2 + (cell.coordinates.Z - 2) * grid.width + (cell.coordinates.Z - 2) / 2;
+
+        HexCell[] CellAround = new HexCell[18];
+        for (int item = 0; item < 18; item++)
+        {
+            if (index[item] >= 0 && index[item] <= grid.height * grid.width)
+            {
+                CellAround[item] = grid.cells[(int)index[item]];
+            }
+        }
+        return CellAround;
+    }
     void PrintArround(Color color, HexCell[] CellAround)//对周围格子涂色
     {
         foreach (HexCell cell in CellAround)
@@ -376,5 +442,12 @@ public class SolveInput : MonoBehaviour
         }
         HexCell[] hexCells = list.ToArray();
         PrintArround(grid.CellColor[2], hexCells);
+    }
+    public void InterferenceColorReset()
+    {
+        for(int i = 0; i < interferenceCells.Length; i++)
+        {
+            //interferenceCells[i].
+        }
     }
 }

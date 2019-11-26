@@ -9,8 +9,11 @@ public class CameraController : MonoBehaviour
     private SolveInput input;
     //方政言偷偷加一句
     public GameObject op;
+    public Camera camera;
     private void Start()
     {
+        camera = Camera.main;
+        camera.aspect = 1.78f;
         targetPos = transform.position;
         input = GetComponentInChildren<SolveInput>();
         //方政言偷偷加一句

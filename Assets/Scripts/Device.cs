@@ -203,16 +203,43 @@ public class Device : MonoBehaviour
     }
     private void InterCheck()
     {
-        string result = inter.GetComponent<Select>().result;
-        if (result == "fales")
+        string result = inter.GetComponent<Select2>().result;
+        if (result == "false")
         {
             inter.SetActive(false);
             interBool = false;
             ITFImage.enabled = false;
             player.locked = 0;
+            inter.GetComponent<Select2>().result = null;
+            result = null;
         }
-        inter.GetComponent<Select>().result = null;
-        result = null;
+        else if (result == "true")
+        {
+            if (player.interferenceCells != null)
+            {
+                timer += Time.deltaTime;
+                CleanMonster(player.interferenceCells);
+                player.locked = 0;
+                inter.SetActive(false);
+                ITFImage.enabled = false;
+                ITFCountdownImage.SetActive(true);
+                ITFCountdownImage.GetComponentInChildren<Text>().text = ((int)(duration - timer)).ToString() + "s";
+                if (timer > duration)
+                {
+                    ResetMonster(player.interferenceCells);
+                    inCooling = true;
+                    countDown = coolingCount;
+                    ITFCountdownImage.SetActive(false);
+                    inter.GetComponent<Select2>().result = null;
+                    interBool = false;
+                    result = null;
+                    timer = 0f;
+                    player.interferenceCells = null;
+
+
+                }
+            }
+        }
     }
     void MutiContent(HexCell cell,int count)
     {
@@ -253,5 +280,13 @@ public class Device : MonoBehaviour
             panel.GetComponent<Panel>().result = null;
             timer = 0f;
         }
+    }
+    void CleanMonster(HexCell[] cells)
+    {
+
+    }
+    void ResetMonster(HexCell[] cells)
+    {
+
     }
 }

@@ -79,6 +79,7 @@
     <Compile Include="Assets\Scripts\PictureContainer.cs" />
     <Compile Include="Assets\Scripts\PlayerAsset.cs" />
     <Compile Include="Assets\Scripts\Select.cs" />
+    <Compile Include="Assets\Scripts\Select2.cs" />
     <Compile Include="Assets\Scripts\ShiftScene.cs" />
     <Compile Include="Assets\Scripts\SolveInput.cs" />
     <Compile Include="Assets\Scripts\TextCharPrint.cs" />
