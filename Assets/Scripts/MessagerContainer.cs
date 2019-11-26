@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class MessagerContainer : MonoBehaviour
 {
-    public string NodeTable= "1001 2 1002 1002\n1002 1 1003\n1003 2 1004 1004"
-+"1004 2 1005 1006\n"
+    public string NodeTable= "1001 2 1002 1002\n"
++ "1002 1 1003\n"
++ "1003 2 1004 1004\n"
++ "1004 2 1005 1006\n"
 + "1005 2 1007 1008\n"
 + "1006 2 1007 1008\n"
 + "1007 1 1009\n"
@@ -85,6 +87,7 @@ public class MessagerContainer : MonoBehaviour
 + "2033 2 2034 2035\n"
 + "2034 0\n"
 + "2035 0";
+
     public string[][] messages;
     public string[][][] choices;
     // Start is called before the first frame update
@@ -95,7 +98,8 @@ public class MessagerContainer : MonoBehaviour
         messages[1][1] = "通讯已接入\n"
             + "< 梅 > M890001 梅 为您服务\n"
             + "<梅>您好，我是基站M89中央智能计算机 梅\n"
-            + "< 梅 > OS4177观测站科研队，肖恩 队长，看起来您是第一次与我连接，很高兴认识您" + "< 梅> 您遇到了一些麻烦？我有什么能帮上您的吗？\n";
+            + "< 梅 > OS4177观测站科研队，肖恩 队长，看起来您是第一次与我连接，很高兴认识您\n" 
+            + "< 梅> 您遇到了一些麻烦？我有什么能帮上您的吗？\n";
         messages[1][2] = "<肖恩>天知道我在这个见鬼的通讯器上花了多少时间！我甚至试了可能会让我丢掉这份工作的主站通讯频道，谢天谢地终于连上了\n"
             + "< 肖恩 > 很高兴认识你，计算机小姐，虽然我好像是第一次听到M89这个基站，呃，我的意思是，这种情况下能听到另一个声音多少让人舒服了一点\n"
             + "<肖恩> 但我还是需要纠正你的用词，我们遇到的不是「一些」，而是「大」麻烦\n"

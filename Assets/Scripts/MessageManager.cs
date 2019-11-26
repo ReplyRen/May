@@ -102,6 +102,7 @@ public class MessageManager : MonoBehaviour
     private int waitting;
     string[] str;
     int strnum;
+    public MessagerContainer container;
 
     public int[] FlagsControll;//[0]为是否到过portal,[1]为到过的任务点个数
 
@@ -116,15 +117,17 @@ public class MessageManager : MonoBehaviour
         NodeTable = new int[3][][];
         NodeTable[1] = new int[50][];
         NodeTable[2] = new int[50][];
-
-        FileStream fs = new FileStream("Assets/text/Nodes.txt", FileMode.Open, FileAccess.Read);
+        
 
         string[] temp, str;
-
-        StreamReader sr = new StreamReader(fs);
-        str = new string[100];
+        
+        str = container.NodeTable.Split('\n');
+        foreach(string tstr in str)
+        {
+            Debug.Log(tstr);
+        }
         int i;
-        for (i = 0; (str[i] = sr.ReadLine()) != null; i++)
+        for (i = 0; i<str.Length; i++)
         {
             str[i].Replace("\n", "");
             temp = str[i].Split(' ');
@@ -151,23 +154,17 @@ public class MessageManager : MonoBehaviour
                 }
             }
         }
-
-
-        sr.Close();
-        fs.Close();
+        
     }
     
 
     private void getwords(int x)
     {
-        FileStream fs = new FileStream("Assets/text/1/" + x.ToString() + ".txt", FileMode.Open, FileAccess.Read);
-        sr = new StreamReader(fs, System.Text.Encoding.GetEncoding("gb2312"));
-        string words = String.Empty;
-        words = sr.ReadToEnd();
+        int t = x;
+        int i;
+        for (i = 0; (t - 1000) > 0; t -= 1000, i++) ;
+        string words = container.messages[i][t];
         str = words.Split('\n');
-        sr.Close();
-        fs.Close();
-
         strnum = 0;
         waitting = 0;
     }
@@ -223,39 +220,32 @@ public class MessageManager : MonoBehaviour
     {
         twochoice.SetActive(true);
 
-        FileStream fs = new FileStream("Assets/text/1/" + x.ToString() + "left.txt", FileMode.Open, FileAccess.Read);
-        StreamReader sr = new StreamReader(fs, System.Text.Encoding.GetEncoding("gb2312"));
+        int t = x;
+        int i;
+        for (i = 0; (t - 1000) > 0; t -= 1000, i++) ;
         string str = String.Empty;
-        str = sr.ReadLine();
+        str = container.choices[i][t][0];
 
         Debug.Log(str);
 
         left.text = str;
-        sr.Close();
-        fs.Close();
 
-        fs = new FileStream("Assets/text/1/" + x.ToString() + "right.txt", FileMode.Open, FileAccess.Read);
-        sr = new StreamReader(fs, System.Text.Encoding.GetEncoding("gb2312"));
-        str = String.Empty;
-        str = sr.ReadLine();
+        str = container.choices[i][t][1];
 
         Debug.Log(str);
 
         right.text = str;
-        sr.Close();
-        fs.Close();
     }
 
     public void OneButtonDisplay(int x)
     {
         onechoice.SetActive(true);
-        FileStream fs = new FileStream("Assets/text/1/" + x.ToString() + "middle.txt", FileMode.Open, FileAccess.Read);
-        sr = new StreamReader(fs, System.Text.Encoding.GetEncoding("gb2312"));
+        int t = x;
+        int i;
+        for (i = 0; (t - 1000) > 0; t -= 1000, i++) ;
         string str = String.Empty;
-        str = sr.ReadLine();
+        str = container.choices[i][t][0];
         middle.text = str;
-        sr.Close();
-        fs.Close();
     }
 
     public void LeftButton()
@@ -342,7 +332,6 @@ public class MessageManager : MonoBehaviour
     {
         if (line.length > 0 && status == 0 && message.activeSelf==true)//有剧情时且可演出时
         {
-            StreamReader sr;
             status = 1;
 
             Debug.Log(line.get());
