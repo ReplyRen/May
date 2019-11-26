@@ -43,6 +43,7 @@ public class SolveInput : MonoBehaviour
     Vector3 lastHitPoint;
     public HexCell cloneCell;
     public GameObject muti;
+    public HexCell[] cloneAround;
     private void Awake()
     {
         locked = 0;
@@ -105,6 +106,14 @@ public class SolveInput : MonoBehaviour
     private void Update()
     {
         if (locked == 1)
+        {
+            SelectCell(lastHitPoint);
+            if (myInput.isButtonDown)
+            {
+                HandleInput();
+            }
+        }
+        if (locked == 3)
         {
             SelectCell(lastHitPoint);
             if (myInput.isButtonDown)
@@ -233,6 +242,7 @@ public class SolveInput : MonoBehaviour
         //{
         //更新当前格
         HexCell[] cells = oneArround(cell);
+        cloneAround = cells;
         PrintArround(grid.CellColor[5], cells);
         //}
         //}
@@ -355,5 +365,16 @@ public class SolveInput : MonoBehaviour
         }
         HexCell[] hexCells = list.ToArray();
         PrintArround(grid.CellColor[0], hexCells);
+    }
+    public void CloneUnshow()
+    {
+        List<HexCell> list = new List<HexCell>();
+        for (int i = 0; i < cloneAround.Length; i++)
+        {
+            if (cloneAround[i].color == grid.CellColor[5])
+                list.Add(cloneAround[i]);
+        }
+        HexCell[] hexCells = list.ToArray();
+        PrintArround(grid.CellColor[2], hexCells);
     }
 }

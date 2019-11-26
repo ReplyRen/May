@@ -180,27 +180,26 @@ public class Device : MonoBehaviour
                 MutiContent(player.cloneCell, 2);
                 player.locked = 0;
                 select.SetActive(false);
-                selectBool = false;
+                player.CloneUnshow();
                 CloneImage.enabled = false;
+                cloneCountdownImage.SetActive(true);
+                cloneCountdownImage.GetComponentInChildren<Text>().text = ((int)(duration - timer)).ToString() + "s";
                 if (timer > duration)
                 {
                     resetContent(player.cloneCell, 2);
                     inCooling = true;
                     countDown = coolingCount;
-                    probeCountdownImage.SetActive(false);
+                    cloneCountdownImage.SetActive(false);
                     select.GetComponent<Select>().result = null;
+                    selectBool = false;
                     result = null;
                     timer = 0f;
+                    player.cloneCell = null;
+
+                    
                 }
-
-
-                player.cloneCell = null;
             }
         }
-        select.GetComponent<Select>().result = null;
-        result = null;
-
-
     }
     private void InterCheck()
     {
