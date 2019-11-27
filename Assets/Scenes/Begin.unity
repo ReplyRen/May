@@ -301,7 +301,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d8693a2b0479f594db284394e997fd8f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  forAndroid: 0
+  forAndroid: 1
   isButtonDown: 0
   position: {x: 0, y: 0, z: 0}
 --- !u!114 &690010827
@@ -317,6 +317,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   op: {fileID: 1908303339}
+  camera: {fileID: 0}
 --- !u!81 &690010828
 AudioListener:
   m_ObjectHideFlags: 0
@@ -636,6 +637,8 @@ MonoBehaviour:
   locked: 0
   cloneCell: {fileID: 0}
   muti: {fileID: 0}
+  cloneAround: []
+  interferenceCells: []
 --- !u!1 &1307332917
 GameObject:
   m_ObjectHideFlags: 0
@@ -829,7 +832,7 @@ Canvas:
   m_Enabled: 1
   serializedVersion: 3
   m_RenderMode: 1
-  m_Camera: {fileID: 0}
+  m_Camera: {fileID: 690010829}
   m_PlaneDistance: 70
   m_PixelPerfect: 0
   m_ReceivesEvents: 1

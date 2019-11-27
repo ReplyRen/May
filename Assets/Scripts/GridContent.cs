@@ -412,6 +412,7 @@ public class GridContent : MonoBehaviour
 
     public void TypeLost()
     {
+        Debug.Log("typelost");
         for (int i = 0; i < printlistlen; i++)
         {
             if(grid.cells[printlist[i]].status==0)
