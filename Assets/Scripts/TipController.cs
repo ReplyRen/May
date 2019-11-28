@@ -14,6 +14,11 @@ public class TipController : MonoBehaviour
     bool status;
     private bool[] flag;
     public PlayerAsset asset;
+    public TipsContainer container;
+    public string[] str;
+    int strnum;
+    int waitting;
+    public int wait;
     // Start is called before the first frame update
     void Start()
     {
@@ -133,22 +138,41 @@ public class TipController : MonoBehaviour
         }
     }
 
-    IEnumerator display(int x)
+    private void getwords(int x)
     {
-        FileStream fs = new FileStream("Assets/text/3/" + x.ToString() + ".txt", FileMode.Open, FileAccess.Read);
-        StreamReader sr = new StreamReader(fs, System.Text.Encoding.GetEncoding("gb2312"));
-        string str = System.String.Empty;
+        int t = x;
+        int i;
+        for (i = 0; (t - 1000) > 0; t -= 1000, i++) ;
+        string words = container.tips[t];
         tip.SetActive(true);
-        Text text = tip.GetComponentInChildren<Text>();
-        while ((str = sr.ReadLine()) != null)
+        str = words.Split('\n');
+        strnum = 0;
+        waitting = 0;
+    }
+
+    private void printwords()
+    {
+        
+        if (waitting == 0)
         {
-            text.text = str;
-            yield return new WaitForSeconds(3f);
+            if (strnum < str.Length)
+            {
+                Text text = tip.GetComponentInChildren<Text>();
+                text.text = str[strnum];
+                strnum++;
+
+            }
+            else
+            {
+                tip.SetActive(false);
+                status = true;
+            }
         }
-        tip.SetActive(false);
-        sr.Close();
-        fs.Close();
-        status = true;
+        waitting++;
+        if (waitting >= wait)
+        {
+            waitting = 0;
+        }
     }
 
     // Update is called once per frame
@@ -157,8 +181,12 @@ public class TipController : MonoBehaviour
         if (status&&length>0&&!tip.activeSelf)
         {
             status = false;
-            StartCoroutine(display(get()));
+            getwords(get());
             delete();
+        }
+        if (!status && tip.activeSelf)
+        {
+            printwords();
         }
     }
 }
