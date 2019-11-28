@@ -25,9 +25,11 @@ public class UIManager : MonoBehaviour
     public GameObject MessageUI;
     public GameObject PickMessage;
     public GameObject PickLog;
+    public GameObject PickIntro;
     public GameObject TwoChoice;
     public GameObject OneChoice;
     public GameObject hexgrid;
+    public Image mask;
     /*方政言操作区间over*/
 
     private void Start()
@@ -79,40 +81,66 @@ public class UIManager : MonoBehaviour
     /*方政言操作区间（笑）*/
     public void NormalToMessage()
     {
+        mask.enabled = false;
         NormalMode.SetActive(false);
         hexgrid.SetActive(false);
         MessageUI.SetActive(true);
+        PickMessage.SetActive(true);
+        PickLog.SetActive(false);
+        PickIntro.SetActive(false);
     }
 
     public void PickMessageToLog()
     {
+        mask.enabled = false;
         PickMessage.SetActive(false);
         PickLog.SetActive(true);
+        PickIntro.SetActive(false);
+
     }
 
     public void PickLogToMessage()
     {
+        mask.enabled = false;
         PickLog.SetActive(false);
         PickMessage.SetActive(true);
+        PickIntro.SetActive(false);
     }
 
     public void MessageToNormal()
     {
+        mask.enabled = true;
         MessageUI.SetActive(false);
         hexgrid.SetActive(true);
         NormalMode.SetActive(true);
     }
 
+    public void toIntro()
+    {
+        PickIntro.SetActive(true);
+        PickLog.SetActive(false);
+        PickMessage.SetActive(false);
+    }
+
     public void NormaltoPickMessage()
     {
+        mask.enabled = false;
         NormalToMessage();
         PickLogToMessage();
     }
 
     public void NormaltoPickLog()
     {
+        mask.enabled = false;
         NormalToMessage();
         PickMessageToLog();
+    }
+
+    public void NormaltoPickIntro()
+    {
+        mask.enabled = false;
+        NormalToMessage();
+        toIntro();
     }
     /*方政言操作区间over*/
 }

@@ -142,6 +142,12 @@ public class HexGrid : MonoBehaviour
             case "Portal":
                 content.sprite = contentSprite[8];
                 break;
+            case "specialitem1":
+                content.sprite = contentSprite[9];
+                break;
+            case "specialitem2":
+                content.sprite = contentSprite[10];
+                break;
             default:
                 break;
         }

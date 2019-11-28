@@ -22,13 +22,40 @@ public class TextCharPrint : MonoBehaviour
     int x = 1;
     CameraController camera;
     MyInput myInput;
+    string[] words;
+    public int wait;
+    int waitting;
+    int strnum;
+    bool onetouch;
+
     // Use this for initialization
     void Start()
     {
-        FileStream fs = new FileStream("Assets/text/0/0001-1.txt", FileMode.Open, FileAccess.Read);
-        StreamReader sr = new StreamReader(fs, System.Text.Encoding.GetEncoding("gb2312"));
-        str = String.Empty;
-        str = sr.ReadToEnd();
+        words = new string[6];
+        words[1]= "20▉年7月▉日  ▉时29分  联合政府讯\n"
+            + "告驻CX470全体人员\n"
+            + "距全境封锁还剩48小时";
+        words[2]= "搜索可见设备\n"
+            + "请求通讯 优先级：D 密级：D\n"
+            + "通讯内容代码：505\n"
+            + "【注意】此为紧急通讯编号，请谨慎使用";
+        words[3]= "数据上传中\n"
+            + "0 %……48 %……64 %……77 %……89 %……\n"
+            + "数据传输失败 错误 请求超时\n"
+            + "【警告】非法信号来源\n"
+            + "请您检查您与「火种」的连接，或更换设备后重试";
+        words[4]= "60秒后重新发送请求 或在您的终端界面输入任意字符\n"
+            + "60……59……58……57……\n"
+            + "第134次通讯捕获\n"
+            + "检测到您在短时间内密集发送通讯请求，将为您修改通讯适配范围\n"
+            + "搜索可见设备";
+        words[5]= "请求通讯 优先级：D 密级：D\n"
+            + "通讯内容代码：505\n"
+            + "【注意】此为紧急通讯编号，请谨慎使用\n"
+            + "通讯接入中……\n"
+            + "观测到大型智能计算机，将为您接入人工智能服务";
+
+        str = words[1];
         Debug.Log(str);
         isPrint = true;
         camera = GameObject.FindWithTag("BMainCamera").GetComponent<CameraController>();
@@ -73,10 +100,15 @@ public class TextCharPrint : MonoBehaviour
             }
             else if (!isPrint)
             {
-                if (myInput.isButtonDown)
+                if (myInput.isButtonDown&&onetouch)
                 {
                     isPrint = true;
                 }
+                
+            }
+            if (!myInput.isButtonDown)
+            {
+                onetouch = true;
             }
         }
         catch (System.Exception)
@@ -88,18 +120,20 @@ public class TextCharPrint : MonoBehaviour
 
     int printEnd(int x)
     {
-        x++;
-        if (x < 6)
+        if (onetouch)
         {
-            FileStream fs = new FileStream("Assets/text/0/0001-" + x.ToString() + ".txt", FileMode.Open, FileAccess.Read);
-            StreamReader sr = new StreamReader(fs, System.Text.Encoding.GetEncoding("gb2312"));
-            str = String.Empty;
-            str = sr.ReadToEnd();
-            timer = 0;
-            isPrint = false;
+            x++;
+            onetouch = false;
+            if (x < 6)
+            {
+                str = words[x];
+                timer = 0;
+                isPrint = false;
+            }
+            else
+                isPrint = false;
         }
-        else
-            isPrint = false;
+        
 
         return x;
 

@@ -81,6 +81,7 @@ public class MessageManager : MonoBehaviour
     [HideInInspector]
     public int status;//0为演出空闲，可演出新剧情，1为剧情演出中,2为等待选择
     StreamReader sr;
+    public PlayerAsset asset;
     public Text scrolltext;
     public GameObject PickMessage;
     public GameObject PickLog;
@@ -103,6 +104,9 @@ public class MessageManager : MonoBehaviour
     string[] str;
     int strnum;
     public MessagerContainer container;
+    public GameObject MessageTip;
+
+    bool[] flags;
 
     public int[] FlagsControll;//[0]为是否到过portal,[1]为到过的任务点个数
 
@@ -117,7 +121,11 @@ public class MessageManager : MonoBehaviour
         NodeTable = new int[3][][];
         NodeTable[1] = new int[50][];
         NodeTable[2] = new int[50][];
-        
+        flags = new bool[11];
+        for(int j = 0; j < 11; j++)
+        {
+            flags[j] = true;
+        }
 
         string[] temp, str;
         
@@ -188,6 +196,8 @@ public class MessageManager : MonoBehaviour
             {
                 int n = 0;
                 int x = line.get();
+                Debug.Log(x);
+                nodeIncident(x);
                 int t = line.get();
                 while (t >= 1000)
                 {
@@ -212,6 +222,77 @@ public class MessageManager : MonoBehaviour
                         tip.insert3014();
                 }
             }
+        }
+    }
+
+
+
+    IEnumerator messagetip(string str)
+    {
+        MessageTip.SetActive(true);
+        Text text = MessageTip.GetComponentInChildren<Text>();
+        text.text = str;
+        yield return new WaitForSeconds(2f);
+        Debug.Log("1");
+        MessageTip.SetActive(false);
+    }
+
+    void nodeIncident(int x)
+    {
+        if (x == 1006)
+        {
+            asset.increaseFavorability(15);
+            StartCoroutine(messagetip("同步率有所变化"));
+        }
+        else if (x == 1012)
+        {
+            asset.increaseFavorability(15);
+            StartCoroutine(messagetip("同步率有所变化"));
+        }
+        else if (x == 1018)
+        {
+            asset.increaseFavorability(25);
+            StartCoroutine(messagetip("同步率有所变化"));
+        }
+        else if (x == 1019)
+        {
+            asset.decreaseFavorability(-10);
+            StartCoroutine(messagetip("同步率有所变化"));
+        }
+        else if (x == 1030)
+        {
+            asset.decreaseFavorability(-10);
+            StartCoroutine(messagetip("同步率有所变化"));
+        }
+        else if (x == 1040)
+        {
+            asset.increaseFavorability(15);
+            StartCoroutine(messagetip("同步率有所变化"));
+        }
+        else if (x == 2005)
+        {
+            asset.increaseHp(40);
+            StartCoroutine(messagetip("生命值提高"));
+        }
+        else if (x == 2006)
+        {
+            asset.increaseHp(40);
+            StartCoroutine(messagetip("生命值提高"));
+        }
+        else if (x == 2024)
+        {
+            asset.increaseResource(60);
+            StartCoroutine(messagetip("获得少量物资"));
+        }
+        else if (x == 2016)
+        {
+            asset.increaseFavorability(25);
+            StartCoroutine(messagetip("同步率有所变化"));
+        }
+        else if (x == 2018)
+        {
+            asset.increaseFavorability(25);
+            StartCoroutine(messagetip("同步率有所变化"));
         }
     }
 
@@ -296,36 +377,70 @@ public class MessageManager : MonoBehaviour
 
     public void IncidentCheck(GridContent.Content content, int step)
     {
-        if (step == 6)
+        if (step == 6&&flags[0])
         {
+            flags[0] = false;
             line.insert(1010);
         }
-        if(content== GridContent.Content.Portal)
+        if(content== GridContent.Content.Portal&&flags[1])
         {
-            if(FlagsControll[0] == 0)
-            {
-                line.insert(1017);
-                FlagsControll[0]++;
-            }
-            else if (FlagsControll[1] >= 2)
-            {
-                line.insert(1031);
-                FlagsControll[0]++;
-            }
+            flags[1] = false;
+            line.insert(1017);
         }
-        if (content == GridContent.Content.Incident)
+        if (content == GridContent.Content.specialitem1&&flags[2])
         {
-            if (FlagsControll[1] == 0)
+            if (!flags[1])
             {
+                flags[2] = false;
                 line.insert(1021);
-                FlagsControll[1]++;
-            }
-            if (FlagsControll[1] == 2)
-            {
-                line.insert(1026);
-                FlagsControll[1]++;
             }
         }
+        if (content == GridContent.Content.specialitem2 && flags[3])
+        {
+            if (!flags[1])
+            {
+                flags[3] = false;
+                line.insert(1026);
+            }
+        }
+        if (content == GridContent.Content.Portal && flags[4]&&!flags[2]&&!flags[3])
+        {
+            flags[4] = false;
+            line.insert(1031);
+        }
+        if (flags[6]&&(content == GridContent.Content.MElectric|| content == GridContent.Content.MResource || content == GridContent.Content.MFirstAid ))
+        {
+            flags[6] = false;
+            line.insert(2007);
+        }
+        if (content == GridContent.Content.Incident && flags[5])
+        {
+            flags[5] = false;
+            line.insert(2001);
+        }
+        else if (content == GridContent.Content.Incident && flags[7]&&!flags[5])
+        {
+            flags[7] = false;
+            line.insert(2012);
+        }
+        else if (content == GridContent.Content.Incident && flags[8] && !flags[7])
+        {
+            flags[8] = false;
+            line.insert(2019);
+        }
+        else if (content == GridContent.Content.Incident && flags[9] && !flags[8])
+        {
+            flags[9] = false;
+            line.insert(2025);
+        }
+        else if (content == GridContent.Content.Incident && flags[10] && !flags[9])
+        {
+            flags[10] = false;
+            line.insert(2032);
+        }
+
+
+
     }
 
     void Update()

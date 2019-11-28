@@ -26,6 +26,7 @@ public class PlayerAsset : MonoBehaviour
     public int IncidentNeed = 0;
     public int Incident = 0;
     public int FirstAidRecover = 10;
+    public int favorability = 0;
     private float Timer = 0f;
     private bool[] Switcher = new bool[6];
     private float[] SwitchTime = new float[6];
@@ -107,6 +108,23 @@ public class PlayerAsset : MonoBehaviour
         Incident += x;
     }
 
+    public void increaseFavorability(int x)
+    {
+        favorability += x;
+        if (favorability > 100)
+        {
+            favorability = 100;
+        }
+    }
+    public void decreaseFavorability(int x)
+    {
+        favorability -= x;
+        if (favorability < 0)
+        {
+            favorability = 0;
+        }
+    }
+
     public void decreaseHp(int x)
     {
         if ((Hp -= x) < 0) Hp = 0;
@@ -134,6 +152,7 @@ public class PlayerAsset : MonoBehaviour
 
     public int movecost()
     {
+        Debug.Log("movecost");
         int flag = 0;
         if (Resource < ResourceMoveCost)
         {
