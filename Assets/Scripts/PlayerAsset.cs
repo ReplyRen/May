@@ -27,8 +27,8 @@ public class PlayerAsset : MonoBehaviour
     public int Incident = 0;
     public int FirstAidRecover = 10;
     private float Timer = 0f;
-    private bool[] Switcher = new bool[5];
-    private float[] SwitchTime = new float[5];
+    private bool[] Switcher = new bool[6];
+    private float[] SwitchTime = new float[6];
     [SerializeField]
     public Transform[] SwitchImage;
     private void Start()
@@ -49,16 +49,16 @@ public class PlayerAsset : MonoBehaviour
                 if (Timer - SwitchTime[i] > 2)
                 {
                     SwitchImage[i].gameObject.SetActive(false);
+                    Switcher[i] = false;
                 }
                 else
                 {
-                    
                     SwitchImage[i].gameObject.SetActive(true);
                 }
             }
         }
     }
-    public void increaseHp(int x)
+    public void increaseHp(int x)//加血
     {
         Hp += x;
         if (Hp > 100)
@@ -70,13 +70,7 @@ public class PlayerAsset : MonoBehaviour
 
     public void useFirstAid()
     {
-        Hp += FirstAidRecover;
-        if (Hp > 100)
-            Hp = 100;
-        Switcher[4] = true;
-        SwitchTime[4] = Timer;
-        SwitchImage[4].GetComponentInChildren<Text>().text = FirstAidRecover.ToString();
-
+        increaseHp(FirstAidRecover);
     }
 
     public void increaseResource(int x)
@@ -84,7 +78,7 @@ public class PlayerAsset : MonoBehaviour
         Resource += x;
         Switcher[3] = true;
         SwitchTime[3] = Timer;
-
+        SwitchImage[3].GetComponentInChildren<Text>().text = x.ToString();
     }
 
     public void increaseElectric(int x)
@@ -92,12 +86,15 @@ public class PlayerAsset : MonoBehaviour
         Electric += x;
         Switcher[2] = true;
         SwitchTime[2] = Timer;
-
+        SwitchImage[2].GetComponentInChildren<Text>().text = x.ToString();
     }
 
-    public void increaseFirstAid(int x)
+    public void increaseFirstAid(int x)//医疗包
     {
         FirstAid += x;
+        Switcher[4] = true;
+        SwitchTime[4] = Timer;
+        SwitchImage[4].GetComponentInChildren<Text>().text = x.ToString();
     }
 
     public void increaseChip(int x)
@@ -115,6 +112,8 @@ public class PlayerAsset : MonoBehaviour
         if ((Hp -= x) < 0) Hp = 0;
         Switcher[1] = true;
         SwitchTime[1] = Timer;
+        SwitchImage[1].GetComponentInChildren<Text>().text = x.ToString();
+
 
     }
 
