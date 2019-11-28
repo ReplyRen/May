@@ -256,9 +256,8 @@ public class Device : MonoBehaviour
     }
     void Unshow(string type)
     {
-        player.UnshowColor(gridContent.TypePrint(type));
         gridContent.TypeLost();
-
+        player.UnshowColor(gridContent.TypePrint(type));
     }
     void Probe(string type)
     {

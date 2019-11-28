@@ -1,6 +1,6 @@
 Android
 PlayerPath?
-F:/Users/15616/Documents/GitHub/May/demo/1.1.3.apk
+C:/Users/954384509/Desktop/may/May.apk
 SceneListBegin?
 Assets/Scenes/Begin.unity
 Assets/Scenes/SampleScene.unity
@@ -21,7 +21,6 @@ e1bbf0ab858085e38fae6b12ebbdcd35 UnityEngine.Timeline.dll:UnityEngine.Timeline.C
 e1bbf0ab858085e38fae6b12ebbdcd35 UnityEngine.Timeline.dll:UnityEngine.Timeline.GroupTrack
 e1bbf0ab858085e38fae6b12ebbdcd35 UnityEngine.Timeline.dll:UnityEngine.Timeline.PlayableTrack
 201e3fde670b00545944bb3db215c80a UnityEngine.Timeline.dll:UnityEngine.Timeline.TimelineAsset
-0d04b6ce5e4adadc5b3faad3e8e2c43e Assembly-CSharp.dll:.Select2
 e7a73f5f78ba6445195ec23b74a1ce2d Unity.TextMeshPro.dll:TMPro.TMP_ScrollbarEventHandler
 cf9f5cf2c3145a37ac07f00e50e460f9 UnityEngine.UI.dll:UnityEngine.UI.AspectRatioFitter
 71bb6a6b6c8f052f948db64c7dd3ca4f UnityEngine.UI.dll:UnityEngine.EventSystems.BaseInput
@@ -57,7 +56,7 @@ abf1930d8126d0b2e00e9449129a0190 UnityEngine.UI.dll:UnityEngine.EventSystems.Tou
 64e54c0cbb0177c5ea26f340efb9ff85 UnityEngine.UI.dll:UnityEngine.UI.VerticalLayoutGroup
 d3c76b14a25eebd3a3323dd43297919c Unity.TextMeshPro.dll:TMPro.TMP_InputField
 71bb6a6b6c8f052f948db64c7dd3ca4f Assembly-CSharp.dll:.Inter
-b2b97b4df272b0ab4cc2785157214a82 Assembly-CSharp.dll:.TipController
+5d62b707bb703fc954ae70b4e3d0e15b Assembly-CSharp.dll:.TipController
 cf9f5cf2c3145a37ac07f00e50e460f9 UnityEngine.UI.dll:UnityEngine.UI.AspectRatioFitter
 71bb6a6b6c8f052f948db64c7dd3ca4f UnityEngine.UI.dll:UnityEngine.EventSystems.BaseInput
 507174d46dacbc5fe45e28485db5dd1e UnityEngine.UI.dll:UnityEngine.UI.Button
@@ -176,10 +175,9 @@ d251bf88db6c95a6b1aa0b69298da9ef UnityEngine.SpatialTracking.dll:UnityEngine.Spa
 298e303588a99ddf6558f1d98e1edff0 Assembly-CSharp.dll:.TextCharPrint
 71bb6a6b6c8f052f948db64c7dd3ca4f Assembly-CSharp.dll:.TextSave
 76ccbd8933405757ae81aba04ce3e1df Assembly-CSharp.dll:.MessageManager
-eff4ce196c8a162c8a29c1cd0101356f Assembly-CSharp.dll:.SolveInput
+cdb392266c71d7d1f32eeab6cd08ae8b Assembly-CSharp.dll:.SolveInput
 d791aa6007fa3640be1164ea75bb087d Unity.TextMeshPro.dll:TMPro.TMP_StyleSheet
 df434544c9f7b33d1cc7e635b180d279 Unity.TextMeshPro.dll:TMPro.TextMeshPro
 3165968ba45c74472d279ba04455fccb Unity.TextMeshPro.dll:TMPro.TMP_ColorGradient
 8649814970b42d345b89944b862453cc Unity.TextMeshPro.dll:TMPro.TMP_SubMesh
 71bb6a6b6c8f052f948db64c7dd3ca4f Assembly-CSharp.dll:.HexMesh
-62e3a04bda0df88d893aaabe9a68bfa6 Assembly-CSharp.dll:.TipsContainer

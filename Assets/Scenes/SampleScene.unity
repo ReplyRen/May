@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 170076734}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.4366757, g: 0.48427194, b: 0.5645252, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -643,7 +643,6 @@ GameObject:
   - component: {fileID: 176081675}
   - component: {fileID: 176081676}
   - component: {fileID: 176081677}
-  - component: {fileID: 176081678}
   m_Layer: 0
   m_Name: UIManager
   m_TagString: Untagged
@@ -706,22 +705,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tip: {fileID: 1738121265}
   asset: {fileID: 831779026}
-  container: {fileID: 176081678}
-  str: []
-  wait: 150
---- !u!114 &176081678
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 176081674}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1ac2ac705c6bb0c4195d4525f46c9f64, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  tips: []
 --- !u!1 &180517368
 GameObject:
   m_ObjectHideFlags: 0
@@ -3674,7 +3657,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d8693a2b0479f594db284394e997fd8f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  forAndroid: 1
+  forAndroid: 0
   isButtonDown: 0
   position: {x: 0, y: 0, z: 0}
 --- !u!1 &535184437
