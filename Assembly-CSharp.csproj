@@ -77,6 +77,7 @@
     <Compile Include="Assets\Scripts\Map.cs" />
     <Compile Include="Assets\Scripts\MessageManager.cs" />
     <Compile Include="Assets\Scripts\MessagerContainer.cs" />
+    <Compile Include="Assets\Scripts\MusicManager.cs" />
     <Compile Include="Assets\Scripts\MyInput.cs" />
     <Compile Include="Assets\Scripts\Panel.cs" />
     <Compile Include="Assets\Scripts\PictureContainer.cs" />
@@ -88,6 +89,7 @@
     <Compile Include="Assets\Scripts\TextCharPrint.cs" />
     <Compile Include="Assets\Scripts\TextSave.cs" />
     <Compile Include="Assets\Scripts\TipController.cs" />
+    <Compile Include="Assets\Scripts\TipsContainer.cs" />
     <Compile Include="Assets\Scripts\UIManager.cs" />
     <None Include="Assets\text\1\1048.txt" />
     <None Include="Assets\text\1\1026.txt" />
