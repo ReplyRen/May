@@ -3505,7 +3505,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 2.4, y: -0.000013490008}
+  m_AnchoredPosition: {x: 2.4, y: -0.000015112473}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &508697412
@@ -5441,6 +5441,12 @@ MonoBehaviour:
   IncidentNeed: 2
   Incident: 0
   FirstAidRecover: 10
+  SwitchImage:
+  - {fileID: 2009560031}
+  - {fileID: 1416556744}
+  - {fileID: 1320594170}
+  - {fileID: 1133158346}
+  - {fileID: 1955608530}
 --- !u!1 &887317965
 GameObject:
   m_ObjectHideFlags: 0
@@ -10985,7 +10991,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 2.4, y: -0.000039035367}
+  m_AnchoredPosition: {x: 2.4, y: -0.000036945545}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1782393692
