@@ -2194,6 +2194,9 @@ MonoBehaviour:
   MonsterHarm: 45
   Portal: 0
   tip: {fileID: 176081677}
+  portalimage: 0
+  si1image: 0
+  si2image: 0
   portalsee: 0
   sisee: 0
 --- !u!1 &346190240
@@ -4048,7 +4051,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 2.4, y: -0.000015542702}
+  m_AnchoredPosition: {x: 2.4, y: -0.00001688079}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &508697412

@@ -46,6 +46,7 @@ public class SolveInput : MonoBehaviour
     public HexCell[] cloneAround;
     private bool shaded = false;
     public HexCell[] interferenceCells;
+    public HexCell[] selectInterferenceCells;
     private void Awake()
     {
         locked = 0;
@@ -234,12 +235,23 @@ public class SolveInput : MonoBehaviour
         if (((Mathf.Abs(cell.coordinates.X - CurrentCell.coordinates.X) + Mathf.Abs(cell.coordinates.Y - CurrentCell.coordinates.Y) + Mathf.Abs(cell.coordinates.Z - CurrentCell.coordinates.Z)) < 3)
     && ((cell.coordinates.X != CurrentCell.coordinates.X) || (cell.coordinates.Z != CurrentCell.coordinates.Z) || (cell.coordinates.Y != CurrentCell.coordinates.Y)))
         {
-            cloneCell = cell;
-            muti.transform.position = cell.transform.position;
+            if (gridcontent.getcontent(cell) == "Resource" || gridcontent.getcontent(cell) == "Electric" ||
+                gridcontent.getcontent(cell) == "FirstAid" || gridcontent.getcontent(cell) == "MResource" ||
+                gridcontent.getcontent(cell) == "MElectric" || gridcontent.getcontent(cell) == "MFirstAid")
+            {
+                cloneCell = cell;
+                muti.transform.position = cell.transform.position;
+            }
+
         }
     }
     void InterferenceCell(Vector3 position)
     {
+        if (interferenceCells != null)
+        {
+            InterferenceColorReset();
+            interferenceCells = null;
+        }
         HexCoordinates coordinates = HexCoordinates.FromPosition(position);
         HexCell cell = FindCell(coordinates);
         if (((Mathf.Abs(cell.coordinates.X - CurrentCell.coordinates.X) + Mathf.Abs(cell.coordinates.Y - CurrentCell.coordinates.Y) + Mathf.Abs(cell.coordinates.Z - CurrentCell.coordinates.Z)) < 6)
@@ -247,6 +259,11 @@ public class SolveInput : MonoBehaviour
         {
             List<HexCell> cells = new List<HexCell>(oneArround(cell));
             cells.Add(cell);
+            for (int i = 0; i < cells.Count; i++)
+            {
+                if (cells[i] == CurrentCell)
+                    cells.Remove(cells[i]);
+            }
             PrintArround(grid.CellColor[8], cells.ToArray());
             interferenceCells = cells.ToArray();
         }
@@ -258,6 +275,7 @@ public class SolveInput : MonoBehaviour
             HexCoordinates coordinates = HexCoordinates.FromPosition(position);
             HexCell cell = FindCell(coordinates);
             HexCell[] cells = InterferenceAround(cell);
+            selectInterferenceCells = cells;
             PrintArround(grid.CellColor[5], cells);
             shaded = true;
         }
@@ -272,8 +290,16 @@ public class SolveInput : MonoBehaviour
         //{
         //更新当前格
         HexCell[] cells = oneArround(cell);
-        cloneAround = cells;
-        PrintArround(grid.CellColor[5], cells);
+        List<HexCell> list = new List<HexCell>();
+        for (int i = 0; i < cells.Length; i++)
+        {
+            if (gridcontent.getcontent(cells[i]) == "Resource" || gridcontent.getcontent(cells[i]) == "Electric" ||
+                gridcontent.getcontent(cells[i]) == "FirstAid" || gridcontent.getcontent(cells[i]) == "MResource" ||
+                gridcontent.getcontent(cells[i]) == "MElectric" || gridcontent.getcontent(cells[i]) == "MFirstAid")
+                list.Add(cells[i]);
+        }
+        cloneAround = list.ToArray();
+        PrintArround(grid.CellColor[5], list.ToArray());
         //}
         //}
     }
@@ -397,18 +423,30 @@ public class SolveInput : MonoBehaviour
         }
         grid.hexMesh.Triangulate(grid.cells);
     }
+    void PrintArround(Color color, HexCell cell)//对周围格子涂色
+    {
+        if (cell != null)
+        {
+            if (cell.color != grid.CellColor[3] && cell.color != grid.CellColor[4])
+            {
+                cell.color = color;
+            }
+        }
+
+        grid.hexMesh.Triangulate(grid.cells);
+    }
     void PrintCell(Color color, HexCell cell)//对单个格涂色
     {
         cell.color = color;
         grid.hexMesh.Triangulate(grid.cells);
     }
 
-    public void ShowColor(HexCell[] cells,string type)
+    public void ShowColor(HexCell[] cells, string type)
     {
 
         if (type == "monster")
         {
-            PrintArround(grid.CellColor[7], cells); 
+            PrintArround(grid.CellColor[7], cells);
         }
         else
             PrintArround(grid.CellColor[6], cells);
@@ -419,7 +457,7 @@ public class SolveInput : MonoBehaviour
         List<HexCell> list = new List<HexCell>();
         for (int i = 0; i < cells.Length; i++)
         {
-            if(cells[i].color!=grid.CellColor[1]&&cells[i].color != grid.CellColor[2]&&cells[i].color != grid.CellColor[3])
+            if (cells[i].color != grid.CellColor[1] && cells[i].color != grid.CellColor[2] && cells[i].color != grid.CellColor[3])
                 list.Add(cells[i]);
         }
         HexCell[] hexCells = list.ToArray();
@@ -438,9 +476,36 @@ public class SolveInput : MonoBehaviour
     }
     public void InterferenceColorReset()
     {
-        for(int i = 0; i < interferenceCells.Length; i++)
+        if (interferenceCells != null)
+            for (int i = 0; i < interferenceCells.Length; i++)
+            {
+                InterferenceColorReset(interferenceCells[i]);
+            }
+    }
+    public void InterferenceColorReset(HexCell cell)
+    {
+        if (((Mathf.Abs(cell.coordinates.X - CurrentCell.coordinates.X) + Mathf.Abs(cell.coordinates.Y - CurrentCell.coordinates.Y) + Mathf.Abs(cell.coordinates.Z - CurrentCell.coordinates.Z)) < 6)
+   && ((cell.coordinates.X != CurrentCell.coordinates.X) || (cell.coordinates.Z != CurrentCell.coordinates.Z) || (cell.coordinates.Y != CurrentCell.coordinates.Y)))
         {
-            //interferenceCells[i].
+            if (locked == 0)
+                PrintArround(grid.CellColor[2], cell);
+            else if (locked == 3)
+                PrintArround(grid.CellColor[5], cell);
+        }
+        else
+            PrintArround(grid.CellColor[0], cell);
+    }
+    public void SelectInterferenceColorReset()
+    {
+        shaded = false;
+        HexCell[] cells = selectInterferenceCells;
+        for (int i = 0; i < cells.Length; i++)
+        {
+            if (((Mathf.Abs(cells[i].coordinates.X - CurrentCell.coordinates.X) + Mathf.Abs(cells[i].coordinates.Y - CurrentCell.coordinates.Y) + Mathf.Abs(cells[i].coordinates.Z - CurrentCell.coordinates.Z)) < 6)
+    && ((cells[i].coordinates.X != CurrentCell.coordinates.X) || (cells[i].coordinates.Z != CurrentCell.coordinates.Z) || (cells[i].coordinates.Y != CurrentCell.coordinates.Y)))
+            {
+                PrintArround(grid.CellColor[2], cells[i]);
+            }
         }
     }
 }

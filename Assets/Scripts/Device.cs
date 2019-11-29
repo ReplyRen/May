@@ -168,6 +168,7 @@ public class Device : MonoBehaviour
             select.SetActive(false);
             selectBool = false;
             CloneImage.enabled = false;
+            player.CloneUnshow();
             player.locked = 0;
             select.GetComponent<Select>().result = null;
             result = null;
@@ -176,8 +177,10 @@ public class Device : MonoBehaviour
         {
             if (player.cloneCell != null)
             {
+                if (timer == 0)
+                    MutiContent(player.cloneCell, 1);
                 timer += Time.deltaTime;
-                MutiContent(player.cloneCell, 2);
+
                 player.locked = 0;
                 select.SetActive(false);
                 player.CloneUnshow();
@@ -186,7 +189,7 @@ public class Device : MonoBehaviour
                 cloneCountdownImage.GetComponentInChildren<Text>().text = ((int)(duration - timer)).ToString() + "s";
                 if (timer > duration)
                 {
-                    resetContent(player.cloneCell, 2);
+                    resetContent(player.cloneCell, 1);
                     inCooling = true;
                     countDown = coolingCount;
                     cloneCountdownImage.SetActive(false);
@@ -206,12 +209,15 @@ public class Device : MonoBehaviour
         string result = inter.GetComponent<Select2>().result;
         if (result == "false")
         {
+            player.locked = 0;
+            ResetInterferenceColor();
             inter.SetActive(false);
             interBool = false;
             ITFImage.enabled = false;
-            player.locked = 0;
+
             inter.GetComponent<Select2>().result = null;
             result = null;
+            
         }
         else if (result == "true")
         {
@@ -220,6 +226,7 @@ public class Device : MonoBehaviour
                 timer += Time.deltaTime;
                 CleanMonster(player.interferenceCells);
                 player.locked = 0;
+                player.SelectInterferenceColorReset();
                 inter.SetActive(false);
                 ITFImage.enabled = false;
                 ITFCountdownImage.SetActive(true);
@@ -289,5 +296,12 @@ public class Device : MonoBehaviour
     void ResetMonster(HexCell[] cells)
     {
 
+    }
+    void ResetInterferenceColor()
+    {
+        
+        player.InterferenceColorReset();
+        player.SelectInterferenceColorReset();
+        player.interferenceCells = null;
     }
 }
