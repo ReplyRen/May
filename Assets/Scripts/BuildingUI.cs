@@ -69,9 +69,7 @@ public class BuildingUI : MonoBehaviour
         }
 
         player = GameObject.FindWithTag("Player");
-        player_chip = player.GetComponent<PlayerAsset>().Chip;
-        player_Resource = player.GetComponent<PlayerAsset>().Resource;
-        player_Electric = player.GetComponent<PlayerAsset>().Electric;
+        downloadData();
     }
 
     // Update is called once per frame
@@ -81,9 +79,7 @@ public class BuildingUI : MonoBehaviour
         //Debug.Log(buttonNum);
         //imageNow = this.transform.GetChild(buttonNum).GetComponent<Image>();
         /*显示文本的更新*/
-        player.GetComponent<PlayerAsset>().Chip = player_chip;
-        player.GetComponent<PlayerAsset>().Resource = player_Resource;
-        player.GetComponent<PlayerAsset>().Electric = player_Electric;
+        downloadData();
         ChipText.text = player_chip.ToString();
         ResourceText.text = player_Resource.ToString();
         ElectricText.text = player_Electric.ToString();
@@ -217,6 +213,8 @@ public class BuildingUI : MonoBehaviour
                 picNum[_buttonNum]++;
                 buttonLevel[_buttonNum % 3]++;
 
+                updateData();
+
                 int imageSend1 = imageSend, imageSend2 = imageSend;
                 if (buttonLevel[_buttonNum % 3] < 3)//level高的改图
                 {
@@ -246,6 +244,8 @@ public class BuildingUI : MonoBehaviour
                 player_Electric = player_Electric + costPlayer[flag + 2];
                 buttonLevel[_buttonNum % 3]--;
 
+                updateData();
+
                 int imageSend1 = imageSend;
                 if (buttonLevel[_buttonNum % 3] > 0)//level低的改图
                 {
@@ -271,6 +271,17 @@ public class BuildingUI : MonoBehaviour
             confirmWindows.gameObject.SetActive(false);
         }
     }
-
+    private void updateData()
+    {
+        player.GetComponent<PlayerAsset>().Chip = player_chip;
+        player.GetComponent<PlayerAsset>().Resource = player_Resource;
+        player.GetComponent<PlayerAsset>().Electric = player_Electric;
+    }
+    private void downloadData()
+    {
+        player_chip = player.GetComponent<PlayerAsset>().Chip;
+        player_Resource = player.GetComponent<PlayerAsset>().Resource;
+        player_Electric = player.GetComponent<PlayerAsset>().Electric;
+    }
 
 }
