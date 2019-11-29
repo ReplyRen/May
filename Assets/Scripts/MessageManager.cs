@@ -109,6 +109,8 @@ public class MessageManager : MonoBehaviour
     bool[] noteflags;
     public GameObject[] notepoint;
     public GridContent gridcontent;
+    public SolveInput solveinput;
+    public GameObject NodeNodeNode;
 
     bool[] flags;
 
@@ -227,6 +229,7 @@ public class MessageManager : MonoBehaviour
                 {
                     lastnode = line.delete();
                     status = 0;
+                    NodeNodeNode.SetActive(true);
                     if (lastnode == 1009)
                         tip.insert3014();
                 }
@@ -272,7 +275,7 @@ public class MessageManager : MonoBehaviour
         {
             StartCoroutine(messagetip("日志已更新"));
             logmanager.Logflags[1] = true;
-            gridcontent.sisee = true;
+            gridcontent.portalsee = true;
         }
         else if (x == 1010)
         {
@@ -286,13 +289,23 @@ public class MessageManager : MonoBehaviour
         }
         else if (x == 1015)
         {
-            StartCoroutine(messagetip("日志已更新"));
+            asset.increaseChip(1);
+            string[] str = new string[2];
+            str[0] = "获得芯片X1";
+            str[1] = "日志已更新";
+            StartCoroutine(messagetip(str));
             logmanager.Logflags[3] = true;
+            solveinput.viewportalflag = true;
         }
         else if (x == 1016)
         {
-            StartCoroutine(messagetip("日志已更新"));
+            asset.increaseChip(1);
+            string[] str = new string[2];
+            str[0] = "获得芯片X1";
+            str[1] = "日志已更新";
+            StartCoroutine(messagetip(str));
             logmanager.Logflags[3] = true;
+            solveinput.viewportalflag = true;
         }
         else if (x == 1018)
         {
@@ -311,6 +324,11 @@ public class MessageManager : MonoBehaviour
             str[0] = "同步率有所变化";
             str[1] = "日志已更新";
             StartCoroutine(messagetip(str));
+        }
+        else if (x == 1020)
+        {
+            solveinput.viewsiflag = true;
+            gridcontent.sisee = true;
         }
         else if (x == 1024)
         {
@@ -676,6 +694,7 @@ public class MessageManager : MonoBehaviour
         }
         else if (status == 1 && line.length != 0)
         {
+            NodeNodeNode.SetActive(false);
             printwords();
 
         }

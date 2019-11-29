@@ -5,6 +5,9 @@ using UnityEngine.SceneManagement;
 
 public class ShiftScene : MonoBehaviour
 {
+    public MyInput myinput;
+    public GameObject endscene;
+    public int n;
     // Start is called before the first frame update
     void Start()
     {
@@ -14,9 +17,13 @@ public class ShiftScene : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (endscene.activeSelf)
         {
-            SceneManager.LoadScene("SampleScene");
+
+            if (myinput.isButtonDown)
+            {
+                SceneManager.LoadScene("Begin");
+            }
         }
     }
 }

@@ -36,6 +36,8 @@ public class SolveInput : MonoBehaviour
     private double MapRate;
     private int[] RateFlag = new int[10] { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 };
     public MessageManager Message;
+    public bool viewportalflag;
+    public bool viewsiflag;
 
     private MyInput myInput;
     public int footCount = 0;
@@ -47,6 +49,8 @@ public class SolveInput : MonoBehaviour
     private bool shaded = false;
     public HexCell[] interferenceCells;
     public HexCell[] selectInterferenceCells;
+    public GameObject hexgrid;
+
     private void Awake()
     {
         locked = 0;
@@ -103,6 +107,8 @@ public class SolveInput : MonoBehaviour
         CurrentText = index;
         gridcontent.start(CurrentText, CurrentTextAround);
         gridcontent.detectAround(CurrentTextAround);
+        viewportalflag = false;
+        viewsiflag = false;
         //方政言加end
     }
 
@@ -136,6 +142,8 @@ public class SolveInput : MonoBehaviour
         MapExplore.text = MapRate.ToString("0.00") + "%";
         CheckRate();
         //于沛琦加end
+        //方政言加
+        checkview();
     }
     private void CheckRate()
     {
@@ -144,7 +152,6 @@ public class SolveInput : MonoBehaviour
             RateFlag[0] = 0;
             targetpos = grid.cells[gridcontent.Portal].transform.position;
             Vector3 oldposition = camera.transform.position;
-            StartCoroutine(MapRateAchieve(oldposition));
         }
     }
     IEnumerator MapRateAchieve(Vector3 oldposition)
@@ -157,6 +164,45 @@ public class SolveInput : MonoBehaviour
         moveflag = 0;
         Debug.Log("change moveflag to 0");
     }
+
+    void checkview()
+    {
+        if (viewportalflag && hexgrid.activeSelf)
+        {
+            viewportalflag = false;
+            StartCoroutine(viewportal(camera.transform.position));
+        }
+        else if (viewsiflag && hexgrid.activeSelf)
+        {
+            viewsiflag = false;
+            StartCoroutine(viewspecialitems(camera.transform.position));
+        }
+    }
+    IEnumerator viewportal(Vector3 oldposition)
+    {
+        myInput.enabled = false;
+        targetpos = grid.cells[gridcontent.Portal].transform.position;
+        moveflag = 1;
+        yield return new WaitForSeconds(2f);
+        targetpos = oldposition;
+        yield return new WaitForSeconds(1f);
+        moveflag = 0;
+        myInput.enabled = true;
+    }
+    IEnumerator viewspecialitems(Vector3 oldposition)
+    {
+        myInput.enabled = false;
+        targetpos = grid.cells[gridcontent.si1image].transform.position;
+        moveflag = 1;
+        yield return new WaitForSeconds(2f);
+        targetpos = grid.cells[gridcontent.si2image].transform.position;
+        yield return new WaitForSeconds(2f);
+        targetpos = oldposition;
+        yield return new WaitForSeconds(1f);
+        moveflag = 0;
+        myInput.enabled = true;
+    }
+
 
     void HandleInput()
     {

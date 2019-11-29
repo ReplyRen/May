@@ -456,7 +456,6 @@ public class GridContent : MonoBehaviour
     {
         int index = x.coordinates.X + x.coordinates.Z * grid.width + x.coordinates.Z / 2;
         contents[index].val = (count + 1) * contents[index].val;
-        Debug.Log(contents[index].val);
         MonsterNum[index] = MonsterNum[index] * (count + 1);
     }
 
