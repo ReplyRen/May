@@ -23,6 +23,8 @@ public class MessageManager : MonoBehaviour
             head = tail = 0;
             length = 0;
             MessageButton = button;
+            MessageButton.GetComponent<GifController>().enabled = false;
+            MessageButton.GetComponent<Image>().color = new Color(1, 1, 1, 1);
         }
 
         public void insert(int x)
@@ -34,6 +36,8 @@ public class MessageManager : MonoBehaviour
                 length++;
                 MessageButton.GetComponentInChildren<Text>().text = length.ToString();
                 MessageButton.GetComponent<Image>().sprite = MessageButton.GetComponent<PictureContainer>().images[1];
+                MessageButton.GetComponent<GifController>().enabled = true;
+                MessageButton.GetComponent<Image>().color = new Color(1, 1, 1, 1);
             }
         }
 
@@ -58,11 +62,16 @@ public class MessageManager : MonoBehaviour
             {
                 MessageButton.GetComponentInChildren<Text>().text = length.ToString();
                 MessageButton.GetComponent<Image>().sprite = MessageButton.GetComponent<PictureContainer>().images[1];
+                MessageButton.GetComponent<GifController>().enabled = true;
+                MessageButton.GetComponent<Image>().color = new Color(1, 1, 1, 1);
             }
             else if (length == 0)
             {
                 MessageButton.GetComponentInChildren<Text>().text = null;
                 MessageButton.GetComponent<Image>().sprite = MessageButton.GetComponent<PictureContainer>().images[0];
+
+                MessageButton.GetComponent<GifController>().enabled = false;
+                MessageButton.GetComponent<Image>().color = new Color(1, 1, 1, 1);
             }
             return x;
         }
@@ -368,18 +377,22 @@ public class MessageManager : MonoBehaviour
         }
         else if (x == 1041)
         {
+            Debug.Log(1041);
             SceneManager.LoadScene("TobeContinue");
         }
         else if (x == 1045)
         {
+            Debug.Log(1045);
             SceneManager.LoadScene("TobeContinue");
         }
         else if (x == 1047)
         {
+            Debug.Log(1047);
             SceneManager.LoadScene("TobeContinue");
         }
         else if (x == 1048)
         {
+            Debug.Log(1048);
             SceneManager.LoadScene("BadEnd2");
         }
         else if (x == 2005)
@@ -721,13 +734,5 @@ public class MessageManager : MonoBehaviour
             status = 0;
         }
 
-        switch (lastnode)
-        {
-            case 1040:
-            case 1041:
-            case 1045:
-            case 1047:
-            case 1048: UnityEngine.SceneManagement.SceneManager.LoadScene("lose"); break;
-        }
     }
 }

@@ -1,9 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEditor;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class GridContent : MonoBehaviour
 {
@@ -39,7 +39,6 @@ public class GridContent : MonoBehaviour
     };
     [HideInInspector]
     public int flag = 0;//用于判断移动时资源的情况,0为正常移动，1为物资不足，2为电力不足，3为二者均不足
-    [HideInInspector]
     public content[] contents;
     public int ResourceNum;//资源格总数
     public int ElectricNum;//电力格总数
@@ -106,13 +105,12 @@ public class GridContent : MonoBehaviour
         grid = GameObject.FindWithTag("Grid").GetComponent<HexGrid>();
         asset = GameObject.FindWithTag("Player").GetComponent<PlayerAsset>();
         solve = GameObject.FindWithTag("Player").GetComponent<SolveInput>();
-        do
-        {
-            Portal = Random.Range(1, Total);
-        } while (Portal == 2 + 5 * grid.width + 5 / 2);
+        Portal = 9 * 20 + 8;
+        si1image = 16 * 20 + 12;
+        si2image = 6 * 20 + 17;
         printlist = new int[num];
         MonsterNum = new int[num];
-        for(int i=0;i<MonsterNum.Length;i++)
+        for (int i = 0; i < MonsterNum.Length; i++)
             MonsterNum[i] = 1;
         portalsee = sisee = false;
     }
@@ -130,6 +128,18 @@ public class GridContent : MonoBehaviour
             contents[x].con = Content.Portal;
             contents[x].val = 0;
             grid.cells[x].status = 3;
+        }
+        else if (x == si1image)
+        {
+            contents[x].con = Content.specialitem1;
+            contents[x].val = 0;
+            specialitem1--;
+        }
+        else if (x == si2image)
+        {
+            contents[x].con = Content.specialitem2;
+            contents[x].val = 0;
+            specialitem2--;
         }
         else if (x == 2 + 5 * grid.width + 5 / 2)//起点
         {
@@ -183,18 +193,6 @@ public class GridContent : MonoBehaviour
             contents[x].con = Content.Chip;
             contents[x].val = 1;
             Chip--;
-        }
-        else if (n <= Resource + Electric + FirstAid + MResource + MElectric + MFirstAid + Incident + Chip + specialitem1)
-        {
-            contents[x].con = Content.specialitem1;
-            contents[x].val = 1;
-            specialitem1--;
-        }
-        else if (n <= Resource + Electric + FirstAid + MResource + MElectric + MFirstAid + Incident + Chip + specialitem1 + specialitem2)
-        {
-            contents[x].con = Content.specialitem2;
-            contents[x].val = 1;
-            specialitem2--;
         }
         else
         {
@@ -261,7 +259,7 @@ public class GridContent : MonoBehaviour
                 asset.increaseIncident(1); grid.images[i].enabled = false; grid.texts[i].enabled = true;
                 grid.texts[i].text = k.ToString(); break;
             case Content.Portal:
-                ArrivePortal(); grid.images[i].enabled = false; grid.texts[i].enabled = true;
+                grid.images[i].enabled = false; grid.texts[i].enabled = true;
                 grid.texts[i].text = k.ToString(); break;
             case Content.specialitem1:
                 if (!messagemanager.flags[1])
@@ -270,7 +268,6 @@ public class GridContent : MonoBehaviour
                 }
                 else
                 {
-                    ArrivePortal();
                     grid.images[i].enabled = false;
                     grid.texts[i].enabled = true;
                     grid.texts[i].text = k.ToString();
@@ -283,7 +280,6 @@ public class GridContent : MonoBehaviour
                 }
                 else
                 {
-                    ArrivePortal();
                     grid.images[i].enabled = false;
                     grid.texts[i].enabled = true;
                     grid.texts[i].text = k.ToString();
@@ -364,7 +360,7 @@ public class GridContent : MonoBehaviour
                 asset.increaseIncident(1); grid.images[i].enabled = false; grid.texts[i].enabled = true;
                 grid.texts[i].text = k.ToString(); break;
             case Content.Portal:
-                ArrivePortal(); grid.images[i].enabled = false; grid.texts[i].enabled = true;
+                grid.images[i].enabled = false; grid.texts[i].enabled = true;
                 grid.texts[i].text = k.ToString(); break;
             case Content.specialitem1:
                 grid.images[i].enabled = false; grid.texts[i].enabled = true;
@@ -412,12 +408,6 @@ public class GridContent : MonoBehaviour
     {
         if (contents[i].con == Content.Portal)
             grid.images[i].enabled = true;
-    }
-
-    public void ArrivePortal()
-    {
-        if (asset.IncidentNeed == asset.Incident)
-            SceneManager.LoadScene("lose");
     }
 
     public string getcontent(int x)//获得下标为x的网格的内容
@@ -503,7 +493,7 @@ public class GridContent : MonoBehaviour
 
     public void avoidmonster(HexCell[] cells)
     {
-        for(int i = 0; i < cells.Length; i++)
+        for (int i = 0; i < cells.Length; i++)
         {
             int index = cells[i].coordinates.X + cells[i].coordinates.Z * grid.width + cells[i].coordinates.Z / 2;
             MonsterNum[index] = 0;
