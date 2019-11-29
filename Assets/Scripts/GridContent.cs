@@ -80,9 +80,9 @@ public class GridContent : MonoBehaviour
     private int gridnow;
     private int[] Around;
     private int[] MonsterNum;
-    private int portalimage;
-    private int si1image;
-    private int si2image;
+    public int portalimage;
+    public int si1image;
+    public int si2image;
     public bool portalsee;
     public bool sisee;
 
@@ -387,24 +387,12 @@ public class GridContent : MonoBehaviour
 
     public string getcontent(int x)//获得下标为x的网格的内容
     {
-        switch (contents[x].con)
-        {
-            case Content.Resource:
-            case Content.Electric:
-            case Content.FirstAid:
-                return contents[x].con.ToString() + "\n" + contents[x].val.ToString();
-            case Content.MResource:
-                return "Resource" + "\n" + contents[x].val.ToString();
-            case Content.MElectric:
-                return "Electric" + "\n" + contents[x].val.ToString();
-            case Content.MFirstAid:
-                return "FirstAid" + "\n" + contents[x].val.ToString();
-            case Content.Incident:
-            case Content.Nothing:
-            case Content.Portal:
-                return contents[x].con.ToString();
-            default: return contents[x].con.ToString();
-        }
+        return contents[x].con.ToString();
+    }
+    public string getcontent(HexCell cell)//获得下标为x的网格的内容
+    {
+        int x = cell.coordinates.X + cell.coordinates.Z * grid.width + cell.coordinates.Z / 2;
+        return contents[x].con.ToString();
     }
     public string ReturnContent(int x)
     {
@@ -466,14 +454,14 @@ public class GridContent : MonoBehaviour
 
     public void Double(HexCell x, int count)
     {
-        int index = x.coordinates.X + x.coordinates.Z * grid.width + x.coordinates.Z / 2; ;
+        int index = x.coordinates.X + x.coordinates.Z * grid.width + x.coordinates.Z / 2;
         contents[index].val = (count + 1) * contents[index].val;
         MonsterNum[index] = MonsterNum[index] * (count + 1);
     }
 
     public void Half(HexCell x, int count)
     {
-        int index = x.coordinates.X + x.coordinates.Z * grid.width + x.coordinates.Z / 2; ;
+        int index = x.coordinates.X + x.coordinates.Z * grid.width + x.coordinates.Z / 2;
         contents[index].val = contents[index].val / (count + 1);
         MonsterNum[index] = 1;
     }
