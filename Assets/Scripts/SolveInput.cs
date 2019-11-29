@@ -405,20 +405,13 @@ public class SolveInput : MonoBehaviour
 
     public void ShowColor(HexCell[] cells,string type)
     {
-        List<HexCell> list = new List<HexCell>();
-        for(int i = 0; i < cells.Length; i++)
-        {
-            if (Array.IndexOf(CurrentCellAround, cells[i]) == -1)
-                list.Add(cells[i]);
-        }
-        HexCell[] hexCells = list.ToArray();
 
         if (type == "monster")
         {
-            PrintArround(grid.CellColor[7], hexCells); 
+            PrintArround(grid.CellColor[7], cells); 
         }
         else
-            PrintArround(grid.CellColor[6], hexCells);
+            PrintArround(grid.CellColor[6], cells);
 
     }
     public void UnshowColor(HexCell[] cells)
