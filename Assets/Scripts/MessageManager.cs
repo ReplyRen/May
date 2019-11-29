@@ -84,7 +84,7 @@ public class MessageManager : MonoBehaviour
     public PlayerAsset asset;
     public Text scrolltext;
     public GameObject PickMessage;
-    public GameObject PickLog;
+    public LogManager logmanager;
     public GameObject message;
     public GameObject onechoice;
     public Text left;
@@ -105,6 +105,9 @@ public class MessageManager : MonoBehaviour
     int strnum;
     public MessagerContainer container;
     public GameObject MessageTip;
+    public GameObject[] notes;
+    bool[] noteflags;
+    public GameObject[] notepoint;
 
     bool[] flags;
 
@@ -125,6 +128,11 @@ public class MessageManager : MonoBehaviour
         for(int j = 0; j < 11; j++)
         {
             flags[j] = true;
+        }
+        noteflags = new bool[7];
+        for(int j=0; j < noteflags.Length; j++)
+        {
+            noteflags[j] = false;
         }
 
         string[] temp, str;
@@ -227,13 +235,23 @@ public class MessageManager : MonoBehaviour
 
 
 
+    IEnumerator messagetip(string[] str)
+    {
+        MessageTip.SetActive(true);
+        Text text = MessageTip.GetComponentInChildren<Text>();
+        for(int i = 0; i < str.Length; i++)
+        {
+            text.text = str[i];
+            yield return new WaitForSeconds(2f);
+        }
+        MessageTip.SetActive(false);
+    }
     IEnumerator messagetip(string str)
     {
         MessageTip.SetActive(true);
         Text text = MessageTip.GetComponentInChildren<Text>();
         text.text = str;
         yield return new WaitForSeconds(2f);
-        Debug.Log("1");
         MessageTip.SetActive(false);
     }
 
@@ -244,25 +262,82 @@ public class MessageManager : MonoBehaviour
             asset.increaseFavorability(15);
             StartCoroutine(messagetip("同步率有所变化"));
         }
+        else if (x == 1001)
+        {
+            StartCoroutine(messagetip("日志已更新"));
+            logmanager.Logflags[0] = true;
+        }
+        else if (x == 1009)
+        {
+            StartCoroutine(messagetip("日志已更新"));
+            logmanager.Logflags[1] = true;
+        }
+        else if (x == 1010)
+        {
+            StartCoroutine(messagetip("日志已更新"));
+            logmanager.Logflags[2] = true;
+        }
         else if (x == 1012)
         {
             asset.increaseFavorability(15);
             StartCoroutine(messagetip("同步率有所变化"));
         }
+        else if (x == 1015)
+        {
+            StartCoroutine(messagetip("日志已更新"));
+            logmanager.Logflags[3] = true;
+        }
+        else if (x == 1016)
+        {
+            StartCoroutine(messagetip("日志已更新"));
+            logmanager.Logflags[3] = true;
+        }
         else if (x == 1018)
         {
+            logmanager.Logflags[4] = true;
             asset.increaseFavorability(25);
-            StartCoroutine(messagetip("同步率有所变化"));
+            string[] str=new string[2];
+            str[0] = "同步率有所变化";
+            str[1] = "日志已更新";
+            StartCoroutine(messagetip(str));
         }
         else if (x == 1019)
         {
+            logmanager.Logflags[5] = true;
             asset.decreaseFavorability(-10);
-            StartCoroutine(messagetip("同步率有所变化"));
+            string[] str = new string[2];
+            str[0] = "同步率有所变化";
+            str[1] = "日志已更新";
+            StartCoroutine(messagetip(str));
+        }
+        else if (x == 1024)
+        {
+            StartCoroutine(messagetip("日志已更新"));
+            logmanager.Logflags[6] = true;
+        }
+        else if (x == 1025)
+        {
+            StartCoroutine(messagetip("日志已更新"));
+            logmanager.Logflags[6] = true;
+        }
+        else if (x == 1027)
+        {
+            StartCoroutine(messagetip("日志已更新"));
+            logmanager.Logflags[7] = true;
+        }
+        else if (x == 1029)
+        {
+            StartCoroutine(messagetip("日志已更新"));
+            logmanager.Logflags[7] = true;
         }
         else if (x == 1030)
         {
+            logmanager.Logflags[8] = true;
             asset.decreaseFavorability(-10);
-            StartCoroutine(messagetip("同步率有所变化"));
+            string[] str = new string[2];
+            str[0] = "同步率有所变化";
+            str[1] = "日志已更新";
+            StartCoroutine(messagetip(str));
         }
         else if (x == 1040)
         {
@@ -272,17 +347,40 @@ public class MessageManager : MonoBehaviour
         else if (x == 2005)
         {
             asset.increaseHp(40);
-            StartCoroutine(messagetip("生命值提高"));
+            string[] str = new string[2];
+            str[0] = "生命值提高";
+            str[1] = "日志已更新";
+            noteflags[0] = true;
+            notepoint[0].SetActive(true);
+            StartCoroutine(messagetip(str));
         }
         else if (x == 2006)
         {
             asset.increaseHp(40);
-            StartCoroutine(messagetip("生命值提高"));
+            string[] str = new string[2];
+            str[0] = "生命值提高";
+            str[1] = "日志已更新";
+            noteflags[0] = true;
+            notepoint[0].SetActive(true);
+            StartCoroutine(messagetip(str));
         }
         else if (x == 2024)
         {
             asset.increaseResource(60);
-            StartCoroutine(messagetip("获得少量物资"));
+            str[0] = "生命值提高";
+            str[1] = "日志已更新";
+            noteflags[3] = true;
+            notepoint[2].SetActive(true);
+            StartCoroutine(messagetip(str));
+        }
+        else if (x == 2015)
+        {
+            string[] str = new string[2];
+            str[0] = "生命值提高";
+            str[1] = "日志已更新";
+            noteflags[1] = true;
+            notepoint[1].SetActive(true);
+            StartCoroutine(messagetip(str));
         }
         else if (x == 2016)
         {
@@ -292,7 +390,105 @@ public class MessageManager : MonoBehaviour
         else if (x == 2018)
         {
             asset.increaseFavorability(25);
-            StartCoroutine(messagetip("同步率有所变化"));
+            str[0] = "生命值提高";
+            str[1] = "日志已更新";
+            noteflags[2] = true;
+            notepoint[1].SetActive(true);
+            StartCoroutine(messagetip(str));
+        }
+        else if (x == 2030)
+        {
+            string[] str = new string[2];
+            str[0] = "生命值提高";
+            str[1] = "日志已更新";
+            noteflags[5] = true;
+            notepoint[3].SetActive(true);
+            StartCoroutine(messagetip(str));
+        }
+        else if (x == 2031)
+        {
+            string[] str = new string[2];
+            str[0] = "生命值提高";
+            str[1] = "日志已更新";
+            noteflags[4] = true;
+            notepoint[3].SetActive(true);
+            StartCoroutine(messagetip(str));
+        }
+        else if (x == 2034)
+        {
+            string[] str = new string[2];
+            str[0] = "生命值提高";
+            str[1] = "日志已更新";
+            noteflags[6] = true;
+            notepoint[4].SetActive(true);
+            StartCoroutine(messagetip(str));
+        }
+        else if (x == 2035)
+        {
+            string[] str = new string[2];
+            str[0] = "生命值提高";
+            str[1] = "日志已更新";
+            noteflags[6] = true;
+            notepoint[4].SetActive(true);
+            StartCoroutine(messagetip(str));
+        }
+    }
+
+    public void note1()
+    {
+        if (noteflags[0])
+        {
+            notepoint[0].SetActive(false);
+            Image image = notes[0].GetComponent<Image>();
+            image.sprite = notes[0].GetComponent<PictureContainer>().images[1];
+        }
+    }
+    public void note2()
+    {
+        if (noteflags[1])
+        {
+            notepoint[1].SetActive(false);
+            Image image = notes[1].GetComponent<Image>();
+            image.sprite = notes[1].GetComponent<PictureContainer>().images[1];
+        }
+        if (noteflags[2])
+        {
+            notepoint[1].SetActive(false);
+            Image image = notes[1].GetComponent<Image>();
+            image.sprite = notes[1].GetComponent<PictureContainer>().images[2];
+        }
+    }
+    public void note3()
+    {
+        if (noteflags[3])
+        {
+            notepoint[2].SetActive(false);
+            Image image = notes[2].GetComponent<Image>();
+            image.sprite = notes[2].GetComponent<PictureContainer>().images[1];
+        }
+    }
+    public void note4()
+    {
+        if (noteflags[4])
+        {
+            notepoint[3].SetActive(false);
+            Image image = notes[3].GetComponent<Image>();
+            image.sprite = notes[3].GetComponent<PictureContainer>().images[1];
+        }
+        if (noteflags[5])
+        {
+            notepoint[3].SetActive(false);
+            Image image = notes[3].GetComponent<Image>();
+            image.sprite = notes[3].GetComponent<PictureContainer>().images[2];
+        }
+    }
+    public void note5()
+    {
+        if (noteflags[6])
+        {
+            notepoint[4].SetActive(false);
+            Image image = notes[4].GetComponent<Image>();
+            image.sprite = notes[4].GetComponent<PictureContainer>().images[1];
         }
     }
 

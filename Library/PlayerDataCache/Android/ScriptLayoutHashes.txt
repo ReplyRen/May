@@ -1,14 +1,15 @@
 Android
 PlayerPath?
-C:/Users/954384509/Desktop/may/May.apk
+E:/大三上/腾讯游戏策划公开课/May (3)/demo/1.1.4.apk
 SceneListBegin?
 Assets/Scenes/Begin.unity
 Assets/Scenes/SampleScene.unity
 Assets/Scenes/lose.unity
 SceneListEnd?
-d694d58e8d53957d9fdfd5bc75b0d5f4 Assembly-CSharp.dll:.PlayerAsset
+ab31d90611965171b25c7e4e5a3ab2da Assembly-CSharp.dll:.PlayerAsset
 3c08375166df118bd1801438fc36b92f Unity.TextMeshPro.dll:TMPro.TMP_SelectionCaret
 77c21079ace8d76ce6e941d3dabbfe6e Unity.TextMeshPro.dll:TMPro.TMP_Dropdown
+62e3a04bda0df88d893aaabe9a68bfa6 Assembly-CSharp.dll:.TipsContainer
 71bb6a6b6c8f052f948db64c7dd3ca4f UnityEngine.Timeline.dll:UnityEngine.Timeline.ActivationPlayableAsset
 06f0fef534ca4c1d6064fd77a26bf722 UnityEngine.Timeline.dll:UnityEngine.Timeline.ActivationTrack
 780e8f682b3221346c034a6712a0fd25 UnityEngine.Timeline.dll:UnityEngine.Timeline.AnimationPlayableAsset
@@ -21,6 +22,7 @@ e1bbf0ab858085e38fae6b12ebbdcd35 UnityEngine.Timeline.dll:UnityEngine.Timeline.C
 e1bbf0ab858085e38fae6b12ebbdcd35 UnityEngine.Timeline.dll:UnityEngine.Timeline.GroupTrack
 e1bbf0ab858085e38fae6b12ebbdcd35 UnityEngine.Timeline.dll:UnityEngine.Timeline.PlayableTrack
 201e3fde670b00545944bb3db215c80a UnityEngine.Timeline.dll:UnityEngine.Timeline.TimelineAsset
+0d04b6ce5e4adadc5b3faad3e8e2c43e Assembly-CSharp.dll:.Select2
 e7a73f5f78ba6445195ec23b74a1ce2d Unity.TextMeshPro.dll:TMPro.TMP_ScrollbarEventHandler
 cf9f5cf2c3145a37ac07f00e50e460f9 UnityEngine.UI.dll:UnityEngine.UI.AspectRatioFitter
 71bb6a6b6c8f052f948db64c7dd3ca4f UnityEngine.UI.dll:UnityEngine.EventSystems.BaseInput
@@ -56,7 +58,7 @@ abf1930d8126d0b2e00e9449129a0190 UnityEngine.UI.dll:UnityEngine.EventSystems.Tou
 64e54c0cbb0177c5ea26f340efb9ff85 UnityEngine.UI.dll:UnityEngine.UI.VerticalLayoutGroup
 d3c76b14a25eebd3a3323dd43297919c Unity.TextMeshPro.dll:TMPro.TMP_InputField
 71bb6a6b6c8f052f948db64c7dd3ca4f Assembly-CSharp.dll:.Inter
-5d62b707bb703fc954ae70b4e3d0e15b Assembly-CSharp.dll:.TipController
+884acd61c90c83f25a78552ed2c70117 Assembly-CSharp.dll:.TipController
 cf9f5cf2c3145a37ac07f00e50e460f9 UnityEngine.UI.dll:UnityEngine.UI.AspectRatioFitter
 71bb6a6b6c8f052f948db64c7dd3ca4f UnityEngine.UI.dll:UnityEngine.EventSystems.BaseInput
 507174d46dacbc5fe45e28485db5dd1e UnityEngine.UI.dll:UnityEngine.UI.Button
@@ -90,6 +92,7 @@ aa165095bcf0f4d99594ea33df01c81b UnityEngine.UI.dll:UnityEngine.UI.Slider
 abf1930d8126d0b2e00e9449129a0190 UnityEngine.UI.dll:UnityEngine.EventSystems.TouchInputModule
 64e54c0cbb0177c5ea26f340efb9ff85 UnityEngine.UI.dll:UnityEngine.UI.VerticalLayoutGroup
 b312e83ad782a46efd746133fb62bc70 Assembly-CSharp.dll:.HexGrid
+832364c02ce8db3834ba17d6818dade1 Assembly-CSharp.dll:.IntroManager
 71bb6a6b6c8f052f948db64c7dd3ca4f UnityEngine.Timeline.dll:UnityEngine.Timeline.ActivationPlayableAsset
 06f0fef534ca4c1d6064fd77a26bf722 UnityEngine.Timeline.dll:UnityEngine.Timeline.ActivationTrack
 780e8f682b3221346c034a6712a0fd25 UnityEngine.Timeline.dll:UnityEngine.Timeline.AnimationPlayableAsset
@@ -118,7 +121,8 @@ ad9173d3a69d99153f38ed4b62226129 UnityEngine.Networking.dll:UnityEngine.Networki
 9b895dcabbc1faf095c000c32d471fd0 UnityEngine.Networking.dll:UnityEngine.Networking.NetworkTransformChild
 5887ef1bc706b22b773d253fd443ceef UnityEngine.Networking.dll:UnityEngine.Networking.NetworkTransformVisualizer
 d251bf88db6c95a6b1aa0b69298da9ef UnityEngine.SpatialTracking.dll:UnityEngine.SpatialTracking.TrackedPoseDriver
-09cae936eec61ab433c77ae120f88f0b Assembly-CSharp.dll:.UIManager
+bf191f6a0799fc9e1a606d7682317cfc Assembly-CSharp.dll:.MusicManager
+28feeb2e855d0d6e7eedf571dd53745e Assembly-CSharp.dll:.UIManager
 303ad70ce203ad874efe2965d0fbcff9 Unity.Analytics.Tracker.dll:UnityEngine.Analytics.AnalyticsEventTracker
 7fb9de8dcf73854b6b328eca1f7a6e6d Unity.Analytics.Tracker.dll:UnityEngine.Analytics.AnalyticsTracker
 b8a5e8091ab0b8861d2add371082c5e0 Unity.TextMeshPro.dll:TMPro.TMP_SpriteAsset
@@ -168,14 +172,15 @@ fb6a1ea36b4f6ef5948d283d93760765 UnityEngine.GoogleAudioSpatializer.dll:UnityEng
 5b0391b7e3d9ea9db6c0a8fbd0ca23f6 UnityEngine.GoogleAudioSpatializer.dll:UnityEngine.Experimental.Audio.Google.GvrAudioSoundfieldExtension
 5b0391b7e3d9ea9db6c0a8fbd0ca23f6 UnityEngine.GoogleAudioSpatializer.dll:UnityEngine.Experimental.Audio.Google.GvrAudioSourceExtension
 92750be0aa3da7eb0dc01779c244cf38 Assembly-CSharp.dll:.MyInput
+84d5657c65243c0e8828077638ac25d9 Assembly-CSharp.dll:.LogManager
 3b760e6526e13f7504f59e210145899a Unity.TextMeshPro.dll:TMPro.TextMeshProUGUI
 507174d46dacbc5fe45e28485db5dd1e Unity.Analytics.DataPrivacy.dll:UnityEngine.Analytics.DataPrivacyButton
 d251bf88db6c95a6b1aa0b69298da9ef UnityEngine.SpatialTracking.dll:UnityEngine.SpatialTracking.TrackedPoseDriver
 64a9dae66f7f137a760b910dd4d4dd6b Assembly-CSharp.dll:.CameraController
-298e303588a99ddf6558f1d98e1edff0 Assembly-CSharp.dll:.TextCharPrint
+6e24c0ac40b8ed38c0f5acfdad73178b Assembly-CSharp.dll:.TextCharPrint
 71bb6a6b6c8f052f948db64c7dd3ca4f Assembly-CSharp.dll:.TextSave
-76ccbd8933405757ae81aba04ce3e1df Assembly-CSharp.dll:.MessageManager
-cdb392266c71d7d1f32eeab6cd08ae8b Assembly-CSharp.dll:.SolveInput
+7780a5be3101ec97804019cb3e314cd5 Assembly-CSharp.dll:.MessageManager
+eff4ce196c8a162c8a29c1cd0101356f Assembly-CSharp.dll:.SolveInput
 d791aa6007fa3640be1164ea75bb087d Unity.TextMeshPro.dll:TMPro.TMP_StyleSheet
 df434544c9f7b33d1cc7e635b180d279 Unity.TextMeshPro.dll:TMPro.TextMeshPro
 3165968ba45c74472d279ba04455fccb Unity.TextMeshPro.dll:TMPro.TMP_ColorGradient

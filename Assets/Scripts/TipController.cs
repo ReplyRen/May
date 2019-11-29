@@ -1,6 +1,5 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using System.IO;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -14,6 +13,8 @@ public class TipController : MonoBehaviour
     bool status;
     private bool[] flag;
     public PlayerAsset asset;
+    public TipsContainer container;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -135,19 +136,19 @@ public class TipController : MonoBehaviour
 
     IEnumerator display(int x)
     {
-        FileStream fs = new FileStream("Assets/text/3/" + x.ToString() + ".txt", FileMode.Open, FileAccess.Read);
-        StreamReader sr = new StreamReader(fs, System.Text.Encoding.GetEncoding("gb2312"));
-        string str = System.String.Empty;
+        int t = x;
+        int i;
+        for (i = 0; (t - 1000) > 0; t -= 1000, i++) ;
+        string words = container.tips[t];
+        string[] str = words.Split('\n');
         tip.SetActive(true);
         Text text = tip.GetComponentInChildren<Text>();
-        while ((str = sr.ReadLine()) != null)
+        for(int j=0;j<str.Length;j++)
         {
-            text.text = str;
-            yield return new WaitForSeconds(3f);
+            text.text = str[j];
+            yield return new WaitForSeconds(2.5f);
         }
         tip.SetActive(false);
-        sr.Close();
-        fs.Close();
         status = true;
     }
 
