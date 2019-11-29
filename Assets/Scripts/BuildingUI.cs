@@ -19,6 +19,7 @@ public class BuildingUI : MonoBehaviour
     /*图片序列*/
     private int[] picNum = new int[9];
     private int[] buttonLevel = new int[3];
+    public GameObject[] Image;
     /*确认窗口*/
     [SerializeField]
     private Transform confirmWindows;
@@ -84,34 +85,34 @@ public class BuildingUI : MonoBehaviour
         ResourceText.text = player_Resource.ToString();
         ElectricText.text = player_Electric.ToString();
         chipNum = player.GetComponent<PlayerAsset>().Chip;
+        Debug.Log(buttonLevel[0]);
+        if (chipNum > 0)
+        {
+            for (int i = 0; i < 3; i++)
+            {
+                if (buttonLevel[i] == 0)
+                {
+                    Debug.Log("改图为能");
+                    imageSend = 4 + i * 9;
+                    Image[i].GetComponent<Image>().sprite = Resources.Load("build" + imageSend.ToString(), typeof(Sprite)) as Sprite;
+                }
 
-        //if (chipNum > 0)
-        //{
-        //    for(int i = 0; i < 3; i++)
-        //    {
-        //        if (buttonLevel[i] == 0)
-        //        {
-        //            imageSend = 4 + i * 9;
-        //            imageChange = Resources.Load("build" + imageSend.ToString(), typeof(Sprite)) as Sprite;
-        //            imageNow.sprite = imageChange;
-        //        }
+            }
 
-        //    }
-            
-        //}
-        //else
-        //{
-        //    for (int i = 0; i < 3; i++)
-        //    {
-        //        if (buttonLevel[i] == 0)
-        //        {
-        //            imageChange = Resources.Load("build1", typeof(Sprite)) as Sprite;
-        //            imageNow.sprite = imageChange;
-        //        }
+        }
+        else
+        {
+            for (int i = 0; i < 3; i++)
+            {
+                if (buttonLevel[i]==0)
+                {
+                    Debug.Log("改图为不能");
+                    Image[i].GetComponent<Image>().sprite = Resources.Load("build1", typeof(Sprite)) as Sprite;
+                }
 
-        //    }
+            }
 
-        //}
+        }
         if (Tip.gameObject.active)
         {
             timer += Time.deltaTime;

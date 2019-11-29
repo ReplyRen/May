@@ -6478,10 +6478,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Hp: 100
-  Resource: 100
-  Electric: 100
+  Resource: 800
+  Electric: 800
   FirstAid: 0
-  Chip: 10
+  Chip: 0
   ElectricMoveCost: 5
   ResourceMoveCost: 5
   HPMoveCost: 8
@@ -11712,6 +11712,10 @@ MonoBehaviour:
   imageNow: {fileID: 0}
   imageOther: {fileID: 0}
   buttonNum: 0
+  Image:
+  - {fileID: 1756002002}
+  - {fileID: 1057149807}
+  - {fileID: 389009454}
   confirmWindows: {fileID: 535184438}
   Tip: {fileID: 656060708}
   player: {fileID: 831779023}
