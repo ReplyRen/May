@@ -288,11 +288,11 @@ public class Device : MonoBehaviour
     }
     void CleanMonster(HexCell[] cells)
     {
-
+        gridContent.avoidmonster(cells);
     }
     void ResetMonster(HexCell[] cells)
     {
-
+        gridContent.monsterback(cells);
     }
     void ResetInterferenceColor()
     {

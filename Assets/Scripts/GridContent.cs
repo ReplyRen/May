@@ -79,7 +79,7 @@ public class GridContent : MonoBehaviour
     private int printlistlen;
     private int gridnow;
     private int[] Around;
-    private int[] MonsterNum;
+    public int[] MonsterNum;
     public int portalimage;
     public int si1image;
     public int si2image;
@@ -112,7 +112,7 @@ public class GridContent : MonoBehaviour
         } while (Portal == 2 + 5 * grid.width + 5 / 2);
         printlist = new int[num];
         MonsterNum = new int[num];
-        foreach (int i in MonsterNum)
+        for(int i=0;i<MonsterNum.Length;i++)
             MonsterNum[i] = 1;
         portalsee = sisee = false;
     }
@@ -252,9 +252,9 @@ public class GridContent : MonoBehaviour
             case Content.Resource: asset.increaseResource(contents[i].val); coroutine = StartCoroutine(PassNormal(i, k)); break;
             case Content.Electric: asset.increaseElectric(contents[i].val); coroutine = StartCoroutine(PassNormal(i, k)); break;
             case Content.FirstAid: asset.increaseFirstAid(contents[i].val); coroutine = StartCoroutine(PassNormal(i, k)); break;
-            case Content.MResource: asset.increaseResource(contents[i].val); asset.decreaseHp(MonsterHarm); coroutine = StartCoroutine(PassMonster(i, k)); break;
-            case Content.MElectric: asset.increaseElectric(contents[i].val); asset.decreaseHp(MonsterHarm); coroutine = StartCoroutine(PassMonster(i, k)); break;
-            case Content.MFirstAid: asset.increaseFirstAid(contents[i].val); asset.decreaseHp(MonsterHarm); coroutine = StartCoroutine(PassMonster(i, k)); break;
+            case Content.MResource: asset.increaseResource(contents[i].val); asset.decreaseHp(MonsterHarm * MonsterNum[i]); coroutine = StartCoroutine(PassMonster(i, k)); break;
+            case Content.MElectric: asset.increaseElectric(contents[i].val); asset.decreaseHp(MonsterHarm * MonsterNum[i]); coroutine = StartCoroutine(PassMonster(i, k)); break;
+            case Content.MFirstAid: asset.increaseFirstAid(contents[i].val); asset.decreaseHp(MonsterHarm * MonsterNum[i]); coroutine = StartCoroutine(PassMonster(i, k)); break;
             case Content.Chip: asset.increaseChip(contents[i].val); coroutine = StartCoroutine(PassNormal(i, k)); break;
             case Content.Nothing: coroutine = StartCoroutine(PassNormal(i, k)); break;
             case Content.Incident:
@@ -348,6 +348,7 @@ public class GridContent : MonoBehaviour
             if ((contents[TextAround[j * 4]].con == Content.MResource) || (contents[TextAround[j * 4]].con == Content.MElectric) || (contents[TextAround[j * 4]].con == Content.MFirstAid)) k++;
             if ((contents[TextAround[j * 4 + 1]].con == Content.MResource) || (contents[TextAround[j * 4 + 1]].con == Content.MElectric) || (contents[TextAround[j * 4 + 1]].con == Content.MFirstAid)) k++;
         }
+        Debug.Log("goto " + i.ToString());
         //grid.texts[i].text = k.ToString();
         switch (contents[i].con)
         {
@@ -498,6 +499,25 @@ public class GridContent : MonoBehaviour
         int index = x.coordinates.X + x.coordinates.Z * grid.width + x.coordinates.Z / 2;
         contents[index].val = contents[index].val / (count + 1);
         MonsterNum[index] = 1;
+    }
+
+    public void avoidmonster(HexCell[] cells)
+    {
+        for(int i = 0; i < cells.Length; i++)
+        {
+            int index = cells[i].coordinates.X + cells[i].coordinates.Z * grid.width + cells[i].coordinates.Z / 2;
+            MonsterNum[index] = 0;
+            Debug.Log(index);
+        }
+    }
+    public void monsterback(HexCell[] cells)
+    {
+        for (int i = 0; i < MonsterNum.Length; i++)
+        {
+            int index = cells[i].coordinates.X + cells[i].coordinates.Z * grid.width + cells[i].coordinates.Z / 2;
+            MonsterNum[index] = 1;
+            Debug.Log(index);
+        }
     }
 
     private void Update()
