@@ -112,7 +112,7 @@ public class MessageManager : MonoBehaviour
     public SolveInput solveinput;
     public GameObject NodeNodeNode;
 
-    bool[] flags;
+    public bool[] flags;
 
     public int[] FlagsControll;//[0]为是否到过portal,[1]为到过的任务点个数
 
@@ -603,7 +603,7 @@ public class MessageManager : MonoBehaviour
             flags[1] = false;
             line.insert(1017);
         }
-        if (content == GridContent.Content.specialitem1 && flags[2])
+        if (((content == GridContent.Content.specialitem1)|| (content == GridContent.Content.specialitem2) )&& flags[2])
         {
             if (!flags[1])
             {
@@ -611,7 +611,7 @@ public class MessageManager : MonoBehaviour
                 line.insert(1021);
             }
         }
-        if (content == GridContent.Content.specialitem2 && flags[3])
+        else if (((content == GridContent.Content.specialitem1)|| (content == GridContent.Content.specialitem2) )&& flags[3]&&!flags[2])
         {
             if (!flags[1])
             {

@@ -86,6 +86,8 @@ public class GridContent : MonoBehaviour
     public bool portalsee;
     public bool sisee;
 
+    public MessageManager messagemanager;
+
     public void BuildContent(int num)//初始化，在Grid创建中调用
     {
         specialitem1 = specialitem2 = 1;
@@ -261,6 +263,32 @@ public class GridContent : MonoBehaviour
             case Content.Portal:
                 ArrivePortal(); grid.images[i].enabled = false; grid.texts[i].enabled = true;
                 grid.texts[i].text = k.ToString(); break;
+            case Content.specialitem1:
+                if (!messagemanager.flags[1])
+                {
+                    coroutine = StartCoroutine(PassNormal(i, k));
+                }
+                else
+                {
+                    ArrivePortal();
+                    grid.images[i].enabled = false;
+                    grid.texts[i].enabled = true;
+                    grid.texts[i].text = k.ToString();
+                }
+                break;
+            case Content.specialitem2:
+                if (!messagemanager.flags[1])
+                {
+                    coroutine = StartCoroutine(PassNormal(i, k));
+                }
+                else
+                {
+                    ArrivePortal();
+                    grid.images[i].enabled = false;
+                    grid.texts[i].enabled = true;
+                    grid.texts[i].text = k.ToString();
+                }
+                break;
         }
 
         if (asset.Hp == 0)
@@ -336,6 +364,12 @@ public class GridContent : MonoBehaviour
                 grid.texts[i].text = k.ToString(); break;
             case Content.Portal:
                 ArrivePortal(); grid.images[i].enabled = false; grid.texts[i].enabled = true;
+                grid.texts[i].text = k.ToString(); break;
+            case Content.specialitem1:
+                grid.images[i].enabled = false; grid.texts[i].enabled = true;
+                grid.texts[i].text = k.ToString(); break;
+            case Content.specialitem2:
+                grid.images[i].enabled = false; grid.texts[i].enabled = true;
                 grid.texts[i].text = k.ToString(); break;
         }
         getimages();

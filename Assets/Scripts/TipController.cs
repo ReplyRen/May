@@ -14,6 +14,7 @@ public class TipController : MonoBehaviour
     private bool[] flag;
     public PlayerAsset asset;
     public TipsContainer container;
+    public GameObject normalmode;
 
     // Start is called before the first frame update
     void Start()
@@ -155,7 +156,7 @@ public class TipController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (status&&length>0&&!tip.activeSelf)
+        if (status&&length>0&&!tip.activeSelf&&normalmode.activeSelf)
         {
             status = false;
             StartCoroutine(display(get()));

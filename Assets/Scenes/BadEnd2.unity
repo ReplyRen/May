@@ -337,6 +337,7 @@ MonoBehaviour:
   muti: {fileID: 0}
   cloneAround: []
   interferenceCells: []
+  selectInterferenceCells: []
   hexgrid: {fileID: 0}
 --- !u!1 &317029494
 GameObject:
@@ -677,7 +678,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 25fe3425328a10540affba3454631a83, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 1be8f4283defae84dbfa49747bad8f5c, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -770,7 +771,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   myinput: {fileID: 973954959}
-  endscene: {fileID: 0}
+  endscene: {fileID: 463524520}
   n: 0
 --- !u!114 &973954959
 MonoBehaviour:
@@ -1033,7 +1034,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1206242509}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 75435bb4fbc321b4c93e84ca14ff418e, type: 3}
+  m_Script: {fileID: 11500000, guid: 69d7cd3ecc8283e4bbaf772c205cc0b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   uiText: {fileID: 1206242510}
@@ -1042,7 +1043,7 @@ MonoBehaviour:
   perCharSpeed: 10
   Op: {fileID: 317029494}
   Startgame: {fileID: 463524520}
-  wait: 10
+  wait: 0
 --- !u!1 &1246539503
 GameObject:
   m_ObjectHideFlags: 0

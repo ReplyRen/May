@@ -895,6 +895,7 @@ MonoBehaviour:
   tip: {fileID: 1738121265}
   asset: {fileID: 831779026}
   container: {fileID: 176081678}
+  normalmode: {fileID: 499345420}
 --- !u!114 &176081678
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2199,6 +2200,7 @@ MonoBehaviour:
   si2image: 0
   portalsee: 0
   sisee: 0
+  messagemanager: {fileID: 505346288}
 --- !u!1 &346190240
 GameObject:
   m_ObjectHideFlags: 0
@@ -3620,6 +3622,7 @@ MonoBehaviour:
   gridcontent: {fileID: 338540940}
   solveinput: {fileID: 831779025}
   NodeNodeNode: {fileID: 603050686}
+  flags: 
   FlagsControll: 
 --- !u!4 &505346289
 Transform:
@@ -6429,10 +6432,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b6e79104001dc3488129da08cbb845c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Hp: 800
-  Resource: 800
-  Electric: 800
-  FirstAid: 800
+  Hp: 100
+  Resource: 100
+  Electric: 60
+  FirstAid: 0
   Chip: 1
   ElectricMoveCost: 10
   ResourceMoveCost: 10
