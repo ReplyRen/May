@@ -6436,7 +6436,7 @@ MonoBehaviour:
   Resource: 100
   Electric: 60
   FirstAid: 0
-  Chip: 1
+  Chip: 0
   ElectricMoveCost: 10
   ResourceMoveCost: 10
   HPMoveCost: 10
