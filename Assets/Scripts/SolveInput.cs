@@ -114,7 +114,7 @@ public class SolveInput : MonoBehaviour
 
     private void Update()
     {
-        if (locked == 1)
+            if (locked == 1)
         {
             SelectCell(lastHitPoint);
             if (myInput.isButtonDown)
@@ -144,6 +144,18 @@ public class SolveInput : MonoBehaviour
         //于沛琦加end
         //方政言加
         checkview();
+    }
+    private void LateUpdate()
+    {
+        if (interferenceCells != null)
+        {
+            for (int i = 0; i < interferenceCells.Length; i++)
+            {
+                if(interferenceCells[i]!=CurrentCell)
+                    PrintArround(grid.CellColor[8], interferenceCells[i]);
+            }
+
+        }
     }
     private void CheckRate()
     {
@@ -293,16 +305,16 @@ public class SolveInput : MonoBehaviour
     }
     void InterferenceCell(Vector3 position)
     {
-        if (interferenceCells != null)
-        {
-            InterferenceColorReset();
-            interferenceCells = null;
-        }
+
         HexCoordinates coordinates = HexCoordinates.FromPosition(position);
         HexCell cell = FindCell(coordinates);
         if (((Mathf.Abs(cell.coordinates.X - CurrentCell.coordinates.X) + Mathf.Abs(cell.coordinates.Y - CurrentCell.coordinates.Y) + Mathf.Abs(cell.coordinates.Z - CurrentCell.coordinates.Z)) < 6)
    && ((cell.coordinates.X != CurrentCell.coordinates.X) || (cell.coordinates.Z != CurrentCell.coordinates.Z) || (cell.coordinates.Y != CurrentCell.coordinates.Y)))
         {
+            if (interferenceCells != null)
+        {
+            InterferenceColorReset();
+        }
             List<HexCell> cells = new List<HexCell>(oneArround(cell));
             cells.Add(cell);
             for (int i = 0; i < cells.Count; i++)
@@ -313,7 +325,11 @@ public class SolveInput : MonoBehaviour
             PrintArround(grid.CellColor[8], cells.ToArray());
             interferenceCells = cells.ToArray();
         }
-    }
+        if (interferenceCells == null)
+        {
+            Debug.Log("3位置");
+        }
+        }
     void InterferenceSelectCell(Vector3 position)
     {
         if (shaded == false)
@@ -522,6 +538,7 @@ public class SolveInput : MonoBehaviour
     }
     public void InterferenceColorReset()
     {
+        Debug.Log("清除蓝色");
         if (interferenceCells != null)
             for (int i = 0; i < interferenceCells.Length; i++)
             {

@@ -242,8 +242,6 @@ public class Device : MonoBehaviour
                     result = null;
                     timer = 0f;
                     player.interferenceCells = null;
-
-
                 }
             }
         }
@@ -276,7 +274,6 @@ public class Device : MonoBehaviour
         ProbeImage.enabled = false;
         probeCountdownImage.SetActive(true);
         probeCountdownImage.GetComponentInChildren<Text>().text = ((int)(duration - timer)).ToString() + "s";
-        Debug.Log(timer);
         if (timer > duration)
         {
             Unshow(type);
