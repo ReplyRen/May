@@ -1,10 +1,12 @@
 Android
 PlayerPath?
-C:/Users/954384509/Desktop/may/May.apk
+F:/Users/15616/Documents/GitHub/May/demo/1.1.6.apk
 SceneListBegin?
 Assets/Scenes/Begin.unity
 Assets/Scenes/SampleScene.unity
 Assets/Scenes/lose.unity
+Assets/Scenes/BadEnd2.unity
+Assets/Scenes/TobeContinue.unity
 SceneListEnd?
 ab31d90611965171b25c7e4e5a3ab2da Assembly-CSharp.dll:.PlayerAsset
 3c08375166df118bd1801438fc36b92f Unity.TextMeshPro.dll:TMPro.TMP_SelectionCaret
@@ -154,7 +156,7 @@ ad9173d3a69d99153f38ed4b62226129 UnityEngine.Networking.dll:UnityEngine.Networki
 9b895dcabbc1faf095c000c32d471fd0 UnityEngine.Networking.dll:UnityEngine.Networking.NetworkTransformChild
 5887ef1bc706b22b773d253fd443ceef UnityEngine.Networking.dll:UnityEngine.Networking.NetworkTransformVisualizer
 78be5383e2d3cdc358f011350381e4a7 Assembly-CSharp.dll:.GridContent
-a9667bd8e3bee77c2afa9dad1e913ca1 Assembly-CSharp.dll:.BuildingUI
+fd3c488d198288dfe8ba27d681b57b06 Assembly-CSharp.dll:.BuildingUI
 35a9693c388776aaf487636491a20f11 Unity.TextMeshPro.dll:TMPro.TMP_FontAsset
 e1300922cc039f41ab46a47f4cb05898 Unity.TextMeshPro.dll:TMPro.TMP_Settings
 88cc9df3c6fc697bfbeacd24c0d6f2d7 UnityEngine.TestRunner.dll:UnityEngine.TestTools.BeforeAfterTestCommandState
@@ -180,11 +182,14 @@ d251bf88db6c95a6b1aa0b69298da9ef UnityEngine.SpatialTracking.dll:UnityEngine.Spa
 6e24c0ac40b8ed38c0f5acfdad73178b Assembly-CSharp.dll:.TextCharPrint
 71bb6a6b6c8f052f948db64c7dd3ca4f Assembly-CSharp.dll:.TextSave
 c4ddd924238616fd8342b04714044c92 Assembly-CSharp.dll:.MessageManager
-1222b4bc53e29f3f31df00a980eebf93 Assembly-CSharp.dll:.SolveInput
+0213b417b781c431453b8e2f27de9680 Assembly-CSharp.dll:.SolveInput
 d791aa6007fa3640be1164ea75bb087d Unity.TextMeshPro.dll:TMPro.TMP_StyleSheet
-6e24c0ac40b8ed38c0f5acfdad73178b Assembly-CSharp.dll:.BadEndCharPrint
+777aae98038659b2916382fe245957bc Assembly-CSharp.dll:.BadEndCharPrint
 df434544c9f7b33d1cc7e635b180d279 Unity.TextMeshPro.dll:TMPro.TextMeshPro
 3165968ba45c74472d279ba04455fccb Unity.TextMeshPro.dll:TMPro.TMP_ColorGradient
 8649814970b42d345b89944b862453cc Unity.TextMeshPro.dll:TMPro.TMP_SubMesh
 71bb6a6b6c8f052f948db64c7dd3ca4f Assembly-CSharp.dll:.HexMesh
 6b47ac690c34434665bb5037d44ffdba Assembly-CSharp.dll:.gifManager
+777aae98038659b2916382fe245957bc Assembly-CSharp.dll:.TobeContinue
+777aae98038659b2916382fe245957bc Assembly-CSharp.dll:.losecharprint
+71bb6a6b6c8f052f948db64c7dd3ca4f Assembly-CSharp.dll:.Endbutton

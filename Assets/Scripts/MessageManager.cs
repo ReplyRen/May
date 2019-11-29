@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class MessageManager : MonoBehaviour
@@ -363,6 +364,23 @@ public class MessageManager : MonoBehaviour
         {
             asset.increaseFavorability(15);
             StartCoroutine(messagetip("同步率有所变化"));
+            SceneManager.LoadScene("TobeContinue");
+        }
+        else if (x == 1041)
+        {
+            SceneManager.LoadScene("TobeContinue");
+        }
+        else if (x == 1045)
+        {
+            SceneManager.LoadScene("TobeContinue");
+        }
+        else if (x == 1047)
+        {
+            SceneManager.LoadScene("TobeContinue");
+        }
+        else if (x == 1048)
+        {
+            SceneManager.LoadScene("BadEnd2");
         }
         else if (x == 2005)
         {
@@ -603,7 +621,7 @@ public class MessageManager : MonoBehaviour
             flags[1] = false;
             line.insert(1017);
         }
-        if (((content == GridContent.Content.specialitem1)|| (content == GridContent.Content.specialitem2) )&& flags[2])
+        if (((content == GridContent.Content.specialitem1) || (content == GridContent.Content.specialitem2)) && flags[2])
         {
             if (!flags[1])
             {
@@ -611,7 +629,7 @@ public class MessageManager : MonoBehaviour
                 line.insert(1021);
             }
         }
-        else if (((content == GridContent.Content.specialitem1)|| (content == GridContent.Content.specialitem2) )&& flags[3]&&!flags[2])
+        else if (((content == GridContent.Content.specialitem1) || (content == GridContent.Content.specialitem2)) && flags[3] && !flags[2])
         {
             if (!flags[1])
             {

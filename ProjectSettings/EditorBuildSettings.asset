@@ -14,4 +14,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/lose.unity
     guid: e0fecdc25e6c627458ddbcf907ecc447
+  - enabled: 1
+    path: Assets/Scenes/BadEnd2.unity
+    guid: 92880b2f5e7d9164fa3cabc11e830c7b
+  - enabled: 1
+    path: Assets/Scenes/TobeContinue.unity
+    guid: c008c7d47cf465645a0c001449351854
   m_configObjects: {}
