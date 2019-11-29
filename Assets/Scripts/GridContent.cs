@@ -80,9 +80,11 @@ public class GridContent : MonoBehaviour
     private int gridnow;
     private int[] Around;
     private int[] MonsterNum;
-    private Image portalimage;
-    private Image si1image;
-    private Image si2image;
+    private int portalimage;
+    private int si1image;
+    private int si2image;
+    public bool portalsee;
+    public bool sisee;
 
     public void BuildContent(int num)//初始化，在Grid创建中调用
     {
@@ -110,6 +112,7 @@ public class GridContent : MonoBehaviour
         MonsterNum = new int[num];
         foreach (int i in MonsterNum)
             MonsterNum[i] = 1;
+        portalsee = sisee = false;
     }
 
     public void setcontent(int x)//随机生成下标为x的格的内容
@@ -266,19 +269,16 @@ public class GridContent : MonoBehaviour
             SceneManager.LoadScene("lose");
         }
         tip.passcheck(contents[i].con);
-        printimage();
     }
 
     void printimage()
     {
-        si2image.enabled = true;
-        si1image.enabled = true;
-        portalimage.enabled = true;
-    }
-
-    public void CoroutineStop()
-    {
-
+        if (portalsee && gridnow != portalimage)
+            grid.images[portalimage].enabled = true;
+        if (sisee && gridnow != si1image)
+            grid.images[si1image].enabled = true;
+        if (sisee && gridnow != si2image)
+            grid.images[si2image].enabled = true;
     }
 
     IEnumerator PassMonster(int i, int k)
@@ -346,11 +346,11 @@ public class GridContent : MonoBehaviour
         for (int i = 0; i < grid.images.Length; i++)
         {
             if (contents[i].con == Content.specialitem1)
-                si1image = grid.images[i];
+                si1image = i;
             if (contents[i].con == Content.specialitem2)
-                si2image = grid.images[i];
+                si2image = i;
             if (contents[i].con == Content.Portal)
-                portalimage = grid.images[i];
+                portalimage = i;
         }
     }
 
@@ -476,6 +476,11 @@ public class GridContent : MonoBehaviour
         int index = x.coordinates.X + x.coordinates.Z * grid.width + x.coordinates.Z / 2; ;
         contents[index].val = contents[index].val / (count + 1);
         MonsterNum[index] = 1;
+    }
+
+    private void Update()
+    {
+        printimage();
     }
 
 }

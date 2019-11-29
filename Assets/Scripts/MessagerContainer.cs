@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class MessagerContainer : MonoBehaviour
 {
-    public string NodeTable= "1001 2 1002 1002\n"
+    public string NodeTable = "1001 2 1002 1002\n"
 + "1002 1 1003\n"
 + "1003 2 1004 1004\n"
 + "1004 2 1005 1006\n"
@@ -98,7 +98,7 @@ public class MessagerContainer : MonoBehaviour
         messages[1][1] = "通讯已接入\n"
             + "<梅>M890001 梅 为您服务\n"
             + "<梅>您好，我是基站M89中央智能计算机 梅\n"
-            + "<梅>OS4177观测站科研队，肖恩 队长，看起来您是第一次与我连接，很高兴认识您\n" 
+            + "<梅>OS4177观测站科研队，肖恩 队长，看起来您是第一次与我连接，很高兴认识您\n"
             + "<梅>您遇到了一些麻烦？我有什么能帮上您的吗？\n";
         messages[1][2] = "<肖恩>天知道我在这个见鬼的通讯器上花了多少时间！我甚至试了可能会让我丢掉这份工作的主站通讯频道，谢天谢地终于连上了\n"
             + "<肖恩>很高兴认识你，计算机小姐，虽然我好像是第一次听到M89这个基站，呃，我的意思是，这种情况下能听到另一个声音多少让人舒服了一点\n"
@@ -326,7 +326,7 @@ public class MessagerContainer : MonoBehaviour
             + "<肖恩>咱们得把它引开\n"
             + "<肖恩>这辆老爷车启动时引擎的声音能把这附近的怪物全招来——如果他们的耳朵比较灵的话，这话绝对没有夸张\n"
             + "<梅>我检索到这里有一座通讯塔，也许可以利用广播\n"
-            + "<梅>我需要OS4177的最高通讯权限"; 
+            + "<梅>我需要OS4177的最高通讯权限";
         messages[1][40] = "<肖恩>已经搞定！咱们想到一块去了\n"
             + "新权限开放\n"
             + "连接通讯塔中……\n"
@@ -518,7 +518,7 @@ public class MessagerContainer : MonoBehaviour
         choices = new string[3][][];
         choices[1] = new string[50][];
         choices[2] = new string[40][];
-        for(int i=0;i<50;i++)
+        for (int i = 0; i < 50; i++)
         {
             choices[1][i] = new string[2];
         }
@@ -542,7 +542,7 @@ public class MessagerContainer : MonoBehaviour
         choices[1][28][0] = "……我明白了，你说得对";
         choices[1][31][0] = "有什么东西在门外面！";
         choices[1][32][0] = "我觉得这扇破门三秒都挡不住";
-        choices[1][33][0] = "我觉得这扇破门三秒都挡不住";
+        choices[1][33][0] = "冷静，冷静，明明该紧张的是我";
         choices[1][34][0] = "我感觉它的眼神不太好";
         choices[1][35][0] = "我感觉它的眼神不太好";
         choices[1][36][0] = "听起来像和丧尸一样";
@@ -634,6 +634,6 @@ public class MessagerContainer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 }

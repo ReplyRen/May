@@ -108,6 +108,7 @@ public class MessageManager : MonoBehaviour
     public GameObject[] notes;
     bool[] noteflags;
     public GameObject[] notepoint;
+    public GridContent gridcontent;
 
     bool[] flags;
 
@@ -125,25 +126,25 @@ public class MessageManager : MonoBehaviour
         NodeTable[1] = new int[50][];
         NodeTable[2] = new int[50][];
         flags = new bool[11];
-        for(int j = 0; j < 11; j++)
+        for (int j = 0; j < 11; j++)
         {
             flags[j] = true;
         }
         noteflags = new bool[7];
-        for(int j=0; j < noteflags.Length; j++)
+        for (int j = 0; j < noteflags.Length; j++)
         {
             noteflags[j] = false;
         }
 
         string[] temp, str;
-        
+
         str = container.NodeTable.Split('\n');
-        foreach(string tstr in str)
+        foreach (string tstr in str)
         {
             Debug.Log(tstr);
         }
         int i;
-        for (i = 0; i<str.Length; i++)
+        for (i = 0; i < str.Length; i++)
         {
             str[i].Replace("\n", "");
             temp = str[i].Split(' ');
@@ -170,9 +171,9 @@ public class MessageManager : MonoBehaviour
                 }
             }
         }
-        
+
     }
-    
+
 
     private void getwords(int x)
     {
@@ -190,7 +191,7 @@ public class MessageManager : MonoBehaviour
         if (waitting >= wait)
         {
             waitting = 0;
-            
+
             if (strnum < str.Length)
             {
                 Scroll.value = 0;
@@ -239,7 +240,7 @@ public class MessageManager : MonoBehaviour
     {
         MessageTip.SetActive(true);
         Text text = MessageTip.GetComponentInChildren<Text>();
-        for(int i = 0; i < str.Length; i++)
+        for (int i = 0; i < str.Length; i++)
         {
             text.text = str[i];
             yield return new WaitForSeconds(2f);
@@ -271,6 +272,7 @@ public class MessageManager : MonoBehaviour
         {
             StartCoroutine(messagetip("日志已更新"));
             logmanager.Logflags[1] = true;
+            gridcontent.sisee = true;
         }
         else if (x == 1010)
         {
@@ -296,7 +298,7 @@ public class MessageManager : MonoBehaviour
         {
             logmanager.Logflags[4] = true;
             asset.increaseFavorability(25);
-            string[] str=new string[2];
+            string[] str = new string[2];
             str[0] = "同步率有所变化";
             str[1] = "日志已更新";
             StartCoroutine(messagetip(str));
@@ -550,7 +552,7 @@ public class MessageManager : MonoBehaviour
             n++;
         }
         line.change(NodeTable[n][t][3]);
-        
+
         status = 0;
         twochoice.SetActive(false);
     }
@@ -566,24 +568,24 @@ public class MessageManager : MonoBehaviour
             n++;
         }
         line.change(NodeTable[n][t][2]);
-        
+
         status = 0;
         onechoice.SetActive(false);
     }
 
     public void IncidentCheck(GridContent.Content content, int step)
     {
-        if (step == 6&&flags[0])
+        if (step == 6 && flags[0])
         {
             flags[0] = false;
             line.insert(1010);
         }
-        if(content== GridContent.Content.Portal&&flags[1])
+        if (content == GridContent.Content.Portal && flags[1])
         {
             flags[1] = false;
             line.insert(1017);
         }
-        if (content == GridContent.Content.specialitem1&&flags[2])
+        if (content == GridContent.Content.specialitem1 && flags[2])
         {
             if (!flags[1])
             {
@@ -599,12 +601,12 @@ public class MessageManager : MonoBehaviour
                 line.insert(1026);
             }
         }
-        if (content == GridContent.Content.Portal && flags[4]&&!flags[2]&&!flags[3])
+        if (content == GridContent.Content.Portal && flags[4] && !flags[2] && !flags[3])
         {
             flags[4] = false;
             line.insert(1031);
         }
-        if (flags[6]&&(content == GridContent.Content.MElectric|| content == GridContent.Content.MResource || content == GridContent.Content.MFirstAid ))
+        if (flags[6] && (content == GridContent.Content.MElectric || content == GridContent.Content.MResource || content == GridContent.Content.MFirstAid))
         {
             flags[6] = false;
             line.insert(2007);
@@ -614,7 +616,7 @@ public class MessageManager : MonoBehaviour
             flags[5] = false;
             line.insert(2001);
         }
-        else if (content == GridContent.Content.Incident && flags[7]&&!flags[5])
+        else if (content == GridContent.Content.Incident && flags[7] && !flags[5])
         {
             flags[7] = false;
             line.insert(2012);
@@ -641,7 +643,7 @@ public class MessageManager : MonoBehaviour
 
     void Update()
     {
-        if (line.length > 0 && status == 0 && message.activeSelf==true)//有剧情时且可演出时
+        if (line.length > 0 && status == 0 && message.activeSelf == true)//有剧情时且可演出时
         {
             status = 1;
 
@@ -688,7 +690,7 @@ public class MessageManager : MonoBehaviour
             case 1041:
             case 1045:
             case 1047:
-            case 1048: UnityEngine.SceneManagement.SceneManager.LoadScene("lose");break;
+            case 1048: UnityEngine.SceneManagement.SceneManager.LoadScene("lose"); break;
         }
     }
 }
