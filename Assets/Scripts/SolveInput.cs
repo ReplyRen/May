@@ -44,7 +44,7 @@ public class SolveInput : MonoBehaviour
     public int locked = 0;
     Vector3 lastHitPoint;
     public HexCell cloneCell;
-    public GameObject muti;
+    public Image muti;
     public HexCell[] cloneAround;
     private bool shaded = false;
     public HexCell[] interferenceCells;
@@ -298,7 +298,8 @@ public class SolveInput : MonoBehaviour
                 gridcontent.getcontent(cell) == "MElectric" || gridcontent.getcontent(cell) == "MFirstAid")
             {
                 cloneCell = cell;
-                muti.transform.position = cell.transform.position;
+                
+
             }
 
         }

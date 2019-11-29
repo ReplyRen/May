@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class BuildingUI : MonoBehaviour
 {
+    private float timer=0f;
     /*要更换的图片*/
     public Sprite imageChange;
 
@@ -21,6 +22,8 @@ public class BuildingUI : MonoBehaviour
     /*确认窗口*/
     [SerializeField]
     private Transform confirmWindows;
+    [SerializeField]
+    private Transform Tip;
     private bool buildChange;
     /*获取Player资源*/
     public GameObject player;
@@ -28,6 +31,7 @@ public class BuildingUI : MonoBehaviour
     private int player_chip;
     private int player_Resource;
     private int player_Electric;
+    private int chipNum;
     public Text ChipText;
     public Text ResourceText;
     public Text ElectricText;
@@ -51,6 +55,7 @@ public class BuildingUI : MonoBehaviour
     {
         //imageNow = this.transform.GetChild(buttonNum).GetComponent<Image>();
         //imageNow = this.transform.GetComponent<Image>();
+        Tip.gameObject.SetActive(false);
         foreach (int i in picNum)
         {
             picNum[i] = 0;
@@ -70,6 +75,7 @@ public class BuildingUI : MonoBehaviour
     }
 
     // Update is called once per frame
+    [System.Obsolete]
     void Update()
     {
         //Debug.Log(buttonNum);
@@ -81,6 +87,44 @@ public class BuildingUI : MonoBehaviour
         ChipText.text = player_chip.ToString();
         ResourceText.text = player_Resource.ToString();
         ElectricText.text = player_Electric.ToString();
+        chipNum = player.GetComponent<PlayerAsset>().Chip;
+
+        //if (chipNum > 0)
+        //{
+        //    for(int i = 0; i < 3; i++)
+        //    {
+        //        if (buttonLevel[i] == 0)
+        //        {
+        //            imageSend = 4 + i * 9;
+        //            imageChange = Resources.Load("build" + imageSend.ToString(), typeof(Sprite)) as Sprite;
+        //            imageNow.sprite = imageChange;
+        //        }
+
+        //    }
+            
+        //}
+        //else
+        //{
+        //    for (int i = 0; i < 3; i++)
+        //    {
+        //        if (buttonLevel[i] == 0)
+        //        {
+        //            imageChange = Resources.Load("build1", typeof(Sprite)) as Sprite;
+        //            imageNow.sprite = imageChange;
+        //        }
+
+        //    }
+
+        //}
+        if (Tip.gameObject.active)
+        {
+            timer += Time.deltaTime;
+            if (timer > 2f)
+            {
+                Tip.gameObject.SetActive(false);
+                timer = 0f;
+            }
+        }
         /*装置图标切换*/
         //if (buttonLevel[0] > 0)
         //{
@@ -120,7 +164,6 @@ public class BuildingUI : MonoBehaviour
             flag = (_buttonNum % 3) * 3;
             if (player_chip >= costPlayer[flag] && player_Resource >= costPlayer[flag + 1] && player_Electric >= costPlayer[flag + 2])
             {
-
                 buildChange = true;
                 Debug.Log(textBuild[(_buttonNum % 3) * 3 + _buttonNum / 3]);
                 confirmWindows.GetComponentInChildren<Text>().text = textBuild[(_buttonNum % 3) * 3 + 2 - _buttonNum / 3];
@@ -129,11 +172,13 @@ public class BuildingUI : MonoBehaviour
             }
             else
             {
+                Tip.gameObject.SetActive(true);
                 TipText.text = "资源不足";
             }
         }
         else if (picNum[_buttonNum] == 2)
         {
+            Tip.gameObject.SetActive(true);
             TipText.text = "设备工作中";
             if (buttonLevel[_buttonNum % 3] == (3 - _buttonNum / 3))
             {

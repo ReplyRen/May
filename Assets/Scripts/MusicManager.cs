@@ -13,18 +13,18 @@ public class MusicManager : MonoBehaviour
     public AudioClip[] musicSource;
     private static GameObject gamePlayAudio;
 
-    public static MusicManager getInstance()
-    {
-        if (_instance == null)
-        {
-            GameObject temp = MusicManager.gamePlayAudio;
-            _instance = temp.GetComponentInChildren<MusicManager>();
-        }
-        return _instance;
-    }
+    //public static MusicManager getInstance()
+    //{
+    //    if (_instance == null)
+    //    {
+    //        GameObject temp = MusicManager.gamePlayAudio;
+    //        _instance = temp.GetComponentInChildren<MusicManager>();
+    //    }
+    //    return _instance;
+    //}
     private void Awake()
     {
-        DontDestroyOnLoad(this);
+        //DontDestroyOnLoad(this);
         BGMSource = gameObject.AddComponent<AudioSource>();
         AudioSource = gameObject.AddComponent<AudioSource>();
     }

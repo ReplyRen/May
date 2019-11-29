@@ -296,7 +296,6 @@ public class Device : MonoBehaviour
     }
     void ResetInterferenceColor()
     {
-        
         player.InterferenceColorReset();
         player.SelectInterferenceColorReset();
         player.interferenceCells = null;
