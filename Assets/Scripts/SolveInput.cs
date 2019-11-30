@@ -50,7 +50,7 @@ public class SolveInput : MonoBehaviour
     public HexCell[] interferenceCells;
     public HexCell[] selectInterferenceCells;
     public GameObject hexgrid;
-
+    private float timer = 0;
     private void Awake()
     {
         locked = 0;
@@ -114,13 +114,16 @@ public class SolveInput : MonoBehaviour
 
     private void Update()
     {
-            if (locked == 1)
+        if (locked == 1)
         {
-            SelectCell(lastHitPoint);
+            if (timer == 0f)
+                SelectCell(lastHitPoint);
+            timer += Time.deltaTime;
             if (myInput.isButtonDown)
             {
                 HandleInput();
             }
+            Debug.Log(timer);
         }
         if (locked == 3)
         {
@@ -151,7 +154,7 @@ public class SolveInput : MonoBehaviour
         {
             for (int i = 0; i < interferenceCells.Length; i++)
             {
-                if(interferenceCells[i]!=CurrentCell)
+                if (interferenceCells[i] != CurrentCell)
                     PrintArround(grid.CellColor[8], interferenceCells[i]);
             }
 
@@ -227,6 +230,7 @@ public class SolveInput : MonoBehaviour
         if (Physics.Raycast(inputRay, out hit) && locked == 1)
         {
             CloneCell(hit.point);
+            PrintArround(grid.CellColor[9], cloneCell);
         }
         if (Physics.Raycast(inputRay, out hit) && locked == 3)
         {
@@ -297,8 +301,10 @@ public class SolveInput : MonoBehaviour
                 gridcontent.getcontent(cell) == "FirstAid" || gridcontent.getcontent(cell) == "MResource" ||
                 gridcontent.getcontent(cell) == "MElectric" || gridcontent.getcontent(cell) == "MFirstAid")
             {
+                if (cloneCell != null)
+                    PrintArround(grid.CellColor[5], cloneCell);
                 cloneCell = cell;
-                
+
 
             }
 
@@ -313,9 +319,9 @@ public class SolveInput : MonoBehaviour
    && ((cell.coordinates.X != CurrentCell.coordinates.X) || (cell.coordinates.Z != CurrentCell.coordinates.Z) || (cell.coordinates.Y != CurrentCell.coordinates.Y)))
         {
             if (interferenceCells != null)
-        {
-            InterferenceColorReset();
-        }
+            {
+                InterferenceColorReset();
+            }
             List<HexCell> cells = new List<HexCell>(oneArround(cell));
             cells.Add(cell);
             for (int i = 0; i < cells.Count; i++)
@@ -330,7 +336,7 @@ public class SolveInput : MonoBehaviour
         {
             Debug.Log("3位置");
         }
-        }
+    }
     void InterferenceSelectCell(Vector3 position)
     {
         if (shaded == false)
@@ -517,14 +523,21 @@ public class SolveInput : MonoBehaviour
     }
     public void UnshowColor(HexCell[] cells)
     {
-        List<HexCell> list = new List<HexCell>();
+        List<HexCell> list1 = new List<HexCell>();
+        List<HexCell> list2 = new List<HexCell>();
         for (int i = 0; i < cells.Length; i++)
         {
-            if (cells[i].color != grid.CellColor[1] && cells[i].color != grid.CellColor[2] && cells[i].color != grid.CellColor[3])
-                list.Add(cells[i]);
+            if (((Mathf.Abs(cells[i].coordinates.X - CurrentCell.coordinates.X) + Mathf.Abs(cells[i].coordinates.Y - CurrentCell.coordinates.Y) + Mathf.Abs(cells[i].coordinates.Z - CurrentCell.coordinates.Z)) < 6)
+     && ((cells[i].coordinates.X != CurrentCell.coordinates.X) || (cells[i].coordinates.Z != CurrentCell.coordinates.Z) || (cells[i].coordinates.Y != CurrentCell.coordinates.Y)))
+            {
+                list1.Add(cells[i]);
+            }
+            else
+                list2.Add(cells[i]);
+
         }
-        HexCell[] hexCells = list.ToArray();
-        PrintArround(grid.CellColor[0], hexCells);
+        PrintArround(grid.CellColor[0], list2.ToArray());
+        PrintArround(grid.CellColor[2], list1.ToArray());
     }
     public void CloneUnshow()
     {
@@ -536,6 +549,7 @@ public class SolveInput : MonoBehaviour
         }
         HexCell[] hexCells = list.ToArray();
         PrintArround(grid.CellColor[2], hexCells);
+        timer = 0f;
     }
     public void InterferenceColorReset()
     {

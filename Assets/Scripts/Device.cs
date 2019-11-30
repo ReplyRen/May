@@ -14,7 +14,9 @@ public class Device : MonoBehaviour
     private Image myImage;
     private int stepCount;
     private SolveInput player;
-    public int coolingCount = 12;
+    public int probeCoolingCount = 20;
+    public int cloneCoolingCount = 12;
+    public int ITFCoolingCount = 16;
     private int lastStepCount;
     private int countDown;
     public GameObject panel;
@@ -33,8 +35,9 @@ public class Device : MonoBehaviour
     private float timer = 0f;
     public int level;
     public int mutiCount;
-    public int probeduration;
-    public int duration = 12;
+    public int probeDuration;
+    public int cloneDuration = 20;
+    public int ITFDuration = 12;
     private void Awake()
     {
         level = 0;
@@ -51,7 +54,12 @@ public class Device : MonoBehaviour
         myImage = gameObject.GetComponent<Image>();
         Button btn = this.GetComponent<Button>();
         btn.onClick.AddListener(OnClick);
-        countDown = coolingCount;
+        if (gameObject.tag == "Probe")
+            countDown = probeCoolingCount;
+        if (gameObject.tag == "Clone")
+            countDown = cloneCoolingCount;
+        if (gameObject.tag == "Interference")
+            countDown = ITFCoolingCount;
         Unlock = true;
         inCooling = false;
         timer = 0f;
@@ -196,12 +204,12 @@ public class Device : MonoBehaviour
                 player.CloneUnshow();
                 CloneImage.enabled = false;
                 cloneCountdownImage.SetActive(true);
-                cloneCountdownImage.GetComponentInChildren<Text>().text = ((int)(duration - timer)).ToString() + "s";
-                if (timer > duration)
+                cloneCountdownImage.GetComponentInChildren<Text>().text = ((int)(cloneDuration - timer)).ToString() + "s";
+                if (timer > cloneDuration)
                 {
                     resetContent(player.cloneCell, 1);
                     inCooling = true;
-                    countDown = coolingCount;
+                    countDown = cloneCoolingCount;
                     cloneCountdownImage.SetActive(false);
                     select.GetComponent<Select>().result = null;
                     selectBool = false;
@@ -233,19 +241,21 @@ public class Device : MonoBehaviour
         {
             if (player.interferenceCells != null)
             {
+                if(timer==0f)
+                    CleanMonster(player.interferenceCells);
                 timer += Time.deltaTime;
-                CleanMonster(player.interferenceCells);
+
                 player.locked = 0;
                 player.SelectInterferenceColorReset();
                 inter.SetActive(false);
                 ITFImage.enabled = false;
                 ITFCountdownImage.SetActive(true);
-                ITFCountdownImage.GetComponentInChildren<Text>().text = ((int)(duration - timer)).ToString() + "s";
-                if (timer > duration)
+                ITFCountdownImage.GetComponentInChildren<Text>().text = ((int)(ITFDuration - timer)).ToString() + "s";
+                if (timer > ITFDuration)
                 {
                     ResetMonster(player.interferenceCells);
                     inCooling = true;
-                    countDown = coolingCount;
+                    countDown = ITFCoolingCount;
                     ITFCountdownImage.SetActive(false);
                     inter.GetComponent<Select2>().result = null;
                     interBool = false;
@@ -283,13 +293,13 @@ public class Device : MonoBehaviour
         panel.SetActive(false);
         ProbeImage.enabled = false;
         probeCountdownImage.SetActive(true);
-        probeCountdownImage.GetComponentInChildren<Text>().text = ((int)(duration - timer)).ToString() + "s";
-        if (timer > duration)
+        probeCountdownImage.GetComponentInChildren<Text>().text = ((int)(probeDuration - timer)).ToString() + "s";
+        if (timer > probeDuration)
         {
             Unshow(type);
 
             inCooling = true;
-            countDown = coolingCount;
+            countDown = probeCoolingCount;
             panelBool = false;
             probeCountdownImage.SetActive(false);
             panel.GetComponent<Panel>().result = null;
@@ -320,7 +330,7 @@ public class Device : MonoBehaviour
         {
             if (gameObject.tag == "Probe")
             {
-                probeduration = 12;
+                probeDuration = 10;
             }
             else if (gameObject.tag == "Clone")
             {
@@ -328,14 +338,14 @@ public class Device : MonoBehaviour
             }
             else if (gameObject.tag == "Interference")
             {
-
+                ITFDuration = 6;
             }
         }
         else if (level == 2)
         {
             if (gameObject.tag == "Probe")
             {
-                probeduration = 15;
+                probeDuration = 20;
             }
             else if (gameObject.tag == "Clone")
             {
@@ -343,14 +353,14 @@ public class Device : MonoBehaviour
             }
             else if (gameObject.tag == "Interference")
             {
-
+                ITFDuration = 13;
             }
         }
         else if (level == 3)
         {
             if (gameObject.tag == "Probe")
             {
-                probeduration = 18;
+                probeDuration = 30;
             }
             else if (gameObject.tag == "Clone")
             {
@@ -358,7 +368,7 @@ public class Device : MonoBehaviour
             }
             else if (gameObject.tag == "Interference")
             {
-
+                ITFDuration = 20;
             }
         }
     }

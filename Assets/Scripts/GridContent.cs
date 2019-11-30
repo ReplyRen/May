@@ -502,7 +502,7 @@ public class GridContent : MonoBehaviour
     }
     public void monsterback(HexCell[] cells)
     {
-        for (int i = 0; i < MonsterNum.Length; i++)
+        for (int i = 0; i < cells.Length; i++)
         {
             int index = cells[i].coordinates.X + cells[i].coordinates.Z * grid.width + cells[i].coordinates.Z / 2;
             MonsterNum[index] = 1;
