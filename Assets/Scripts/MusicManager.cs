@@ -7,8 +7,7 @@ public class MusicManager : MonoBehaviour
     // Start is called before the first frame update
     private static MusicManager _instance;
 
-    public AudioSource BGMSource;
-    public AudioSource AudioSource;
+    public AudioSource[] AudioSource=new AudioSource[13];
 
     public AudioClip[] musicSource;
     private static GameObject gamePlayAudio;
@@ -25,19 +24,26 @@ public class MusicManager : MonoBehaviour
     private void Awake()
     {
         //DontDestroyOnLoad(this);
-        BGMSource = gameObject.AddComponent<AudioSource>();
-        AudioSource = gameObject.AddComponent<AudioSource>();
     }
     void Start()
     {
-        BGMSource.clip = musicSource[0];
-        BGMSource.loop = true;
-        BGMSource.Play();
+        AudioSource[0].clip = musicSource[0];
+        AudioSource[0].loop = true;
+        AudioSource[0].Play();
     }
-
+    public void PlayMusicloop(int MusicNum)
+    {
+        AudioSource[MusicNum].clip = musicSource[MusicNum];
+        AudioSource[MusicNum].loop = true;
+        AudioSource[MusicNum].Play();
+    }
     public void PlayMusicOnce(int MusicNum)
     {
-        AudioSource.clip = musicSource[MusicNum];
-        AudioSource.Play();
+        AudioSource[MusicNum].clip = musicSource[MusicNum];
+        AudioSource[MusicNum].Play();
+    }
+    public void StopMusic(int MusicNum)
+    {
+        AudioSource[MusicNum].Stop();
     }
 }
