@@ -2988,7 +2988,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 537625448}
   m_Direction: 2
   m_Value: 0
-  m_Size: 0.9612297
+  m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -8818,6 +8818,9 @@ MonoBehaviour:
   cloneCountdownImage: {fileID: 0}
   probeCountdownImage: {fileID: 0}
   gridContent: {fileID: 0}
+  level: 0
+  mutiCount: 0
+  probeduration: 0
   duration: 12
 --- !u!1 &1151208371
 GameObject:
@@ -11071,6 +11074,9 @@ MonoBehaviour:
   cloneCountdownImage: {fileID: 429004478}
   probeCountdownImage: {fileID: 0}
   gridContent: {fileID: 0}
+  level: 0
+  mutiCount: 0
+  probeduration: 0
   duration: 12
 --- !u!1 &1447453899
 GameObject:
@@ -11369,6 +11375,9 @@ MonoBehaviour:
   cloneCountdownImage: {fileID: 0}
   probeCountdownImage: {fileID: 1428826368}
   gridContent: {fileID: 0}
+  level: 0
+  mutiCount: 0
+  probeduration: 0
   duration: 12
 --- !u!1 &1480641503
 GameObject:
@@ -13534,7 +13543,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 2.4000092, y: -196.75209}
+  m_AnchoredPosition: {x: 2.4000092, y: -199.99998}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
 --- !u!114 &1782393692
