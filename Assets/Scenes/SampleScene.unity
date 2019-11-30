@@ -896,6 +896,7 @@ MonoBehaviour:
   asset: {fileID: 831779026}
   container: {fileID: 176081678}
   normalmode: {fileID: 499345420}
+  gridcontent: {fileID: 338540940}
 --- !u!114 &176081678
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2987,7 +2988,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 537625448}
   m_Direction: 2
   m_Value: 0
-  m_Size: 0.93214256
+  m_Size: 0.9612297
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -6498,8 +6499,8 @@ MonoBehaviour:
   Electric: 800
   FirstAid: 0
   Chip: 0
-  ElectricMoveCost: 5
-  ResourceMoveCost: 5
+  ElectricMoveCost: 10
+  ResourceMoveCost: 10
   HPMoveCost: 8
   IncidentNeed: 2
   Incident: 0
@@ -13533,7 +13534,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 2.4000092, y: -194.5922}
+  m_AnchoredPosition: {x: 2.4000092, y: -196.75209}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
 --- !u!114 &1782393692

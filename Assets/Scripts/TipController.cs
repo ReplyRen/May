@@ -15,6 +15,7 @@ public class TipController : MonoBehaviour
     public PlayerAsset asset;
     public TipsContainer container;
     public GameObject normalmode;
+    public GridContent gridcontent;
 
     // Start is called before the first frame update
     void Start()
@@ -24,7 +25,7 @@ public class TipController : MonoBehaviour
         line = new int[20];
         head = tail = length = 0;
         status = true;
-        for(int i = 0; i < 15; i++)
+        for (int i = 0; i < 15; i++)
         {
             flag[i] = true;
         }
@@ -75,7 +76,7 @@ public class TipController : MonoBehaviour
         switch (content)
         {
             case GridContent.Content.Resource:
-            case GridContent.Content.MResource: if (flag[1]) { flag[1] = false; insert(3001); }break;
+            case GridContent.Content.MResource: if (flag[1]) { flag[1] = false; insert(3001); } break;
             case GridContent.Content.Electric:
             case GridContent.Content.MElectric: if (flag[2]) { flag[2] = false; insert(3002); } break;
             case GridContent.Content.Chip: if (flag[3]) { flag[3] = false; insert(3003); } break;
@@ -92,7 +93,7 @@ public class TipController : MonoBehaviour
         else if (asset.Electric > 10 && !flag[6])
             flag[6] = true;
 
-        int f = asset.movecost();
+        int f = gridcontent.flag;
         if (f > 1 && flag[7])
         {
             flag[7] = false;
@@ -144,7 +145,7 @@ public class TipController : MonoBehaviour
         string[] str = words.Split('\n');
         tip.SetActive(true);
         Text text = tip.GetComponentInChildren<Text>();
-        for(int j=0;j<str.Length;j++)
+        for (int j = 0; j < str.Length; j++)
         {
             text.text = str[j];
             yield return new WaitForSeconds(2.5f);
@@ -156,7 +157,7 @@ public class TipController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (status&&length>0&&!tip.activeSelf&&normalmode.activeSelf)
+        if (status && length > 0 && !tip.activeSelf && normalmode.activeSelf)
         {
             status = false;
             StartCoroutine(display(get()));
