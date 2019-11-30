@@ -30,10 +30,15 @@ public class Device : MonoBehaviour
     public GameObject cloneCountdownImage;
     public GameObject probeCountdownImage;
     public GridContent gridContent;
-    public float duration = 12f;
     private float timer = 0f;
+    public int level;
+    public int mutiCount;
+    public int probeduration;
+    public int duration = 12;
     private void Awake()
     {
+        level = 0;
+        
         gridContent = GameObject.FindWithTag("Grid").GetComponent<GridContent>();
         if (gameObject.tag == "Probe")
         {
@@ -53,6 +58,7 @@ public class Device : MonoBehaviour
     }
     private void Update()
     {
+        ChooseLevel();
         if (panelBool == true && gameObject.tag == "Probe")
         {
             ProbeCheck();
@@ -72,6 +78,10 @@ public class Device : MonoBehaviour
     {
 
         stepCount = player.footCount;
+        if (level > 0)
+        {
+            Unlock = true;
+        }
         if (Unlock)
         {
             myImage.sprite = Unlocked;
@@ -178,7 +188,7 @@ public class Device : MonoBehaviour
             if (player.cloneCell != null)
             {
                 if (timer == 0)
-                    MutiContent(player.cloneCell, 1);
+                    MutiContent(player.cloneCell, mutiCount);
                 timer += Time.deltaTime;
 
                 player.locked = 0;
@@ -299,5 +309,57 @@ public class Device : MonoBehaviour
         player.InterferenceColorReset();
         player.SelectInterferenceColorReset();
         player.interferenceCells = null;
+    }
+    void ChooseLevel()
+    {
+        if (level == 0)
+        {
+            Unlock = false;
+        }
+        else if (level == 1)
+        {
+            if (gameObject.tag == "Probe")
+            {
+                probeduration = 12;
+            }
+            else if (gameObject.tag == "Clone")
+            {
+                mutiCount = 1;
+            }
+            else if (gameObject.tag == "Interference")
+            {
+
+            }
+        }
+        else if (level == 2)
+        {
+            if (gameObject.tag == "Probe")
+            {
+                probeduration = 15;
+            }
+            else if (gameObject.tag == "Clone")
+            {
+                mutiCount = 2;
+            }
+            else if (gameObject.tag == "Interference")
+            {
+
+            }
+        }
+        else if (level == 3)
+        {
+            if (gameObject.tag == "Probe")
+            {
+                probeduration = 18;
+            }
+            else if (gameObject.tag == "Clone")
+            {
+                mutiCount = 3;
+            }
+            else if (gameObject.tag == "Interference")
+            {
+
+            }
+        }
     }
 }
